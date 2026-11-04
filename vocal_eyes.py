@@ -733,3 +733,11 @@ def _draw_text(
     thickness: int = 2,
 ) -> None:
     """Anti-aliased text with a soft shadow, so it reads over any background."""
+    assert cv2 is not None
+    x, y = origin
+    cv2.putText(frame, text, (x + 1, y + 1), cv2.FONT_HERSHEY_SIMPLEX,
+                scale, (0, 0, 0), thickness + 1, cv2.LINE_AA)
+    cv2.putText(frame, text, (x, y), cv2.FONT_HERSHEY_SIMPLEX,
+                scale, colour, thickness, cv2.LINE_AA)
+
+
