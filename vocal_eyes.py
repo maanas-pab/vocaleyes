@@ -799,3 +799,9 @@ class Visualizer:
                       thickness=2, lineType=cv2.LINE_AA)
         # Landmark dots on the contour.
         for point in eye.contour:
+            cv2.circle(frame, point, 2, Palette.WHITE, -1, cv2.LINE_AA)
+        # Iris: soft glow ring + centre dot. The ring makes gaze/iris
+        # position readable even on a small preview.
+        cv2.circle(frame, eye.iris_centre, 9, colour, 1, cv2.LINE_AA)
+        cv2.circle(frame, eye.iris_centre, 3, Palette.WHITE, -1, cv2.LINE_AA)
+        for point in eye.iris_ring:
