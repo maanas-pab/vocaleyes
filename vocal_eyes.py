@@ -1229,3 +1229,4 @@ def main(
                 )
                 cv2.imshow(config.window_name, frame)
 
+                # Smooth FPS for the HUD (EMA, so one slow frame
