@@ -777,3 +777,13 @@ class Visualizer:
         self._draw_top_bar(frame, width, fps, face_found)
         self._draw_bottom_panel(frame, width, height, reading, detector,
                                 selection_count)
+        if reading is not None and detector.hold_progress > 0.0:
+            self._draw_hold_ring(frame, reading, detector)
+        if now < banner_until:
+            self._draw_selection_banner(frame, width, height, now, banner_until)
+        if calibrator.active:
+            self._draw_calibration_overlay(frame, width, height, calibrator)
+        elif not face_found:
+            self._draw_no_face_overlay(frame, width, height)
+        return frame
+
