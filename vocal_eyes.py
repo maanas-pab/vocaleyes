@@ -288,3 +288,6 @@ def _to_pixel(landmark, width: int, height: int) -> Point:
 # Per-frame eye measurements
 # ---------------------------------------------------------------------------
 @dataclass
+class EyeReading:
+    """Everything measured for one eye in one frame."""
+
