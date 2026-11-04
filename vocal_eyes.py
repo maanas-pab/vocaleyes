@@ -223,3 +223,9 @@ class Config:
         )
 
 
+# ---------------------------------------------------------------------------
+# Errors
+# ---------------------------------------------------------------------------
+class CameraError(RuntimeError):
+    """Raised when no usable webcam can be opened or frames stop coming."""
+
