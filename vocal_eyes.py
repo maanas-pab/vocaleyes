@@ -987,3 +987,9 @@ class Visualizer:
     def _draw_selection_banner(
         self, frame: np.ndarray, width: int, height: int,
         now: float, banner_until: float,
+    ) -> None:
+        """Full-width confirmation banner. Drawn, not flashed."""
+        assert cv2 is not None
+        remaining = max(0.0, banner_until - now)
+        alpha = min(0.92, 0.35 + remaining * 0.4)
+        bw, bh = 560, 96
