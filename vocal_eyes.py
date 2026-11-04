@@ -1092,3 +1092,9 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
                         "less sensitive; recalibrate per person with C.")
     parser.add_argument("--long-blink", type=float, default=1.0,
                         help="Hold time in seconds for a Select "
+                        "(default: 1.0).")
+    parser.add_argument("--cooldown", type=float, default=1.5,
+                        help="Quiet period in seconds after a Select "
+                        "(default: 1.5).")
+    parser.add_argument("--eye-mode", choices=("average", "min"),
+                        default="average",
