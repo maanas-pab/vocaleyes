@@ -1048,3 +1048,8 @@ class Visualizer:
 def on_long_blink(event: BlinkEvent, selection_count: int) -> None:
     """Default action for a long blink: confirm loudly on the console.
 
+    Replace this function (or pass your own callback to :func:`main`
+    via ``action_callback`` in a future integration) to drive a real
+    downstream effect — a mouse click, a switch press, a scanning
+    keyboard advance, or speech output. Keep downstream work fast and
+    non-blocking: this runs inside the camera loop.
