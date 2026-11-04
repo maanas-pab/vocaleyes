@@ -180,3 +180,9 @@ class Config:
     # Hold time that counts as deliberate. 1.0 s is long enough to
     # exclude ordinary blinks, short enough not to tire the user.
     long_blink_seconds: float = 1.0
+    # Quiet period after a selection. Prevents one long closure from
+    # firing twice and gives the user time to reopen their eyes.
+    cooldown_seconds: float = 1.5
+    # How the two eyes combine. "average" is the safe default; use
+    # "min" only for markedly asymmetric closure (one eyelid closes
+    # much less than the other), as it is more sensitive to winks.
