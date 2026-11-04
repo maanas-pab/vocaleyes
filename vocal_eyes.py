@@ -1203,3 +1203,8 @@ def main(
                                 print(
                                     "Calibration had too few samples; "
                                     "keeping threshold "
+                                    f"{detector.close_threshold:.2f}.",
+                                    flush=True,
+                                )
+                    else:
+                        event = detector.update(reading.combined_ear, now)
