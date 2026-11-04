@@ -118,3 +118,6 @@ On-device only. This module does not record, save, or transmit video, images, or
 - A webcam and a display (the preview uses `cv2.imshow`)
 - See `requirements.txt`
 
+## Licence
+
+Choose a licence before publishing (e.g. MIT / Apache-2.0) and add a `LICENSE` file.
