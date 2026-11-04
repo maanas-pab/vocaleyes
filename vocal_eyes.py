@@ -1045,3 +1045,6 @@ class Visualizer:
 # ---------------------------------------------------------------------------
 # Selection action — the one integration hook
 # ---------------------------------------------------------------------------
+def on_long_blink(event: BlinkEvent, selection_count: int) -> None:
+    """Default action for a long blink: confirm loudly on the console.
+
