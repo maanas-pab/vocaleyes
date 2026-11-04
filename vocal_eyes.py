@@ -405,3 +405,6 @@ class FaceMeshTracker:
         )
         return self
 
+    def __exit__(self, *exc_info) -> None:
+        self.close()
+
