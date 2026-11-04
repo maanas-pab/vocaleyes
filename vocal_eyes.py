@@ -597,3 +597,6 @@ class EarCalibrator:
         """Record one open-eye EAR sample."""
         self._samples.append(ear)
 
+    def finish(self) -> Optional[float]:
+        """Return the recommended threshold, or None if too few samples."""
+        self._started_at = None
