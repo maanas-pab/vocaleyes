@@ -794,3 +794,8 @@ class Visualizer:
         assert cv2 is not None
         colour = Palette.EYE_CLOSED if closed else Palette.EYE_OPEN
         # Eyelid contour — a closed loop so closure is visible at a glance.
+        pts = np.array(eye.contour, dtype=np.int32).reshape((-1, 1, 2))
+        cv2.polylines(frame, [pts], isClosed=True, color=colour,
+                      thickness=2, lineType=cv2.LINE_AA)
+        # Landmark dots on the contour.
+        for point in eye.contour:
