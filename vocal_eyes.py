@@ -28,3 +28,10 @@ Why this design matters for advanced ALS
 * **Private by default.** All processing is local. No video, image,
   or landmark is saved, uploaded, or recorded by this module.
 
+How it works
+------------
+1. ``FaceMeshTracker`` returns 468 facial landmarks per frame
+   (``refine_landmarks=True`` also returns the iris landmarks).
+2. ``extract_eye_readings`` converts the six eyelid landmarks of each
+   eye into an Eye Aspect Ratio (EAR)::
+
