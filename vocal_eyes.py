@@ -297,3 +297,8 @@ class EyeReading:
     iris_ring: list[Point]
     bbox: Tuple[int, int, int, int]  # x, y, w, h in pixels
 
+    @classmethod
+    def from_landmarks(
+        cls,
+        landmarks,
+        ear_indices: Tuple[int, ...],
