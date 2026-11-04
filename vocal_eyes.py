@@ -6,3 +6,6 @@ through MediaPipe Face Mesh, the Eye Aspect Ratio (EAR) of each eye is
 measured, and a sustained bilateral eye closure is turned into one
 deliberate action: a **Long Blink / Select**.
 
+Why this design matters for advanced ALS
+----------------------------------------
+* **One reliable input, no voice / hands / head movement required.**
