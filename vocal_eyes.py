@@ -15,3 +15,8 @@ Why this design matters for advanced ALS
 * **Time, not frame count.** Closure is timed with a monotonic clock,
   so a slow laptop and a fast laptop demand the same 1-second hold.
 * **Hysteresis + smoothing.** The eye must fall below a close
+  threshold to start timing and rise above a slightly higher open
+  threshold to end it. A single noisy frame cannot start, stop, or
+  fire a selection.
+* **Ordinary blinks are ignored.** A normal 0.1–0.4 s blink ends long
+  before the hold threshold, so it never selects. Only a deliberate
