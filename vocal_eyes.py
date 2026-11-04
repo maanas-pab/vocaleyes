@@ -427,3 +427,6 @@ class FaceMeshTracker:
 # ---------------------------------------------------------------------------
 # Blink detection — the core accessibility state machine
 # ---------------------------------------------------------------------------
+class BlinkState(Enum):
+    """Blink detector states. Only CLOSED can become a selection."""
+
