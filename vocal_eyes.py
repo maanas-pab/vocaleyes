@@ -843,3 +843,12 @@ class Visualizer:
         _draw_text(frame, "Long-blink select", (190, 34), scale=0.55,
                    colour=Palette.MUTED, thickness=1)
         status = "Face locked" if face_found else "Searching for face..."
+        status_colour = Palette.TEAL if face_found else Palette.AMBER
+        sw, _ = _text_size(status, 0.55, 1)
+        _draw_text(frame, status, (width - sw - 118, 34), scale=0.55,
+                   colour=status_colour, thickness=1)
+        fps_text = f"{fps:.0f} fps"
+        fw, _ = _text_size(fps_text, 0.55, 1)
+        _draw_text(frame, fps_text, (width - fw - 18, 34), scale=0.55,
+                   colour=Palette.MUTED, thickness=1)
+
