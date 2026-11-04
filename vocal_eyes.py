@@ -830,3 +830,5 @@ class Visualizer:
             b = _to_pixel(landmarks[end_idx], width, height)
             cv2.line(frame, a, b, (70, 70, 78), 1, cv2.LINE_AA)
 
+    # -- chrome -----------------------------------------------------------
+    def _draw_top_bar(
