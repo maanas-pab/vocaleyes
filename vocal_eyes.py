@@ -965,3 +965,9 @@ class Visualizer:
         centre = (
             (reading.left.centre[0] + reading.right.centre[0]) // 2,
             (reading.left.centre[1] + reading.right.centre[1]) // 2,
+        )
+        radius, thickness = 62, 10
+        progress = detector.hold_progress
+        cv2.circle(frame, centre, radius, Palette.GREY_TRACK, thickness,
+                   cv2.LINE_AA)
+        if progress > 0.0:
