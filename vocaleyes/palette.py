@@ -8,3 +8,6 @@ confirmed, red means the face is gone. Nothing flashes.
 from __future__ import annotations
 
 
+class Palette:
+    """Named colours for the overlay. One place to restyle the UI."""
+
