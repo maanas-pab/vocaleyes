@@ -664,3 +664,6 @@ class CameraStream:
 # ---------------------------------------------------------------------------
 # Overlay rendering — the part the user actually looks at
 # ---------------------------------------------------------------------------
+def _draw_filled_rounded_rect(
+    frame: np.ndarray,
+    top_left: Point,
