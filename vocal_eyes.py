@@ -649,3 +649,4 @@ class CameraStream:
             self._cap.release()
             self._cap = None
 
+    def read(self) -> np.ndarray:
