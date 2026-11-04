@@ -1087,3 +1087,8 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
                         help="Requested capture height (default: 720).")
     parser.add_argument("--no-mirror", action="store_true",
                         help="Do not mirror the preview (default: mirrored).")
+    parser.add_argument("--threshold", type=float, default=0.21,
+                        help="EAR close threshold (default: 0.21). Lower is "
+                        "less sensitive; recalibrate per person with C.")
+    parser.add_argument("--long-blink", type=float, default=1.0,
+                        help="Hold time in seconds for a Select "
