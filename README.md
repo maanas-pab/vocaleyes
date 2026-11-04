@@ -112,3 +112,9 @@ raise SystemExit(main(action_callback=my_action))
 
 On-device only. This module does not record, save, or transmit video, images, or landmarks. If you integrate cloud or logging features downstream, keep that boundary explicit.
 
+## Requirements
+
+- Python 3.9+
+- A webcam and a display (the preview uses `cv2.imshow`)
+- See `requirements.txt`
+
