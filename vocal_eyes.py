@@ -56,3 +56,9 @@ Usage
 -----
 Install dependencies, then run::
 
+    pip install -r requirements.txt
+    python vocal_eyes.py
+
+    # Tune for one person (recommended for ALS use):
+    python vocal_eyes.py --long-blink 1.2 --threshold 0.19 --camera 0
+
