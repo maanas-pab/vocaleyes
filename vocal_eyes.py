@@ -1066,3 +1066,7 @@ def on_long_blink(event: BlinkEvent, selection_count: int) -> None:
 # ---------------------------------------------------------------------------
 # Command-line interface
 # ---------------------------------------------------------------------------
+def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        prog="vocal_eyes",
