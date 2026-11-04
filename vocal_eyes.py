@@ -761,3 +761,8 @@ class Visualizer:
         fps: float,
         face_found: bool,
         calibrator: EarCalibrator,
+        selection_count: int,
+        banner_until: float,
+        now: float,
+        show_mesh: bool,
+        mesh_landmarks=None,
