@@ -1098,3 +1098,8 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
                         "(default: 1.5).")
     parser.add_argument("--eye-mode", choices=("average", "min"),
                         default="average",
+                        help="How to combine the two eyes: average "
+                        "(default) or min (more sensitive, for asymmetric "
+                        "closure).")
+    parser.add_argument("--show-mesh", action="store_true",
+                        help="Draw the full face mesh (setup / debugging).")
