@@ -241,3 +241,13 @@ def _check_dependencies() -> None:
             "OpenCV (cv2) is not installed. Install it with:\n"
             "    pip install opencv-python\n"
             f"Original error: {_CV2_IMPORT_ERROR}"
+        )
+    if mp is None:
+        raise DependencyError(
+            "MediaPipe is not installed. Install it with:\n"
+            "    pip install mediapipe\n"
+            f"Original error: {_MP_IMPORT_ERROR}"
+        )
+
+
+# ---------------------------------------------------------------------------
