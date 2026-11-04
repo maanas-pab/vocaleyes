@@ -302,3 +302,8 @@ class EyeReading:
         cls,
         landmarks,
         ear_indices: Tuple[int, ...],
+        contour_indices: Tuple[int, ...],
+        iris_centre_index: int,
+        iris_ring_indices: Tuple[int, ...],
+        width: int,
+        height: int,
