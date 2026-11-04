@@ -108,3 +108,7 @@ raise SystemExit(main(action_callback=my_action))
 | Selections never fire | Raise `--threshold` slightly, lower `--long-blink`, or try `--eye-mode min`; recalibrate with `C`. |
 | Jittery EAR / flickering state | Check lighting (avoid strong backlight), clean the lens, sit centred and still. |
 
+## Privacy
+
+On-device only. This module does not record, save, or transmit video, images, or landmarks. If you integrate cloud or logging features downstream, keep that boundary explicit.
+
