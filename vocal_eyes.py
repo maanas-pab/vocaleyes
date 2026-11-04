@@ -440,3 +440,12 @@ class BlinkState(Enum):
 class BlinkEvent:
     """A single meaningful blink outcome."""
 
+    kind: str  # "select" or "short_blink"
+    closed_seconds: float
+    ear_at_close: float
+    timestamp: float = field(default_factory=time.monotonic)
+
+
+class BlinkDetector:
+    """Detect a deliberate long blink from a stream of EAR values.
+
