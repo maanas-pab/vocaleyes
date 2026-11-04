@@ -449,3 +449,5 @@ class BlinkEvent:
 class BlinkDetector:
     """Detect a deliberate long blink from a stream of EAR values.
 
+    The detector is deliberately boring: it smooths the signal, applies
+    hysteresis, times closures with ``time.monotonic()``, fires at most
