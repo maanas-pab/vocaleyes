@@ -136,3 +136,13 @@ RIGHT_EYE_CONTOUR = (
 )
 
 # Iris landmarks (only present with refine_landmarks=True). Index 468 is
+# the left iris centre and 473 the right iris centre.
+LEFT_IRIS_CENTRE = 468
+RIGHT_IRIS_CENTRE = 473
+LEFT_IRIS_RING = (469, 470, 471, 472)
+RIGHT_IRIS_RING = (474, 475, 476, 477)
+
+
+# ---------------------------------------------------------------------------
+# Visual palette (BGR, as OpenCV expects) — calm, high-contrast, no neon
+# ---------------------------------------------------------------------------
