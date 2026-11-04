@@ -264,3 +264,8 @@ def _distance(a: Point, b: Point) -> float:
 def calculate_ear(eye: Sequence[Point]) -> float:
     """Return the Eye Aspect Ratio for one eye from six eyelid points.
 
+    ``eye`` is ordered (outer, upper, upper, inner, lower, lower)
+    matching :data:`LEFT_EYE_EAR` / :data:`RIGHT_EYE_EAR`. Returns 0.0
+    for a degenerate (zero-width) eye instead of raising, so one bad
+    frame can never crash the tracker.
+    """
