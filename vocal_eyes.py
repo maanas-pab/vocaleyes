@@ -881,3 +881,4 @@ class Visualizer:
                        (20, y0 + 62), scale=0.55, colour=Palette.AMBER,
                        thickness=1)
 
+        # Centre: EAR history trace.
