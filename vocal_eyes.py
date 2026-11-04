@@ -667,3 +667,8 @@ class CameraStream:
 def _draw_filled_rounded_rect(
     frame: np.ndarray,
     top_left: Point,
+    bottom_right: Point,
+    radius: int,
+    colour: Tuple[int, int, int],
+    alpha: float = 0.72,
+) -> None:
