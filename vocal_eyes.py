@@ -852,3 +852,6 @@ class Visualizer:
         _draw_text(frame, fps_text, (width - fw - 18, 34), scale=0.55,
                    colour=Palette.MUTED, thickness=1)
 
+    def _draw_bottom_panel(
+        self, frame: np.ndarray, width: int, height: int,
+        reading: Optional[FaceReading], detector: BlinkDetector,
