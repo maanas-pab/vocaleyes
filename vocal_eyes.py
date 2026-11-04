@@ -787,3 +787,4 @@ class Visualizer:
             self._draw_no_face_overlay(frame, width, height)
         return frame
 
+    # -- eyes -------------------------------------------------------------
