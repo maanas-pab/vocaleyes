@@ -585,3 +585,11 @@ class EarCalibrator:
     def active(self) -> bool:
         return self._started_at is not None
 
+    @property
+    def progress(self) -> float:
+        """0.0–1.0 through the calibration window."""
+        if self._started_at is None:
+            return 0.0
+        return min(1.0, (time.monotonic() - self._started_at)
+                   / self.duration_seconds)
+
