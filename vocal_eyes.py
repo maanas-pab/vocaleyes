@@ -1125,3 +1125,10 @@ def main(
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
+    )
+    try:
+        config = Config.from_args(args)
+    except ValueError as exc:
+        print(f"Invalid option: {exc}", file=sys.stderr)
+        return 2
+
