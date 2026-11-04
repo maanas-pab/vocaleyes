@@ -1041,3 +1041,7 @@ class Visualizer:
                 frame, (bx, by), (bx + fill_w, by + bar_h), 6,
                 Palette.TEAL, alpha=0.95)
 
+
+# ---------------------------------------------------------------------------
+# Selection action — the one integration hook
+# ---------------------------------------------------------------------------
