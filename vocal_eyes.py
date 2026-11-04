@@ -20,3 +20,11 @@ Why this design matters for advanced ALS
   fire a selection.
 * **Ordinary blinks are ignored.** A normal 0.1–0.4 s blink ends long
   before the hold threshold, so it never selects. Only a deliberate
+  hold fires, and only once per closure, followed by a cooldown.
+* **Feedback is large, calm, and unambiguous.** A filling progress
+  ring shows the hold building, and a full-width banner confirms the
+  selection. There is no flashing, no tiny text, and no reliance on
+  sound. If the face is lost, tracking pauses instead of guessing.
+* **Private by default.** All processing is local. No video, image,
+  or landmark is saved, uploaded, or recorded by this module.
+
