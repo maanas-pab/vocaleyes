@@ -694,3 +694,9 @@ def _draw_rounded_outline(
     colour: Tuple[int, int, int],
     thickness: int = 2,
 ) -> None:
+    """Draw a rounded-corner outline (used for the eye boxes)."""
+    assert cv2 is not None
+    x1, y1 = top_left
+    x2, y2 = bottom_right
+    radius = min(radius, (x2 - x1) // 2, (y2 - y1) // 2)
+    cv2.line(frame, (x1 + radius, y1), (x2 - radius, y1), colour, thickness,
