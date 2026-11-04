@@ -191,3 +191,8 @@ class Config:
     ear_smoothing: float = 0.35
     show_mesh: bool = False
     # Seconds of open-eye sampling at startup. 0 disables auto-calibration.
+    calibrate_seconds: float = 3.0
+    min_detection_confidence: float = 0.5
+    min_tracking_confidence: float = 0.5
+    window_name: str = "Project VocalEyes"
+
