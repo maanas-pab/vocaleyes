@@ -960,3 +960,8 @@ class Visualizer:
     def _draw_hold_ring(
         self, frame: np.ndarray, reading: FaceReading, detector: BlinkDetector,
     ) -> None:
+        """Large progress ring between the eyes: the hold, made visible."""
+        assert cv2 is not None
+        centre = (
+            (reading.left.centre[0] + reading.right.centre[0]) // 2,
+            (reading.left.centre[1] + reading.right.centre[1]) // 2,
