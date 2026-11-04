@@ -284,3 +284,7 @@ def _to_pixel(landmark, width: int, height: int) -> Point:
     return (int(landmark.x * width), int(landmark.y * height))
 
 
+# ---------------------------------------------------------------------------
+# Per-frame eye measurements
+# ---------------------------------------------------------------------------
+@dataclass
