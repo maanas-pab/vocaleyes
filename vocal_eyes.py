@@ -84,3 +84,8 @@ from typing import Callable, Deque, Optional, Sequence, Tuple
 
 import numpy as np
 
+try:
+    import cv2
+except ImportError as _cv2_error:  # pragma: no cover - env without cv2
+    cv2 = None  # type: ignore[assignment]
+    _CV2_IMPORT_ERROR = _cv2_error
