@@ -324,3 +324,9 @@ class EyeReading:
             iris_centre = points[iris_centre_index]
         else:
             xs = [p[0] for p in contour]
+            ys = [p[1] for p in contour]
+            iris_centre = (sum(xs) // len(xs), sum(ys) // len(ys))
+        if not iris_ring:
+            iris_ring = [iris_centre]
+        xs = [p[0] for p in contour]
+        ys = [p[1] for p in contour]
