@@ -1120,3 +1120,8 @@ def main(
     argv: Optional[Sequence[str]] = None,
     action_callback: Callable[[BlinkEvent, int], None] = on_long_blink,
 ) -> int:
+    """Run VocalEyes until the user quits. Returns a process exit code."""
+    args = parse_args(argv)
+    logging.basicConfig(
+        level=logging.INFO,
+        format="%(asctime)s [%(levelname)s] %(name)s: %(message)s",
