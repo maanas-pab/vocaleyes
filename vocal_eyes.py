@@ -345,3 +345,8 @@ class EyeReading:
         x, y, w, h = self.bbox
         return (x + w // 2, y + h // 2)
 
+
+@dataclass
+class FaceReading:
+    """Both eyes for one frame, plus the combined EAR used downstream."""
+
