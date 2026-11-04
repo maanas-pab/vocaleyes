@@ -1192,3 +1192,8 @@ def main(
                         calibrator.add_sample(reading.combined_ear)
                         if calibrator.progress >= 1.0:
                             threshold = calibrator.finish()
+                            if threshold is not None:
+                                detector.retune(threshold)
+                                print(
+                                    "Calibration complete: EAR threshold "
+                                    f"set to {threshold:.2f}.",
