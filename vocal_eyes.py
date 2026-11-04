@@ -269,3 +269,12 @@ def calculate_ear(eye: Sequence[Point]) -> float:
     for a degenerate (zero-width) eye instead of raising, so one bad
     frame can never crash the tracker.
     """
+    if len(eye) != 6:
+        raise ValueError(f"EAR needs exactly 6 points, got {len(eye)}")
+    horizontal = _distance(eye[0], eye[3])
+    if horizontal == 0:
+        return 0.0
+    vertical_a = _distance(eye[1], eye[5])
+    vertical_b = _distance(eye[2], eye[4])
+    return (vertical_a + vertical_b) / (2.0 * horizontal)
+
