@@ -1004,3 +1004,8 @@ class Visualizer:
                  4, cv2.LINE_AA)
         cv2.line(frame, (cx - 4, cy + 14), (cx + 20, cy - 14), Palette.WHITE,
                  4, cv2.LINE_AA)
+        _draw_text(frame, "SELECTED", (x0 + 88, y0 + 44), scale=1.0,
+                   colour=Palette.WHITE, thickness=2)
+        _draw_text(frame, "Long blink confirmed", (x0 + 88, y0 + 74),
+                   scale=0.55, colour=Palette.SOFT_WHITE, thickness=1)
+
