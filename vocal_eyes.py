@@ -89,3 +89,8 @@ try:
 except ImportError as _cv2_error:  # pragma: no cover - env without cv2
     cv2 = None  # type: ignore[assignment]
     _CV2_IMPORT_ERROR = _cv2_error
+else:
+    _CV2_IMPORT_ERROR = None
+
+try:
+    import mediapipe as mp
