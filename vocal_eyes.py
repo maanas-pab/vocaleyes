@@ -971,3 +971,8 @@ class Visualizer:
         cv2.circle(frame, centre, radius, Palette.GREY_TRACK, thickness,
                    cv2.LINE_AA)
         if progress > 0.0:
+            end_angle = -90 + int(360 * progress)
+            colour = Palette.AMBER if progress < 1.0 else Palette.GREEN
+            cv2.ellipse(frame, centre, (radius, radius), 0, -90, end_angle,
+                        colour, thickness, cv2.LINE_AA)
+        percent = f"{int(progress * 100)}%"
