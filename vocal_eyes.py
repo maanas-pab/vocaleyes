@@ -819,3 +819,5 @@ class Visualizer:
         _draw_text(frame, f"{label}  {eye.ear:.2f}", (pill_x + 10, pill_y + 18),
                    scale=0.5, colour=Palette.SOFT_WHITE, thickness=1)
 
+    def _draw_mesh(
+        self, frame: np.ndarray, landmarks, width: int, height: int,
