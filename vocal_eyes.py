@@ -741,3 +741,10 @@ def _draw_text(
                 scale, colour, thickness, cv2.LINE_AA)
 
 
+class Visualizer:
+    """Draws every on-screen element. No tracking logic lives here."""
+
+    def __init__(self, config: Config) -> None:
+        self._config = config
+        self._ear_history: Deque[float] = deque(maxlen=90)
+
