@@ -805,3 +805,8 @@ class Visualizer:
         cv2.circle(frame, eye.iris_centre, 9, colour, 1, cv2.LINE_AA)
         cv2.circle(frame, eye.iris_centre, 3, Palette.WHITE, -1, cv2.LINE_AA)
         for point in eye.iris_ring:
+            cv2.circle(frame, point, 2, colour, -1, cv2.LINE_AA)
+        # Rounded bounding box around the whole eye.
+        x, y, w, h = eye.bbox
+        _draw_rounded_outline(frame, (x, y), (x + w, y + h), 10, colour, 2)
+        # Small label pill above the box with the live EAR.
