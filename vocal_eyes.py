@@ -521,3 +521,5 @@ class BlinkDetector:
             self.state = BlinkState.OPEN
         return None
 
+    def reset(self) -> None:
+        """Forget any in-progress closure (face lost / user reset)."""
