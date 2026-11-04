@@ -501,3 +501,9 @@ class BlinkDetector:
                 return None
             if now - self._closed_since >= self.long_blink_seconds:
                 self.state = BlinkState.TRIGGERED
+                return BlinkEvent(
+                    "select", now - self._closed_since,
+                    self._ear_at_close, now,
+                )
+            return None
+
