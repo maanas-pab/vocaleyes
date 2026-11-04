@@ -319,3 +319,8 @@ class EyeReading:
                      if i < len(points)]
         # Iris landmarks exist only with refine_landmarks=True. Fall
         # back to the eye centre so drawing never fails on a partial
+        # result (e.g. 468 landmarks without the refined iris set).
+        if iris_centre_index < len(points):
+            iris_centre = points[iris_centre_index]
+        else:
+            xs = [p[0] for p in contour]
