@@ -921,3 +921,8 @@ class Visualizer:
                                   7, Palette.GREY_TRACK, alpha=0.9)
         fill_w = int(bar_w * min(1.0, max(0.0, ear / 0.45)))
         fill_colour = (Palette.TEAL if ear >= threshold else Palette.AMBER)
+        if fill_w > 0:
+            _draw_filled_rounded_rect(
+                frame, (bx, y), (bx + fill_w, y + bar_h), 7,
+                fill_colour, alpha=0.95)
+        # Threshold tick.
