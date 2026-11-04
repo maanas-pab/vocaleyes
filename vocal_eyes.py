@@ -9,3 +9,9 @@ deliberate action: a **Long Blink / Select**.
 Why this design matters for advanced ALS
 ----------------------------------------
 * **One reliable input, no voice / hands / head movement required.**
+  Selection needs only the ability to close both eyes and hold them
+  shut. Nothing else on screen has to be looked at, dwelled on, or
+  pointed to.
+* **Time, not frame count.** Closure is timed with a monotonic clock,
+  so a slow laptop and a fast laptop demand the same 1-second hold.
+* **Hysteresis + smoothing.** The eye must fall below a close
