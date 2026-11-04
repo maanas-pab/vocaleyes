@@ -904,3 +904,8 @@ class Visualizer:
             f"Hold: {detector.long_blink_seconds:.1f}s   "
             f"Threshold: {detector.close_threshold:.2f}",
             (width - 280, y0 + 78), scale=0.5, colour=Palette.MUTED,
+            thickness=1)
+        _draw_text(frame, "Q quit  |  C calibrate  |  M mesh  |  R reset",
+                   (width - 280, y0 + 106), scale=0.5, colour=Palette.MUTED,
+                   thickness=1)
+
