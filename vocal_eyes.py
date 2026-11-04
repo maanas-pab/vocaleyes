@@ -926,3 +926,9 @@ class Visualizer:
                 frame, (bx, y), (bx + fill_w, y + bar_h), 7,
                 fill_colour, alpha=0.95)
         # Threshold tick.
+        tick_x = bx + int(bar_w * (threshold / 0.45))
+        cv2.line(frame, (tick_x, y - 3), (tick_x, y + bar_h + 3),
+                 Palette.WHITE, 2, cv2.LINE_AA)
+        _draw_text(frame, f"{ear:.2f}", (bx + bar_w + 10, y + 12),
+                   scale=0.55, colour=Palette.SOFT_WHITE, thickness=1)
+
