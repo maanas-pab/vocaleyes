@@ -628,3 +628,9 @@ class CameraStream:
     def __enter__(self) -> "CameraStream":
         assert cv2 is not None
         cap = cv2.VideoCapture(self._config.camera_index)
+        if not cap.isOpened():
+            raise CameraError(
+                f"Could not open webcam (index {self._config.camera_index}).\n"
+                "Check that a camera is connected, that no other app is "
+                "using it, and that this app has camera permission.\n"
+                "Try another index, e.g.  python vocal_eyes.py --camera 1"
