@@ -234,3 +234,5 @@ class DependencyError(RuntimeError):
     """Raised when OpenCV / MediaPipe are not installed."""
 
 
+def _check_dependencies() -> None:
+    """Fail fast with an actionable message if a dependency is missing."""
