@@ -615,3 +615,8 @@ class EarCalibrator:
 class CameraStream:
     """Context-managed webcam with clear failure messages.
 
+    A missing or busy camera is the most common first-run failure for
+    an accessibility tool, so the error says what to check instead of
+    surfacing an OpenCV status code.
+    """
+
