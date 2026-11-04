@@ -1020,3 +1020,9 @@ class Visualizer:
         _draw_text(frame, message, ((width - mw) // 2, 108), scale=0.8,
                    colour=Palette.WHITE, thickness=2)
 
+    def _draw_calibration_overlay(
+        self, frame: np.ndarray, width: int, height: int,
+        calibrator: EarCalibrator,
+    ) -> None:
+        """Large calibration prompt: eyes open, nothing else to do."""
+        _draw_filled_rounded_rect(
