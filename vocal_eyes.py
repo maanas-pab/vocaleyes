@@ -711,3 +711,9 @@ def _draw_rounded_outline(
         ((x1 + radius, y1 + radius), 180, 270),
         ((x2 - radius, y1 + radius), 270, 360),
         ((x1 + radius, y2 - radius), 90, 180),
+        ((x2 - radius, y2 - radius), 0, 90),
+    ):
+        cv2.ellipse(frame, centre, (radius, radius), 0, start, end,
+                    colour, thickness, cv2.LINE_AA)
+
+
