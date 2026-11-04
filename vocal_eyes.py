@@ -339,3 +339,9 @@ class EyeReading:
             iris_ring=iris_ring, bbox=bbox,
         )
 
+    @property
+    def centre(self) -> Point:
+        """Centre of the eye bounding box (for labels and rings)."""
+        x, y, w, h = self.bbox
+        return (x + w // 2, y + h // 2)
+
