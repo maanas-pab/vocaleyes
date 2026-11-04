@@ -394,3 +394,5 @@ class FaceMeshTracker:
         self._config = config
         self._mesh = None
 
+    def __enter__(self) -> "FaceMeshTracker":
+        assert mp is not None  # checked above; keeps type checkers honest
