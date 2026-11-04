@@ -1076,3 +1076,8 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         ),
         epilog=(
             "Controls: Q / Esc quit  |  C recalibrate  |  "
+            "M toggle face mesh  |  R reset detector."
+        ),
+    )
+    parser.add_argument("--camera", type=int, default=0,
+                        help="Webcam index (default: 0; try 1 if no camera).")
