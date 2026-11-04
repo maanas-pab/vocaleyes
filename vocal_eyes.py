@@ -94,3 +94,10 @@ else:
 
 try:
     import mediapipe as mp
+except ImportError as _mp_error:  # pragma: no cover - env without mp
+    mp = None  # type: ignore[assignment]
+    _MP_IMPORT_ERROR = _mp_error
+else:
+    _MP_IMPORT_ERROR = None
+
+
