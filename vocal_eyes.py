@@ -418,3 +418,12 @@ class FaceMeshTracker:
         """Return the first face's landmarks, or ``None`` if no face."""
         if self._mesh is None:
             raise RuntimeError("FaceMeshTracker must be used as a context manager")
+        results = self._mesh.process(rgb_frame)
+        if not results.multi_face_landmarks:
+            return None
+        return results.multi_face_landmarks[0].landmark
+
+
+# ---------------------------------------------------------------------------
+# Blink detection — the core accessibility state machine
+# ---------------------------------------------------------------------------
