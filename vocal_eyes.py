@@ -102,3 +102,14 @@ else:
 
 
 __version__ = "1.0.0"
+__all__ = [
+    "BlinkDetector",
+    "BlinkEvent",
+    "CameraError",
+    "Config",
+    "EyeReading",
+    "FaceMeshTracker",
+    "calculate_ear",
+    "main",
+]
+
