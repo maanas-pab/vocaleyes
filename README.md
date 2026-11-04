@@ -77,3 +77,15 @@ python vocal_eyes.py --no-calibrate --threshold 0.21
   ```
 - **No face** — a large guidance message appears and tracking pauses. A tracking gap can never become a selection.
 
+## Integrating a real action
+
+`on_long_blink()` in `vocal_eyes.py` is the single integration hook. By default it prints the confirmation above. Replace it — or pass your own callback to `main()` — to drive a mouse click, a scanning keyboard, a switch press, or speech output. Keep downstream work fast and non-blocking: it runs inside the camera loop.
+
+```python
+def my_action(event, count):
+    # e.g. pyautogui.click(), advance a scanning keyboard, speak, ...
+    ...
+
+raise SystemExit(main(action_callback=my_action))
+```
+
