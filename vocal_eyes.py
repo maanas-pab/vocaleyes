@@ -490,3 +490,8 @@ class BlinkDetector:
                 self._ear_at_close = ear
             return None
 
+        if self.state is BlinkState.CLOSED:
+            assert self._closed_since is not None
+            if ear >= self.open_threshold:
+                closed_for = now - self._closed_since
+                self._reset_to_open(now)
