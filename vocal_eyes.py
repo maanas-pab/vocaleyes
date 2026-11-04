@@ -700,3 +700,8 @@ def _draw_rounded_outline(
     x2, y2 = bottom_right
     radius = min(radius, (x2 - x1) // 2, (y2 - y1) // 2)
     cv2.line(frame, (x1 + radius, y1), (x2 - radius, y1), colour, thickness,
+             cv2.LINE_AA)
+    cv2.line(frame, (x1 + radius, y2), (x2 - radius, y2), colour, thickness,
+             cv2.LINE_AA)
+    cv2.line(frame, (x1, y1 + radius), (x1, y2 - radius), colour, thickness,
+             cv2.LINE_AA)
