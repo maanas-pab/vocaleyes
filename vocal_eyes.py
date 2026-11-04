@@ -788,3 +788,9 @@ class Visualizer:
         return frame
 
     # -- eyes -------------------------------------------------------------
+    def _draw_eye(
+        self, frame: np.ndarray, eye: EyeReading, closed: bool, label: str,
+    ) -> None:
+        assert cv2 is not None
+        colour = Palette.EYE_CLOSED if closed else Palette.EYE_OPEN
+        # Eyelid contour — a closed loop so closure is visible at a glance.
