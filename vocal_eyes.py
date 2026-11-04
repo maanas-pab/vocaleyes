@@ -196,3 +196,13 @@ class Config:
     min_tracking_confidence: float = 0.5
     window_name: str = "Project VocalEyes"
 
+    def __post_init__(self) -> None:
+        if not 0.05 <= self.ear_threshold <= 0.45:
+            raise ValueError("ear_threshold must be between 0.05 and 0.45")
+        if self.long_blink_seconds <= 0:
+            raise ValueError("long_blink_seconds must be positive")
+        if self.cooldown_seconds < 0:
+            raise ValueError("cooldown_seconds must not be negative")
+        if self.eye_mode not in ("average", "min"):
+            raise ValueError('eye_mode must be "average" or "min"')
+
