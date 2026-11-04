@@ -66,3 +66,11 @@ Controls while running: ``Q`` / ``Esc`` quit, ``C`` recalibrate the
 EAR threshold from open eyes, ``M`` toggle the full face mesh,
 ``R`` reset the blink detector.
 
+This module is intentionally dependency-light: OpenCV + MediaPipe
+only. It needs a display (``cv2.imshow``) and a working webcam.
+"""
+
+from __future__ import annotations
+
+import argparse
+import logging
