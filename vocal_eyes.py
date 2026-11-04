@@ -937,3 +937,9 @@ class Visualizer:
         threshold: float,
     ) -> None:
         """Sparkline of recent EAR, with the close threshold as a line."""
+        assert cv2 is not None
+        _draw_text(frame, "EAR HISTORY", (x0, y0 - 6), scale=0.5,
+                   colour=Palette.MUTED, thickness=1)
+        cv2.rectangle(frame, (x0, y0), (x1, y1), (60, 60, 66), 1, cv2.LINE_AA)
+        # Threshold line: EAR below this line means "closed".
+        thresh_y = y1 - int((threshold / 0.45) * (y1 - y0))
