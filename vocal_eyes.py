@@ -1185,3 +1185,4 @@ def main(
                         landmarks, width, height, config.eye_mode)
                     visualizer.note_ear(reading.combined_ear)
 
+                    if calibrator.active:
