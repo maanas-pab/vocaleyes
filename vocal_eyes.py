@@ -360,3 +360,6 @@ def extract_eye_readings(
 ) -> FaceReading:
     """Extract left/right readings and the combined EAR from landmarks.
 
+    ``landmarks`` is the 468-point (or more, with iris) list from
+    MediaPipe. If an iris landmark is missing, the eye centre is used
+    as a fallback so drawing never fails on a partial result.
