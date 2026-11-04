@@ -625,3 +625,6 @@ class CameraStream:
         self._config = config
         self._cap = None
 
+    def __enter__(self) -> "CameraStream":
+        assert cv2 is not None
+        cap = cv2.VideoCapture(self._config.camera_index)
