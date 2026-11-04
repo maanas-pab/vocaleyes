@@ -149,3 +149,7 @@ RIGHT_IRIS_RING = (474, 475, 476, 477)
 class Palette:
     """Named colours for the overlay. One place to restyle the UI."""
 
+    WHITE = (255, 255, 255)
+    SOFT_WHITE = (235, 235, 235)
+    MUTED = (190, 190, 190)
+    DARK = (24, 24, 28)
