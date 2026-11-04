@@ -62,3 +62,7 @@ Install dependencies, then run::
     # Tune for one person (recommended for ALS use):
     python vocal_eyes.py --long-blink 1.2 --threshold 0.19 --camera 0
 
+Controls while running: ``Q`` / ``Esc`` quit, ``C`` recalibrate the
+EAR threshold from open eyes, ``M`` toggle the full face mesh,
+``R`` reset the blink detector.
+
