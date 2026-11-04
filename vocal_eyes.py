@@ -766,3 +766,9 @@ class Visualizer:
         now: float,
         show_mesh: bool,
         mesh_landmarks=None,
+    ) -> np.ndarray:
+        """Draw the full overlay onto ``frame`` and return it."""
+        height, width = frame.shape[:2]
+        if reading is not None:
+            self._draw_eye(frame, reading.left, detector.is_closed, "LEFT")
+            self._draw_eye(frame, reading.right, detector.is_closed, "RIGHT")
