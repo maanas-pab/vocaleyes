@@ -37,3 +37,8 @@ How it works
 
        EAR = (||p2 - p6|| + ||p3 - p5||) / (2 * ||p1 - p4||)
 
+   EAR is ~0.25–0.35 with eyes open and approaches 0 when closed.
+   It is scale-invariant, so distance from the camera does not
+   change the threshold.
+3. ``BlinkDetector`` smooths the combined EAR, runs the
+   open -> closed -> triggered -> cooldown state machine, and emits
