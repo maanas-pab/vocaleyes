@@ -208,3 +208,9 @@ class Config:
 
     @classmethod
     def from_args(cls, args: argparse.Namespace) -> "Config":
+        """Build a Config from parsed command-line arguments."""
+        return cls(
+            camera_index=args.camera,
+            frame_width=args.width,
+            frame_height=args.height,
+            mirror=not args.no_mirror,
