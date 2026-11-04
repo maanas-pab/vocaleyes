@@ -1252,3 +1252,9 @@ def main(
                 # If the user closed the window with the OS chrome,
                 # stop cleanly instead of spinning on a dead window.
                 if cv2.getWindowProperty(config.window_name,
+                                         cv2.WND_PROP_VISIBLE) < 1:
+                    break
+    except CameraError as exc:
+        print(f"\nCamera error: {exc}", file=sys.stderr)
+        return 2
+    except KeyboardInterrupt:
