@@ -42,3 +42,13 @@ How it works
    change the threshold.
 3. ``BlinkDetector`` smooths the combined EAR, runs the
    open -> closed -> triggered -> cooldown state machine, and emits
+   a single ``Select`` event per long blink.
+4. ``Visualizer`` draws the polished overlay: eye contours, iris
+   markers, per-eye EAR bars, an EAR history trace, the hold-to-
+   select progress ring, and the selection banner.
+5. ``on_long_blink`` is the single integration hook. By default it
+   prints a confirmation to the console. Replace it (or pass your
+   own callback) to drive a switch, a dwell keyboard, a mouse
+   click, or a speech output — this file never assumes what a
+   "select" should do downstream.
+
