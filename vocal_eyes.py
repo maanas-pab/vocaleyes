@@ -261,3 +261,6 @@ def _distance(a: Point, b: Point) -> float:
     return math.hypot(a[0] - b[0], a[1] - b[1])
 
 
+def calculate_ear(eye: Sequence[Point]) -> float:
+    """Return the Eye Aspect Ratio for one eye from six eyelid points.
+
