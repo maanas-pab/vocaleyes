@@ -1015,3 +1015,8 @@ class Visualizer:
         """Calm, large guidance when no face is tracked. Never a guess."""
         _draw_filled_rounded_rect(
             frame, (0, 60), (width, 130), 0, Palette.DARK, alpha=0.45)
+        message = "No face detected — please move into frame"
+        mw, _ = _text_size(message, 0.8, 2)
+        _draw_text(frame, message, ((width - mw) // 2, 108), scale=0.8,
+                   colour=Palette.WHITE, thickness=2)
+
