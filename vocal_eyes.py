@@ -35,3 +35,5 @@ How it works
 2. ``extract_eye_readings`` converts the six eyelid landmarks of each
    eye into an Eye Aspect Ratio (EAR)::
 
+       EAR = (||p2 - p6|| + ||p3 - p5||) / (2 * ||p1 - p4||)
+
