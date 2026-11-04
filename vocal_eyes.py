@@ -378,3 +378,7 @@ def extract_eye_readings(
         combined = (left.ear + right.ear) / 2.0
     return FaceReading(left=left, right=right, combined_ear=combined)
 
+
+# ---------------------------------------------------------------------------
+# Face Mesh wrapper
+# ---------------------------------------------------------------------------
