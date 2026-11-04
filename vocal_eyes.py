@@ -882,3 +882,8 @@ class Visualizer:
                        thickness=1)
 
         # Centre: EAR history trace.
+        trace_x0, trace_x1 = 330, width - 300
+        trace_y0, trace_y1 = y0 + 30, y0 + 104
+        self._draw_ear_trace(frame, trace_x0, trace_y0, trace_x1, trace_y1,
+                             detector.close_threshold)
+
