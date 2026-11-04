@@ -256,3 +256,8 @@ def _check_dependencies() -> None:
 Point = Tuple[int, int]
 
 
+def _distance(a: Point, b: Point) -> float:
+    """Euclidean distance between two pixel points."""
+    return math.hypot(a[0] - b[0], a[1] - b[1])
+
+
