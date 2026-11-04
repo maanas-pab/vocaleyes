@@ -976,3 +976,11 @@ class Visualizer:
             cv2.ellipse(frame, centre, (radius, radius), 0, -90, end_angle,
                         colour, thickness, cv2.LINE_AA)
         percent = f"{int(progress * 100)}%"
+        pw, _ = _text_size(percent, 0.7, 2)
+        _draw_text(frame, percent, (centre[0] - pw // 2, centre[1] + 8),
+                   scale=0.7, colour=Palette.WHITE, thickness=2)
+        label = "HOLD TO SELECT" if progress < 1.0 else "SELECTED"
+        lw, _ = _text_size(label, 0.45, 1)
+        _draw_text(frame, label, (centre[0] - lw // 2, centre[1] + radius + 26),
+                   scale=0.45, colour=Palette.SOFT_WHITE, thickness=1)
+
