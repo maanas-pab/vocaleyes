@@ -113,3 +113,8 @@ __all__ = [
     "main",
 ]
 
+logger = logging.getLogger("vocaleyes")
+
+
+# ---------------------------------------------------------------------------
+# Landmark indices (MediaPipe Face Mesh, 468 landmarks + refined iris)
