@@ -634,3 +634,12 @@ class CameraStream:
                 "Check that a camera is connected, that no other app is "
                 "using it, and that this app has camera permission.\n"
                 "Try another index, e.g.  python vocal_eyes.py --camera 1"
+            )
+        cap.set(cv2.CAP_PROP_FRAME_WIDTH, self._config.frame_width)
+        cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self._config.frame_height)
+        self._cap = cap
+        return self
+
+    def __exit__(self, *exc_info) -> None:
+        self.release()
+
