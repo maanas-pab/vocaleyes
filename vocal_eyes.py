@@ -1132,3 +1132,9 @@ def main(
         print(f"Invalid option: {exc}", file=sys.stderr)
         return 2
 
+    try:
+        _check_dependencies()
+    except DependencyError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+
