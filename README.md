@@ -56,3 +56,12 @@ python vocal_eyes.py --no-calibrate --threshold 0.21
 | `--show-mesh` | off | Draw the full face mesh (setup / debugging). |
 | `--no-mirror` | off | Preview is mirrored by default, like a mirror. |
 
+## Controls
+
+| Key | Action |
+|---|---|
+| `Q` / `Esc` | Quit |
+| `C` | Recalibrate the EAR threshold from open eyes |
+| `M` | Toggle the full face mesh |
+| `R` | Reset the blink detector |
+
