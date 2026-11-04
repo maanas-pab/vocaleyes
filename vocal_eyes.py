@@ -118,3 +118,9 @@ logger = logging.getLogger("vocaleyes")
 
 # ---------------------------------------------------------------------------
 # Landmark indices (MediaPipe Face Mesh, 468 landmarks + refined iris)
+# ---------------------------------------------------------------------------
+# Six-point EAR landmarks per eye: (outer, upper, upper, inner, lower,
+# lower). These are the canonical Soukupova / Cech indices for Face Mesh.
+LEFT_EYE_EAR = (33, 160, 158, 133, 153, 144)
+RIGHT_EYE_EAR = (362, 385, 387, 263, 373, 380)
+
