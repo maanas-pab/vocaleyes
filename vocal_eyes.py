@@ -307,3 +307,9 @@ class EyeReading:
         iris_ring_indices: Tuple[int, ...],
         width: int,
         height: int,
+        padding: int = 14,
+    ) -> "EyeReading":
+        """Build a reading from raw landmarks and this eye's indices."""
+        points = [_to_pixel(lm, width, height) for lm in landmarks]
+        # EAR uses only the six eyelid points, in canonical order.
+        ear_points = [points[i] for i in ear_indices]
