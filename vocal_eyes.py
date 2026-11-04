@@ -101,3 +101,4 @@ else:
     _MP_IMPORT_ERROR = None
 
 
+__version__ = "1.0.0"
