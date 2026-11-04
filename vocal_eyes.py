@@ -382,3 +382,10 @@ def extract_eye_readings(
 # ---------------------------------------------------------------------------
 # Face Mesh wrapper
 # ---------------------------------------------------------------------------
+class FaceMeshTracker:
+    """Thin, safe wrapper around ``mp.solutions.face_mesh``.
+
+    Used as a context manager so the underlying model is always closed,
+    even if the camera loop exits on an error.
+    """
+
