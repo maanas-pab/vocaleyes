@@ -724,3 +724,6 @@ def _text_size(text: str, scale: float, thickness: int) -> Tuple[int, int]:
     return w, h
 
 
+def _draw_text(
+    frame: np.ndarray,
+    text: str,
