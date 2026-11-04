@@ -89,3 +89,12 @@ def my_action(event, count):
 raise SystemExit(main(action_callback=my_action))
 ```
 
+## Design notes for advanced ALS
+
+- **Time, not frame count.** Closure is timed with `time.monotonic()`, so slow and fast machines demand the same hold.
+- **Hysteresis + smoothing.** The eye must fall below the close threshold to start timing and rise above a higher reopen threshold to end it. One noisy frame cannot start, stop, or fire a selection.
+- **Once per closure.** A selection fires once, only after the full hold, and only when the eyes reopen and the cooldown passes can it fire again.
+- **Face loss resets state.** If tracking is lost mid-closure, the partial hold is forgotten.
+- **Calibration is passive.** The user only needs to look at the screen with eyes open; no button press or gaze target is required. Calibration uses the median open EAR, so a blink during calibration does not skew it.
+- **Feedback is large and calm.** Progress and confirmation are big, high-contrast, and static — no flashing, no tiny text, no dependence on sound.
+
