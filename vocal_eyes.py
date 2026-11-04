@@ -984,3 +984,6 @@ class Visualizer:
         _draw_text(frame, label, (centre[0] - lw // 2, centre[1] + radius + 26),
                    scale=0.45, colour=Palette.SOFT_WHITE, thickness=1)
 
+    def _draw_selection_banner(
+        self, frame: np.ndarray, width: int, height: int,
+        now: float, banner_until: float,
