@@ -932,3 +932,8 @@ class Visualizer:
         _draw_text(frame, f"{ear:.2f}", (bx + bar_w + 10, y + 12),
                    scale=0.55, colour=Palette.SOFT_WHITE, thickness=1)
 
+    def _draw_ear_trace(
+        self, frame: np.ndarray, x0: int, y0: int, x1: int, y1: int,
+        threshold: float,
+    ) -> None:
+        """Sparkline of recent EAR, with the close threshold as a line."""
