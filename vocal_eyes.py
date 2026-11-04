@@ -540,3 +540,11 @@ class BlinkDetector:
         """The smoothed EAR most recently seen, or ``None`` before data."""
         return self._smoothed_ear
 
+    @property
+    def hold_progress(self) -> float:
+        """0.0–1.0: how far through the required hold the user is."""
+        if self.state is not BlinkState.CLOSED or self._closed_since is None:
+            return 1.0 if self.state is BlinkState.TRIGGERED else 0.0
+        elapsed = time.monotonic() - self._closed_since
+        return min(1.0, elapsed / self.long_blink_seconds)
+
