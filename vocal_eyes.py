@@ -167,3 +167,6 @@ class Palette:
 # Configuration
 # ---------------------------------------------------------------------------
 @dataclass
+class Config:
+    """All tunable behaviour for VocalEyes. Tune per person, not per run."""
+
