@@ -21,3 +21,12 @@ All processing runs locally on the device. No video, image, or landmark is saved
 3. **BlinkDetector** smooths the combined EAR, applies hysteresis (separate close / reopen thresholds), times closures with a monotonic clock, fires **once** per long blink, then enforces a cooldown.
 4. **The overlay** shows exactly what is being tracked — eyelid contours, iris markers, per-eye EAR bars, an EAR history trace, a hold-to-select progress ring — and a large, calm confirmation banner when a selection fires.
 
+## Quick start
+
+```bash
+pip install -r requirements.txt
+python vocal_eyes.py
+```
+
+Keep your eyes open and relaxed for the 3-second calibration at startup, then hold both eyes closed for 1 second to select. Press `Q` to quit.
+
