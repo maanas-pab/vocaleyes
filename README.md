@@ -65,3 +65,15 @@ python vocal_eyes.py --no-calibrate --threshold 0.21
 | `M` | Toggle the full face mesh |
 | `R` | Reset the blink detector |
 
+## What you see
+
+- **Top bar** — `VOCALEYES`, live face status, FPS.
+- **Eye overlays** — eyelid contour, iris ring + centre dot, rounded bounding box, and a live EAR pill above each eye. Teal = open, amber = closing/closed.
+- **Bottom panel** — per-eye EAR bars with a white threshold tick, combined EAR, EAR history trace, status (`READY` / `HOLDING...` / `SELECTED`), selection count, and controls.
+- **Hold ring** — a large progress ring between the eyes fills as the hold builds, with a percentage. No flashing.
+- **Selection banner** — a centred `✓ SELECTED` banner, plus a console line:
+  ```
+  [VocalEyes] Long Blink / Select registered (#1, held 1.04s, EAR at close 0.12)
+  ```
+- **No face** — a large guidance message appears and tracking pauses. A tracking gap can never become a selection.
+
