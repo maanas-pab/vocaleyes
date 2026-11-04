@@ -1116,3 +1116,7 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
 # ---------------------------------------------------------------------------
 # Main loop
 # ---------------------------------------------------------------------------
+def main(
+    argv: Optional[Sequence[str]] = None,
+    action_callback: Callable[[BlinkEvent, int], None] = on_long_blink,
+) -> int:
