@@ -98,3 +98,13 @@ raise SystemExit(main(action_callback=my_action))
 - **Calibration is passive.** The user only needs to look at the screen with eyes open; no button press or gaze target is required. Calibration uses the median open EAR, so a blink during calibration does not skew it.
 - **Feedback is large and calm.** Progress and confirmation are big, high-contrast, and static — no flashing, no tiny text, no dependence on sound.
 
+## Troubleshooting
+
+| Problem | Check |
+|---|---|
+| `Could not open webcam` | Camera connected? Another app using it? Camera permission granted? Try `--camera 1`. |
+| Webcam stops mid-session | Camera unplugged or taken over by another app; restart the script. |
+| Selections fire too easily | Raise `--threshold` is wrong direction — *lower* the threshold, raise `--long-blink`, or press `C` to recalibrate with eyes open. |
+| Selections never fire | Raise `--threshold` slightly, lower `--long-blink`, or try `--eye-mode min`; recalibrate with `C`. |
+| Jittery EAR / flickering state | Check lighting (avoid strong backlight), clean the lens, sit centred and still. |
+
