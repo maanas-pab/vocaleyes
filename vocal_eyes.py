@@ -620,3 +620,8 @@ class CameraStream:
     surfacing an OpenCV status code.
     """
 
+    def __init__(self, config: Config) -> None:
+        _check_dependencies()
+        self._config = config
+        self._cap = None
+
