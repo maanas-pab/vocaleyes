@@ -548,3 +548,8 @@ class BlinkDetector:
         elapsed = time.monotonic() - self._closed_since
         return min(1.0, elapsed / self.long_blink_seconds)
 
+    @property
+    def is_closed(self) -> bool:
+        """True while the eyes are held shut (before or after firing)."""
+        return self.state in (BlinkState.CLOSED, BlinkState.TRIGGERED)
+
