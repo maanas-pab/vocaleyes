@@ -313,3 +313,9 @@ class EyeReading:
         points = [_to_pixel(lm, width, height) for lm in landmarks]
         # EAR uses only the six eyelid points, in canonical order.
         ear_points = [points[i] for i in ear_indices]
+        ear = calculate_ear(ear_points)
+        contour = [points[i] for i in contour_indices]
+        iris_ring = [points[i] for i in iris_ring_indices
+                     if i < len(points)]
+        # Iris landmarks exist only with refine_landmarks=True. Fall
+        # back to the eye centre so drawing never fails on a partial
