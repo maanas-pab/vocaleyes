@@ -650,3 +650,13 @@ class CameraStream:
             self._cap = None
 
     def read(self) -> np.ndarray:
+        """Read one frame, or raise CameraError if the stream fails."""
+        assert self._cap is not None
+        ok, frame = self._cap.read()
+        if not ok or frame is None:
+            raise CameraError(
+                "Webcam stopped returning frames. The camera may have "
+                "been unplugged or taken over by another app."
+            )
+        return frame
+
