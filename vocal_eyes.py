@@ -705,3 +705,9 @@ def _draw_rounded_outline(
              cv2.LINE_AA)
     cv2.line(frame, (x1, y1 + radius), (x1, y2 - radius), colour, thickness,
              cv2.LINE_AA)
+    cv2.line(frame, (x2, y1 + radius), (x2, y2 - radius), colour, thickness,
+             cv2.LINE_AA)
+    for centre, start, end in (
+        ((x1 + radius, y1 + radius), 180, 270),
+        ((x2 - radius, y1 + radius), 270, 360),
+        ((x1 + radius, y2 - radius), 90, 180),
