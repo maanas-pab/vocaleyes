@@ -1249,3 +1249,6 @@ def main(
                     detector.reset()
                     print("Blink detector reset.", flush=True)
 
+                # If the user closed the window with the OS chrome,
+                # stop cleanly instead of spinning on a dead window.
+                if cv2.getWindowProperty(config.window_name,
