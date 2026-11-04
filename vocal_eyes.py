@@ -1063,3 +1063,6 @@ def on_long_blink(event: BlinkEvent, selection_count: int) -> None:
     logger.info(message)
 
 
+# ---------------------------------------------------------------------------
+# Command-line interface
+# ---------------------------------------------------------------------------
