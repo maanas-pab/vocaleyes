@@ -998,3 +998,9 @@ class Visualizer:
                                   (24, 88, 38), alpha=alpha)
         cv2.rectangle(frame, (x0, y0), (x0 + bw, y0 + bh), Palette.GREEN, 2,
                       cv2.LINE_AA)
+        # Checkmark, drawn as two strokes (Hershey fonts have no tick).
+        cx, cy = x0 + 52, y0 + bh // 2
+        cv2.line(frame, (cx - 16, cy + 2), (cx - 4, cy + 14), Palette.WHITE,
+                 4, cv2.LINE_AA)
+        cv2.line(frame, (cx - 4, cy + 14), (cx + 20, cy - 14), Palette.WHITE,
+                 4, cv2.LINE_AA)
