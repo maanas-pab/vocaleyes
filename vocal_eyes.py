@@ -755,3 +755,9 @@ class Visualizer:
     # -- main entry -------------------------------------------------------
     def draw(
         self,
+        frame: np.ndarray,
+        reading: Optional[FaceReading],
+        detector: BlinkDetector,
+        fps: float,
+        face_found: bool,
+        calibrator: EarCalibrator,
