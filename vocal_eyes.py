@@ -389,3 +389,8 @@ class FaceMeshTracker:
     even if the camera loop exits on an error.
     """
 
+    def __init__(self, config: Config) -> None:
+        _check_dependencies()
+        self._config = config
+        self._mesh = None
+
