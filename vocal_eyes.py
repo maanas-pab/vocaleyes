@@ -186,3 +186,8 @@ class Config:
     # How the two eyes combine. "average" is the safe default; use
     # "min" only for markedly asymmetric closure (one eyelid closes
     # much less than the other), as it is more sensitive to winks.
+    eye_mode: str = "average"
+    # EMA smoothing for EAR (0–1). Higher = smoother but slower.
+    ear_smoothing: float = 0.35
+    show_mesh: bool = False
+    # Seconds of open-eye sampling at startup. 0 disables auto-calibration.
