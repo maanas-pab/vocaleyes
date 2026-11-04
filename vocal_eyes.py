@@ -52,3 +52,7 @@ How it works
    click, or a speech output — this file never assumes what a
    "select" should do downstream.
 
+Usage
+-----
+Install dependencies, then run::
+
