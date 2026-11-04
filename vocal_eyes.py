@@ -1214,3 +1214,11 @@ def main(
                             action_callback(event, selection_count)
                         elif event is not None:
                             logger.debug(
+                                "Short blink ignored (%.2fs)",
+                                event.closed_seconds,
+                            )
+                else:
+                    # No face: forget any partial closure. A tracking
+                    # gap must never become a selection.
+                    detector.reset()
+
