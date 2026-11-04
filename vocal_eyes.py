@@ -135,3 +135,4 @@ RIGHT_EYE_CONTOUR = (
     398, 384, 385, 386, 387, 388, 466,
 )
 
+# Iris landmarks (only present with refine_landmarks=True). Index 468 is
