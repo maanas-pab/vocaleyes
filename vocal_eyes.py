@@ -146,3 +146,6 @@ RIGHT_IRIS_RING = (474, 475, 476, 477)
 # ---------------------------------------------------------------------------
 # Visual palette (BGR, as OpenCV expects) — calm, high-contrast, no neon
 # ---------------------------------------------------------------------------
+class Palette:
+    """Named colours for the overlay. One place to restyle the UI."""
+
