@@ -838,3 +838,8 @@ class Visualizer:
             frame, (0, 0), (width, 54), 0, Palette.PANEL, alpha=0.62)
         dot_colour = Palette.TEAL if face_found else Palette.RED
         cv2.circle(frame, (26, 27), 7, dot_colour, -1, cv2.LINE_AA)
+        _draw_text(frame, "VOCALEYES", (44, 35), scale=0.75,
+                   colour=Palette.WHITE, thickness=2)
+        _draw_text(frame, "Long-blink select", (190, 34), scale=0.55,
+                   colour=Palette.MUTED, thickness=1)
+        status = "Face locked" if face_found else "Searching for face..."
