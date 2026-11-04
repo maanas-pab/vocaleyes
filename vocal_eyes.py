@@ -993,3 +993,8 @@ class Visualizer:
         remaining = max(0.0, banner_until - now)
         alpha = min(0.92, 0.35 + remaining * 0.4)
         bw, bh = 560, 96
+        x0, y0 = (width - bw) // 2, (height - bh) // 2 - 110
+        _draw_filled_rounded_rect(frame, (x0, y0), (x0 + bw, y0 + bh), 20,
+                                  (24, 88, 38), alpha=alpha)
+        cv2.rectangle(frame, (x0, y0), (x0 + bw, y0 + bh), Palette.GREEN, 2,
+                      cv2.LINE_AA)
