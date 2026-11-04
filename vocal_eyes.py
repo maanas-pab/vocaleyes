@@ -832,3 +832,9 @@ class Visualizer:
 
     # -- chrome -----------------------------------------------------------
     def _draw_top_bar(
+        self, frame: np.ndarray, width: int, fps: float, face_found: bool,
+    ) -> None:
+        _draw_filled_rounded_rect(
+            frame, (0, 0), (width, 54), 0, Palette.PANEL, alpha=0.62)
+        dot_colour = Palette.TEAL if face_found else Palette.RED
+        cv2.circle(frame, (26, 27), 7, dot_colour, -1, cv2.LINE_AA)
