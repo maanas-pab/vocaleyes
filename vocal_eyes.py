@@ -124,3 +124,4 @@ logger = logging.getLogger("vocaleyes")
 LEFT_EYE_EAR = (33, 160, 158, 133, 153, 144)
 RIGHT_EYE_EAR = (362, 385, 387, 263, 373, 380)
 
+# Full eyelid contours, drawn so the user (and a carer) can see exactly
