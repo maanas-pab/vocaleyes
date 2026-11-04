@@ -689,3 +689,8 @@ def _draw_filled_rounded_rect(
 def _draw_rounded_outline(
     frame: np.ndarray,
     top_left: Point,
+    bottom_right: Point,
+    radius: int,
+    colour: Tuple[int, int, int],
+    thickness: int = 2,
+) -> None:
