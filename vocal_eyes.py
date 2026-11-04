@@ -887,3 +887,9 @@ class Visualizer:
         self._draw_ear_trace(frame, trace_x0, trace_y0, trace_x1, trace_y1,
                              detector.close_threshold)
 
+        # Right: status + counts, in large type.
+        if detector.state is BlinkState.TRIGGERED:
+            status, colour = "SELECTED", Palette.GREEN
+        elif detector.is_closed:
+            status, colour = "HOLDING...", Palette.AMBER
+        elif detector.state is BlinkState.COOLDOWN:
