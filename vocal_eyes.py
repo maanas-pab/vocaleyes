@@ -727,3 +727,9 @@ def _text_size(text: str, scale: float, thickness: int) -> Tuple[int, int]:
 def _draw_text(
     frame: np.ndarray,
     text: str,
+    origin: Point,
+    scale: float = 0.7,
+    colour: Tuple[int, int, int] = Palette.WHITE,
+    thickness: int = 2,
+) -> None:
+    """Anti-aliased text with a soft shadow, so it reads over any background."""
