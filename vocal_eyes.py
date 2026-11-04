@@ -772,3 +772,8 @@ class Visualizer:
         if reading is not None:
             self._draw_eye(frame, reading.left, detector.is_closed, "LEFT")
             self._draw_eye(frame, reading.right, detector.is_closed, "RIGHT")
+        if show_mesh and mesh_landmarks is not None:
+            self._draw_mesh(frame, mesh_landmarks, width, height)
+        self._draw_top_bar(frame, width, fps, face_found)
+        self._draw_bottom_panel(frame, width, height, reading, detector,
+                                selection_count)
