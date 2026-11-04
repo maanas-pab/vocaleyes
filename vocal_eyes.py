@@ -1258,3 +1258,12 @@ def main(
         print(f"\nCamera error: {exc}", file=sys.stderr)
         return 2
     except KeyboardInterrupt:
+        print("\nInterrupted. Shutting down VocalEyes.")
+    finally:
+        if cv2 is not None:
+            cv2.destroyAllWindows()
+
+    print(f"VocalEyes stopped. Selections this session: {selection_count}.")
+    return 0
+
+
