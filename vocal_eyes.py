@@ -437,3 +437,6 @@ class BlinkState(Enum):
 
 
 @dataclass
+class BlinkEvent:
+    """A single meaningful blink outcome."""
+
