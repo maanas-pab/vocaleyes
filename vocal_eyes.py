@@ -581,3 +581,7 @@ class EarCalibrator:
         self._samples.clear()
         self._started_at = now
 
+    @property
+    def active(self) -> bool:
+        return self._started_at is not None
+
