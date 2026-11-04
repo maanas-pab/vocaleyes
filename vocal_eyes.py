@@ -686,3 +686,6 @@ def _draw_filled_rounded_rect(
     cv2.addWeighted(overlay, alpha, frame, 1.0 - alpha, 0, frame)
 
 
+def _draw_rounded_outline(
+    frame: np.ndarray,
+    top_left: Point,
