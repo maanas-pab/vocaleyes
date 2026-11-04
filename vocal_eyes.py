@@ -1138,3 +1138,7 @@ def main(
         print(str(exc), file=sys.stderr)
         return 2
 
+    assert cv2 is not None
+    detector = BlinkDetector(config)
+    visualizer = Visualizer(config)
+    calibrator = EarCalibrator(config.calibrate_seconds)
