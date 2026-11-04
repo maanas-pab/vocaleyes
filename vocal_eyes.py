@@ -462,3 +462,12 @@ class BlinkDetector:
         # clearly reopen before the detector re-arms. This gap is what
         # stops EAR jitter around the threshold from fluttering state.
         self.open_threshold = config.ear_threshold + 0.04
+        self.long_blink_seconds = config.long_blink_seconds
+        self.cooldown_seconds = config.cooldown_seconds
+        self.smoothing = config.ear_smoothing
+        self.state = BlinkState.OPEN
+        self._smoothed_ear: Optional[float] = None
+        self._closed_since: Optional[float] = None
+        self._ear_at_close = 0.0
+        self._cooldown_until = 0.0
+
