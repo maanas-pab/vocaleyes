@@ -610,3 +610,8 @@ class EarCalibrator:
 
 
 # ---------------------------------------------------------------------------
+# Camera handling
+# ---------------------------------------------------------------------------
+class CameraStream:
+    """Context-managed webcam with clear failure messages.
+
