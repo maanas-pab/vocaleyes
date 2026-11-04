@@ -206,3 +206,5 @@ class Config:
         if self.eye_mode not in ("average", "min"):
             raise ValueError('eye_mode must be "average" or "min"')
 
+    @classmethod
+    def from_args(cls, args: argparse.Namespace) -> "Config":
