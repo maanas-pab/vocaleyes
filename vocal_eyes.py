@@ -1026,3 +1026,8 @@ class Visualizer:
     ) -> None:
         """Large calibration prompt: eyes open, nothing else to do."""
         _draw_filled_rounded_rect(
+            frame, (0, 60), (width, 150), 0, Palette.DARK, alpha=0.55)
+        message = "Calibrating — keep your eyes open and relaxed"
+        mw, _ = _text_size(message, 0.8, 2)
+        _draw_text(frame, message, ((width - mw) // 2, 104), scale=0.8,
+                   colour=Palette.WHITE, thickness=2)
