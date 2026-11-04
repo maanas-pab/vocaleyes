@@ -871,3 +871,13 @@ class Visualizer:
                                detector.close_threshold)
             self._draw_ear_bar(frame, 20, y0 + 74, "R", reading.right.ear,
                                detector.close_threshold)
+            combined = detector.smoothed_ear
+            if combined is not None:
+                _draw_text(frame, f"Combined  {combined:.2f}",
+                           (20, y0 + 108), scale=0.55,
+                           colour=Palette.SOFT_WHITE, thickness=1)
+        else:
+            _draw_text(frame, "No eye data — position your face in frame.",
+                       (20, y0 + 62), scale=0.55, colour=Palette.AMBER,
+                       thickness=1)
+
