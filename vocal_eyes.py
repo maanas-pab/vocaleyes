@@ -1155,3 +1155,6 @@ def main(
               "keep your eyes open and relaxed.")
         calibrator.start(time.monotonic())
 
+    try:
+        with CameraStream(config) as camera, FaceMeshTracker(config) as tracker:
+            cv2.namedWindow(config.window_name, cv2.WINDOW_NORMAL)
