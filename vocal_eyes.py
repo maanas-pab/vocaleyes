@@ -251,3 +251,8 @@ def _check_dependencies() -> None:
 
 
 # ---------------------------------------------------------------------------
+# Geometry helpers — pure functions, unit-testable without a camera
+# ---------------------------------------------------------------------------
+Point = Tuple[int, int]
+
+
