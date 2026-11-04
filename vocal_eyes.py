@@ -893,3 +893,9 @@ class Visualizer:
         elif detector.is_closed:
             status, colour = "HOLDING...", Palette.AMBER
         elif detector.state is BlinkState.COOLDOWN:
+            status, colour = "READY SOON", Palette.MUTED
+        else:
+            status, colour = "READY", Palette.TEAL
+        _draw_text(frame, status, (width - 280, y0 + 48), scale=0.9,
+                   colour=colour, thickness=2)
+        _draw_text(
