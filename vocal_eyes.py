@@ -175,3 +175,8 @@ class Config:
     frame_height: int = 720
     mirror: bool = True
     # EAR below this starts the hold timer. Calibrate per person: eyelid
+    # laxity, ptosis, glasses, and lighting all move a person's open EAR.
+    ear_threshold: float = 0.21
+    # Hold time that counts as deliberate. 1.0 s is long enough to
+    # exclude ordinary blinks, short enough not to tire the user.
+    long_blink_seconds: float = 1.0
