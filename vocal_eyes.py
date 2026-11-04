@@ -560,3 +560,8 @@ class BlinkDetector:
 
 
 # ---------------------------------------------------------------------------
+# Per-person calibration
+# ---------------------------------------------------------------------------
+class EarCalibrator:
+    """Measure open-eye EAR, then set a threshold from the person.
+
