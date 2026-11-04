@@ -593,3 +593,7 @@ class EarCalibrator:
         return min(1.0, (time.monotonic() - self._started_at)
                    / self.duration_seconds)
 
+    def add_sample(self, ear: float) -> None:
+        """Record one open-eye EAR sample."""
+        self._samples.append(ear)
+
