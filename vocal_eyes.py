@@ -752,3 +752,6 @@ class Visualizer:
         """Record an EAR sample for the history trace."""
         self._ear_history.append(ear)
 
+    # -- main entry -------------------------------------------------------
+    def draw(
+        self,
