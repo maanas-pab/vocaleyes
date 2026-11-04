@@ -1197,3 +1197,9 @@ def main(
                                 print(
                                     "Calibration complete: EAR threshold "
                                     f"set to {threshold:.2f}.",
+                                    flush=True,
+                                )
+                            else:
+                                print(
+                                    "Calibration had too few samples; "
+                                    "keeping threshold "
