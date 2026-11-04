@@ -957,3 +957,6 @@ class Visualizer:
         cv2.polylines(frame, [np.array(points, dtype=np.int32)], False,
                       Palette.TEAL, 2, cv2.LINE_AA)
 
+    def _draw_hold_ring(
+        self, frame: np.ndarray, reading: FaceReading, detector: BlinkDetector,
+    ) -> None:
