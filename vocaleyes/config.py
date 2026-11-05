@@ -17,3 +17,10 @@ from dataclasses import dataclass
 class Config:
     """All tunable behaviour for VocalEyes. Tune per person, not per run."""
 
+    camera_index: int = 0
+    frame_width: int = 1280
+    frame_height: int = 720
+    mirror: bool = True
+    # EAR below this starts the hold timer. Calibrate per person: eyelid
+    # laxity, ptosis, glasses, and lighting all move a person's open EAR.
+    ear_threshold: float = 0.21
