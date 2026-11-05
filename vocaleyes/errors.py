@@ -14,3 +14,5 @@ class CameraError(RuntimeError):
     """Raised when no usable webcam can be opened or frames stop coming."""
 
 
+class DependencyError(RuntimeError):
+    """Raised when OpenCV / MediaPipe are not installed."""
