@@ -7,3 +7,10 @@ with an actionable message rather than a bare stack trace, because the
 person running this may be a carer, not a programmer.
 """
 
+from __future__ import annotations
+
+
+class CameraError(RuntimeError):
+    """Raised when no usable webcam can be opened or frames stop coming."""
+
+
