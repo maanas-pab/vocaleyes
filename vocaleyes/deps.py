@@ -9,3 +9,9 @@ along with :func:`check_dependencies`, which turns a missing wheel into
 an instruction instead of a traceback.
 """
 
+from __future__ import annotations
+
+from .errors import DependencyError
+
+try:
+    import cv2
