@@ -17,3 +17,9 @@ class Palette:
     DARK = (24, 24, 28)
     PANEL = (18, 18, 22)
     TEAL = (191, 212, 45)       # #2DD4BF — eyes open / ready
+    GREEN = (94, 197, 34)       # #22C55E — selection confirmed
+    AMBER = (11, 158, 245)      # #F59E0B — holding / closing
+    RED = (68, 68, 239)         # #EF4444 — eyes closed / no face
+    GREY_TRACK = (90, 90, 96)
+    EYE_OPEN = (191, 212, 45)
+    EYE_CLOSED = (11, 158, 245)
