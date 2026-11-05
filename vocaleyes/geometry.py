@@ -10,3 +10,11 @@ from __future__ import annotations
 import math
 from typing import Sequence, Tuple
 
+Point = Tuple[int, int]
+
+
+def distance(a: Point, b: Point) -> float:
+    """Euclidean distance between two pixel points."""
+    return math.hypot(a[0] - b[0], a[1] - b[1])
+
+
