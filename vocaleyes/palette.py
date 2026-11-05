@@ -11,3 +11,9 @@ from __future__ import annotations
 class Palette:
     """Named colours for the overlay. One place to restyle the UI."""
 
+    WHITE = (255, 255, 255)
+    SOFT_WHITE = (235, 235, 235)
+    MUTED = (190, 190, 190)
+    DARK = (24, 24, 28)
+    PANEL = (18, 18, 22)
+    TEAL = (191, 212, 45)       # #2DD4BF — eyes open / ready
