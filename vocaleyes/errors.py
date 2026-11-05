@@ -1,0 +1,9 @@
+"""The two failure modes worth naming: no camera, and no dependencies.
+
+An accessibility tool fails at exactly two interesting points: the thing
+it watches (the webcam) is not there, or the thing it needs to see with
+(OpenCV / MediaPipe) is not installed. Both raise a specific exception
+with an actionable message rather than a bare stack trace, because the
+person running this may be a carer, not a programmer.
+"""
+
