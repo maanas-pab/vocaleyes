@@ -10,3 +10,10 @@ than adjusted on each run.
 from __future__ import annotations
 
 import argparse
+from dataclasses import dataclass
+
+
+@dataclass
+class Config:
+    """All tunable behaviour for VocalEyes. Tune per person, not per run."""
+
