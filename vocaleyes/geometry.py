@@ -36,3 +36,7 @@ def calculate_ear(eye: Sequence[Point]) -> float:
     vertical_b = distance(eye[2], eye[4])
     return (vertical_a + vertical_b) / (2.0 * horizontal)
 
+
+def to_pixel(landmark, width: int, height: int) -> Point:
+    """Convert a normalised MediaPipe landmark to integer pixel coords."""
+    return (int(landmark.x * width), int(landmark.y * height))
