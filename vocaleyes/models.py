@@ -44,3 +44,11 @@ class EyeReading:
         ear_points = [points[i] for i in ear_indices]
         ear = calculate_ear(ear_points)
         contour = [points[i] for i in contour_indices]
+        iris_ring = [points[i] for i in iris_ring_indices
+                     if i < len(points)]
+        # Iris landmarks exist only with refine_landmarks=True. Fall
+        # back to the eye centre so drawing never fails on a partial
+        # result (e.g. 468 landmarks without the refined iris set).
+        if iris_centre_index < len(points):
+            iris_centre = points[iris_centre_index]
+        else:
