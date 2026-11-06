@@ -79,3 +79,8 @@ class EyeReading:
 class FaceReading:
     """Both eyes for one frame, plus the combined EAR used downstream."""
 
+    left: EyeReading
+    right: EyeReading
+    combined_ear: float
+
+
