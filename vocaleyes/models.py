@@ -98,3 +98,11 @@ def extract_eye_readings(
         LEFT_IRIS_CENTRE, LEFT_IRIS_RING, width, height,
     )
     right = EyeReading.from_landmarks(
+        landmarks, RIGHT_EYE_EAR, RIGHT_EYE_CONTOUR,
+        RIGHT_IRIS_CENTRE, RIGHT_IRIS_RING, width, height,
+    )
+    if eye_mode == "min":
+        combined = min(left.ear, right.ear)
+    else:
+        combined = (left.ear + right.ear) / 2.0
+    return FaceReading(left=left, right=right, combined_ear=combined)
