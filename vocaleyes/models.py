@@ -17,3 +17,6 @@ from .landmarks import (LEFT_EYE_EAR, RIGHT_EYE_EAR, LEFT_EYE_CONTOUR, RIGHT_EYE
 
 
 @dataclass
+class EyeReading:
+    """Everything measured for one eye in one frame."""
+
