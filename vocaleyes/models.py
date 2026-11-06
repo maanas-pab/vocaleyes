@@ -60,3 +60,11 @@ class EyeReading:
         xs = [p[0] for p in contour]
         ys = [p[1] for p in contour]
         x = max(0, min(xs) - padding)
+        y = max(0, min(ys) - padding)
+        bbox = (x, y, min(width - x, max(xs) - x + 2 * padding),
+                min(height - y, max(ys) - y + 2 * padding))
+        return cls(
+            ear=ear, contour=contour, iris_centre=iris_centre,
+            iris_ring=iris_ring, bbox=bbox,
+        )
+
