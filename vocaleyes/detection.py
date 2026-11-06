@@ -20,3 +20,13 @@ from .config import Config
 class BlinkState(Enum):
     """Blink detector states. Only CLOSED can become a selection."""
 
+    OPEN = auto()
+    CLOSED = auto()      # eyes shut, hold timer running, not yet fired
+    TRIGGERED = auto()   # selection fired, waiting for eyes to reopen
+    COOLDOWN = auto()    # eyes reopened, quiet period before re-arming
+
+
+@dataclass
+class BlinkEvent:
+    """A single meaningful blink outcome."""
+
