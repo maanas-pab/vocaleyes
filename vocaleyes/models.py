@@ -20,3 +20,9 @@ from .landmarks import (LEFT_EYE_EAR, RIGHT_EYE_EAR, LEFT_EYE_CONTOUR, RIGHT_EYE
 class EyeReading:
     """Everything measured for one eye in one frame."""
 
+    ear: float
+    contour: list[Point]
+    iris_centre: Point
+    iris_ring: list[Point]
+    bbox: Tuple[int, int, int, int]  # x, y, w, h in pixels
+
