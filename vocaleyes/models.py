@@ -37,3 +37,10 @@ class EyeReading:
         width: int,
         height: int,
         padding: int = 14,
+    ) -> "EyeReading":
+        """Build a reading from raw landmarks and this eye's indices."""
+        points = [to_pixel(lm, width, height) for lm in landmarks]
+        # EAR uses only the six eyelid points, in canonical order.
+        ear_points = [points[i] for i in ear_indices]
+        ear = calculate_ear(ear_points)
+        contour = [points[i] for i in contour_indices]
