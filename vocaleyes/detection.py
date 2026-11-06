@@ -39,3 +39,10 @@ class BlinkEvent:
 class BlinkDetector:
     """Detect a deliberate long blink from a stream of EAR values.
 
+    The detector is deliberately boring: it smooths the signal, applies
+    hysteresis, times closures with ``time.monotonic()``, fires at most
+    once per closure, and ignores short blinks entirely. Call
+    :meth:`reset` whenever the face is lost so a tracking gap can never
+    be mistaken for a closure.
+    """
+
