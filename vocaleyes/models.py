@@ -84,3 +84,8 @@ class FaceReading:
     combined_ear: float
 
 
+def extract_eye_readings(
+    landmarks, width: int, height: int, eye_mode: str = "average",
+) -> FaceReading:
+    """Extract left/right readings and the combined EAR from landmarks.
+
