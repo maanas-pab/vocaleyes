@@ -59,3 +59,12 @@ class Config:
         return cls(
             camera_index=args.camera,
             frame_width=args.width,
+            frame_height=args.height,
+            mirror=not args.no_mirror,
+            ear_threshold=args.threshold,
+            long_blink_seconds=args.long_blink,
+            cooldown_seconds=args.cooldown,
+            eye_mode=args.eye_mode,
+            show_mesh=args.show_mesh,
+            calibrate_seconds=0.0 if args.no_calibrate else args.calibrate,
+        )
