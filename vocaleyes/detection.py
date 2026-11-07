@@ -65,3 +65,11 @@ class BlinkDetector:
     def update(self, combined_ear: float, now: float) -> Optional[BlinkEvent]:
         """Feed one (combined) EAR sample. Returns an event, if any."""
         if self._smoothed_ear is None:
+            self._smoothed_ear = combined_ear
+        else:
+            alpha = self.smoothing
+            self._smoothed_ear = (
+                alpha * combined_ear + (1.0 - alpha) * self._smoothed_ear
+            )
+        ear = self._smoothed_ear
+
