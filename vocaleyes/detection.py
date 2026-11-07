@@ -97,3 +97,12 @@ class BlinkDetector:
                 )
             return None
 
+        if self.state is BlinkState.TRIGGERED:
+            # Stay triggered until the eyes clearly reopen; the selection
+            # has already fired, so this state only guards re-arming.
+            if ear >= self.open_threshold:
+                self.state = BlinkState.COOLDOWN
+                self._cooldown_until = now + self.cooldown_seconds
+                self._closed_since = None
+            return None
+
