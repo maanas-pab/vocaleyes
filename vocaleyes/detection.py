@@ -143,3 +143,7 @@ class BlinkDetector:
         """True while the eyes are held shut (before or after firing)."""
         return self.state in (BlinkState.CLOSED, BlinkState.TRIGGERED)
 
+    def _reset_to_open(self, now: float) -> None:
+        self.state = BlinkState.OPEN
+        self._closed_since = None
+        self._cooldown_until = now
