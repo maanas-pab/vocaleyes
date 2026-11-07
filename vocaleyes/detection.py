@@ -80,3 +80,10 @@ class BlinkDetector:
                 self._ear_at_close = ear
             return None
 
+        if self.state is BlinkState.CLOSED:
+            assert self._closed_since is not None
+            if ear >= self.open_threshold:
+                closed_for = now - self._closed_since
+                self._reset_to_open(now)
+                if closed_for < self.long_blink_seconds:
+                    return BlinkEvent("short_blink", closed_for,
