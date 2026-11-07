@@ -124,3 +124,9 @@ class BlinkDetector:
         self.open_threshold = ear_threshold + 0.04
         self.reset()
 
+    # -- derived state for the UI ----------------------------------------
+    @property
+    def smoothed_ear(self) -> Optional[float]:
+        """The smoothed EAR most recently seen, or ``None`` before data."""
+        return self._smoothed_ear
+
