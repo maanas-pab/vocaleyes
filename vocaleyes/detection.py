@@ -46,3 +46,7 @@ class BlinkDetector:
     be mistaken for a closure.
     """
 
+    def __init__(self, config: Config) -> None:
+        self.close_threshold = config.ear_threshold
+        # Reopen threshold sits above the close threshold: the eye must
+        # clearly reopen before the detector re-arms. This gap is what
