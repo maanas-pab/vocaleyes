@@ -48,3 +48,13 @@ class EarCalibrator:
         """Record one open-eye EAR sample."""
         self._samples.append(ear)
 
+    def finish(self) -> Optional[float]:
+        """Return the recommended threshold, or None if too few samples."""
+        self._started_at = None
+        if len(self._samples) < 10:
+            return None
+        samples = sorted(self._samples)
+        # Use the median: robust to a blink or two during calibration.
+        median = samples[len(samples) // 2]
+        # 70% of open EAR, clamped to a sane, safe band.
+        return min(0.28, max(0.12, median * 0.70))
