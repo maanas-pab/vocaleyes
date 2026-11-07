@@ -106,3 +106,8 @@ class BlinkDetector:
                 self._closed_since = None
             return None
 
+        # COOLDOWN: wait out the quiet period, then re-arm.
+        if now >= self._cooldown_until:
+            self.state = BlinkState.OPEN
+        return None
+
