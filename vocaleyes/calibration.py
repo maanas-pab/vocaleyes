@@ -12,3 +12,13 @@ from typing import Optional
 
 # ---------------------------------------------------------------------------
 # Per-person calibration
+# ---------------------------------------------------------------------------
+class EarCalibrator:
+    """Measure open-eye EAR, then set a threshold from the person.
+
+    The user simply looks at the screen with eyes open and relaxed.
+    The threshold is set well below their typical open EAR, so normal
+    variation never starts a hold, while a real closure still crosses
+    it quickly. No button press or gaze target is required.
+    """
+
