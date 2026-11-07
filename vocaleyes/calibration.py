@@ -22,3 +22,13 @@ class EarCalibrator:
     it quickly. No button press or gaze target is required.
     """
 
+    def __init__(self, duration_seconds: float = 3.0) -> None:
+        self.duration_seconds = duration_seconds
+        self._samples: list[float] = []
+        self._started_at: Optional[float] = None
+
+    def start(self, now: float) -> None:
+        """Begin (or restart) a calibration window."""
+        self._samples.clear()
+        self._started_at = now
+
