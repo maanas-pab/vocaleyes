@@ -118,3 +118,9 @@ class BlinkDetector:
         self._smoothed_ear = None
         self._cooldown_until = 0.0
 
+    def retune(self, ear_threshold: float) -> None:
+        """Apply a newly calibrated threshold, preserving hysteresis."""
+        self.close_threshold = ear_threshold
+        self.open_threshold = ear_threshold + 0.04
+        self.reset()
+
