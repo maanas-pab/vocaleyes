@@ -19,3 +19,12 @@ from .deps import check_dependencies, mp
 class FaceMeshTracker:
     """Thin, safe wrapper around ``mp.solutions.face_mesh``.
 
+    Used as a context manager so the underlying model is always closed,
+    even if the camera loop exits on an error.
+    """
+
+    def __init__(self, config: Config) -> None:
+        check_dependencies()
+        self._config = config
+        self._mesh = None
+
