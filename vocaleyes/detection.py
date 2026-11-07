@@ -61,3 +61,7 @@ class BlinkDetector:
         self._ear_at_close = 0.0
         self._cooldown_until = 0.0
 
+    # -- public API -------------------------------------------------------
+    def update(self, combined_ear: float, now: float) -> Optional[BlinkEvent]:
+        """Feed one (combined) EAR sample. Returns an event, if any."""
+        if self._smoothed_ear is None:
