@@ -39,3 +39,12 @@ class FaceMeshTracker:
         )
         return self
 
+    def __exit__(self, *exc_info) -> None:
+        self.close()
+
+    def close(self) -> None:
+        """Release the MediaPipe model. Safe to call more than once."""
+        if self._mesh is not None:
+            self._mesh.close()
+            self._mesh = None
+
