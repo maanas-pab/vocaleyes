@@ -43,3 +43,9 @@ def _draw_filled_rounded_rect(
     radius = min(radius, (x2 - x1) // 2, (y2 - y1) // 2)
     cv2.rectangle(overlay, (x1 + radius, y1), (x2 - radius, y2), colour, -1)
     cv2.rectangle(overlay, (x1, y1 + radius), (x2, y2 - radius), colour, -1)
+    for cx, cy in ((x1 + radius, y1 + radius), (x2 - radius, y1 + radius),
+                   (x1 + radius, y2 - radius), (x2 - radius, y2 - radius)):
+        cv2.circle(overlay, (cx, cy), radius, colour, -1)
+    cv2.addWeighted(overlay, alpha, frame, 1.0 - alpha, 0, frame)
+
+
