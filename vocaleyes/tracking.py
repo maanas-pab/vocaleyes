@@ -48,3 +48,11 @@ class FaceMeshTracker:
             self._mesh.close()
             self._mesh = None
 
+    def process(self, rgb_frame: np.ndarray):
+        """Return the first face's landmarks, or ``None`` if no face."""
+        if self._mesh is None:
+            raise RuntimeError("FaceMeshTracker must be used as a context manager")
+        results = self._mesh.process(rgb_frame)
+        if not results.multi_face_landmarks:
+            return None
+        return results.multi_face_landmarks[0].landmark
