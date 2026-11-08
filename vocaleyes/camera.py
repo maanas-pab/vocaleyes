@@ -10,3 +10,9 @@ import numpy as np
 
 from .config import Config
 from .deps import check_dependencies, cv2
+from .errors import CameraError
+
+
+# ---------------------------------------------------------------------------
+# Camera handling
+# ---------------------------------------------------------------------------
