@@ -28,3 +28,14 @@ class FaceMeshTracker:
         self._config = config
         self._mesh = None
 
+    def __enter__(self) -> "FaceMeshTracker":
+        assert mp is not None  # checked above; keeps type checkers honest
+        self._mesh = mp.solutions.face_mesh.FaceMesh(
+            static_image_mode=False,
+            max_num_faces=1,
+            refine_landmarks=True,  # enables the 10 iris landmarks
+            min_detection_confidence=self._config.min_detection_confidence,
+            min_tracking_confidence=self._config.min_tracking_confidence,
+        )
+        return self
+
