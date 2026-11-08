@@ -24,3 +24,6 @@ from .models import EyeReading, FaceReading
 from .palette import Palette
 
 
+# ---------------------------------------------------------------------------
+# Overlay rendering — the part the user actually looks at
+# ---------------------------------------------------------------------------
