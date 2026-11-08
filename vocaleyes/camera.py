@@ -47,3 +47,9 @@ class CameraStream:
     def __exit__(self, *exc_info) -> None:
         self.release()
 
+    def release(self) -> None:
+        """Release the camera. Safe to call more than once."""
+        if self._cap is not None:
+            self._cap.release()
+            self._cap = None
+
