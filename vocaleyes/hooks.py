@@ -23,3 +23,11 @@ def on_long_blink(event: BlinkEvent, selection_count: int) -> None:
     downstream effect — a mouse click, a switch press, a scanning
     keyboard advance, or speech output. Keep downstream work fast and
     non-blocking: this runs inside the camera loop.
+    """
+    message = (
+        f"[VocalEyes] Long Blink / Select registered "
+        f"(#{selection_count}, held {event.closed_seconds:.2f}s, "
+        f"EAR at close {event.ear_at_close:.2f})"
+    )
+    print(message, flush=True)
+    logger.info(message)
