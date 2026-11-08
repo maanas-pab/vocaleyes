@@ -27,3 +27,19 @@ from .palette import Palette
 # ---------------------------------------------------------------------------
 # Overlay rendering — the part the user actually looks at
 # ---------------------------------------------------------------------------
+def _draw_filled_rounded_rect(
+    frame: np.ndarray,
+    top_left: Point,
+    bottom_right: Point,
+    radius: int,
+    colour: Tuple[int, int, int],
+    alpha: float = 0.72,
+) -> None:
+    """Draw a translucent filled panel with rounded corners, in place."""
+    assert cv2 is not None
+    overlay = frame.copy()
+    x1, y1 = top_left
+    x2, y2 = bottom_right
+    radius = min(radius, (x2 - x1) // 2, (y2 - y1) // 2)
+    cv2.rectangle(overlay, (x1 + radius, y1), (x2 - radius, y2), colour, -1)
+    cv2.rectangle(overlay, (x1, y1 + radius), (x2, y2 - radius), colour, -1)
