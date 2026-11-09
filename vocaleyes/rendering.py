@@ -167,3 +167,18 @@ class Visualizer:
         # position readable even on a small preview.
         cv2.circle(frame, eye.iris_centre, 9, colour, 1, cv2.LINE_AA)
         cv2.circle(frame, eye.iris_centre, 3, Palette.WHITE, -1, cv2.LINE_AA)
+        for point in eye.iris_ring:
+            cv2.circle(frame, point, 2, colour, -1, cv2.LINE_AA)
+        # Rounded bounding box around the whole eye.
+        x, y, w, h = eye.bbox
+        _draw_rounded_outline(frame, (x, y), (x + w, y + h), 10, colour, 2)
+        # Small label pill above the box with the live EAR.
+        pill_w, pill_h = 118, 26
+        pill_x = max(4, min(frame.shape[1] - pill_w - 4, x))
+        pill_y = max(4, y - pill_h - 6)
+        _draw_filled_rounded_rect(
+            frame, (pill_x, pill_y), (pill_x + pill_w, pill_y + pill_h),
+            13, Palette.DARK, alpha=0.78)
+        _draw_text(frame, f"{label}  {eye.ear:.2f}", (pill_x + 10, pill_y + 18),
+                   scale=0.5, colour=Palette.SOFT_WHITE, thickness=1)
+
