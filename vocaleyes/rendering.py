@@ -150,3 +150,20 @@ class Visualizer:
             self._draw_no_face_overlay(frame, width, height)
         return frame
 
+    # -- eyes -------------------------------------------------------------
+    def _draw_eye(
+        self, frame: np.ndarray, eye: EyeReading, closed: bool, label: str,
+    ) -> None:
+        assert cv2 is not None
+        colour = Palette.EYE_CLOSED if closed else Palette.EYE_OPEN
+        # Eyelid contour — a closed loop so closure is visible at a glance.
+        pts = np.array(eye.contour, dtype=np.int32).reshape((-1, 1, 2))
+        cv2.polylines(frame, [pts], isClosed=True, color=colour,
+                      thickness=2, lineType=cv2.LINE_AA)
+        # Landmark dots on the contour.
+        for point in eye.contour:
+            cv2.circle(frame, point, 2, Palette.WHITE, -1, cv2.LINE_AA)
+        # Iris: soft glow ring + centre dot. The ring makes gaze/iris
+        # position readable even on a small preview.
+        cv2.circle(frame, eye.iris_centre, 9, colour, 1, cv2.LINE_AA)
+        cv2.circle(frame, eye.iris_centre, 3, Palette.WHITE, -1, cv2.LINE_AA)
