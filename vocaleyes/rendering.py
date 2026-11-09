@@ -226,3 +226,11 @@ class Visualizer:
             frame, (0, y0), (width, height), 0, Palette.PANEL, alpha=0.78)
         cv2.line(frame, (0, y0), (width, y0), (60, 60, 66), 1, cv2.LINE_AA)
 
+        # Left: per-eye EAR bars with the threshold marker.
+        _draw_text(frame, "EYE ASPECT RATIO  (open ~0.30  /  closed ~0.05)",
+                   (20, y0 + 26), scale=0.5, colour=Palette.MUTED, thickness=1)
+        if reading is not None:
+            self._draw_ear_bar(frame, 20, y0 + 40, "L", reading.left.ear,
+                               detector.close_threshold)
+            self._draw_ear_bar(frame, 20, y0 + 74, "R", reading.right.ear,
+                               detector.close_threshold)
