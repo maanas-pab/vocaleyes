@@ -182,3 +182,14 @@ class Visualizer:
         _draw_text(frame, f"{label}  {eye.ear:.2f}", (pill_x + 10, pill_y + 18),
                    scale=0.5, colour=Palette.SOFT_WHITE, thickness=1)
 
+    def _draw_mesh(
+        self, frame: np.ndarray, landmarks, width: int, height: int,
+    ) -> None:
+        """Optional faint full-face mesh (debug / setup aid)."""
+        assert cv2 is not None and mp is not None
+        connections = mp.solutions.face_mesh.FACEMESH_TESSELLATION
+        for start_idx, end_idx in connections:
+            a = to_pixel(landmarks[start_idx], width, height)
+            b = to_pixel(landmarks[end_idx], width, height)
+            cv2.line(frame, a, b, (70, 70, 78), 1, cv2.LINE_AA)
+
