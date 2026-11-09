@@ -133,3 +133,14 @@ class Visualizer:
         """Draw the full overlay onto ``frame`` and return it."""
         height, width = frame.shape[:2]
         if reading is not None:
+            self._draw_eye(frame, reading.left, detector.is_closed, "LEFT")
+            self._draw_eye(frame, reading.right, detector.is_closed, "RIGHT")
+        if show_mesh and mesh_landmarks is not None:
+            self._draw_mesh(frame, mesh_landmarks, width, height)
+        self._draw_top_bar(frame, width, fps, face_found)
+        self._draw_bottom_panel(frame, width, height, reading, detector,
+                                selection_count)
+        if reading is not None and detector.hold_progress > 0.0:
+            self._draw_hold_ring(frame, reading, detector)
+        if now < banner_until:
+            self._draw_selection_banner(frame, width, height, now, banner_until)
