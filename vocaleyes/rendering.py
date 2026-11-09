@@ -215,3 +215,14 @@ class Visualizer:
         _draw_text(frame, fps_text, (width - fw - 18, 34), scale=0.55,
                    colour=Palette.MUTED, thickness=1)
 
+    def _draw_bottom_panel(
+        self, frame: np.ndarray, width: int, height: int,
+        reading: Optional[FaceReading], detector: BlinkDetector,
+        selection_count: int,
+    ) -> None:
+        panel_h = 128
+        y0 = height - panel_h
+        _draw_filled_rounded_rect(
+            frame, (0, y0), (width, height), 0, Palette.PANEL, alpha=0.78)
+        cv2.line(frame, (0, y0), (width, y0), (60, 60, 66), 1, cv2.LINE_AA)
+
