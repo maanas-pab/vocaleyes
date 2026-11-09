@@ -80,3 +80,10 @@ def _draw_rounded_outline(
                     colour, thickness, cv2.LINE_AA)
 
 
+def _text_size(text: str, scale: float, thickness: int) -> Tuple[int, int]:
+    assert cv2 is not None
+    (w, h), _ = cv2.getTextSize(
+        text, cv2.FONT_HERSHEY_SIMPLEX, scale, thickness)
+    return w, h
+
+
