@@ -49,3 +49,20 @@ def _draw_filled_rounded_rect(
     cv2.addWeighted(overlay, alpha, frame, 1.0 - alpha, 0, frame)
 
 
+def _draw_rounded_outline(
+    frame: np.ndarray,
+    top_left: Point,
+    bottom_right: Point,
+    radius: int,
+    colour: Tuple[int, int, int],
+    thickness: int = 2,
+) -> None:
+    """Draw a rounded-corner outline (used for the eye boxes)."""
+    assert cv2 is not None
+    x1, y1 = top_left
+    x2, y2 = bottom_right
+    radius = min(radius, (x2 - x1) // 2, (y2 - y1) // 2)
+    cv2.line(frame, (x1 + radius, y1), (x2 - radius, y1), colour, thickness,
+             cv2.LINE_AA)
+    cv2.line(frame, (x1 + radius, y2), (x2 - radius, y2), colour, thickness,
+             cv2.LINE_AA)
