@@ -115,3 +115,21 @@ class Visualizer:
         """Record an EAR sample for the history trace."""
         self._ear_history.append(ear)
 
+    # -- main entry -------------------------------------------------------
+    def draw(
+        self,
+        frame: np.ndarray,
+        reading: Optional[FaceReading],
+        detector: BlinkDetector,
+        fps: float,
+        face_found: bool,
+        calibrator: EarCalibrator,
+        selection_count: int,
+        banner_until: float,
+        now: float,
+        show_mesh: bool,
+        mesh_landmarks=None,
+    ) -> np.ndarray:
+        """Draw the full overlay onto ``frame`` and return it."""
+        height, width = frame.shape[:2]
+        if reading is not None:
