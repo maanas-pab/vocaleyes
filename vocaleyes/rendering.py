@@ -111,3 +111,7 @@ class Visualizer:
         self._config = config
         self._ear_history: Deque[float] = deque(maxlen=90)
 
+    def note_ear(self, ear: float) -> None:
+        """Record an EAR sample for the history trace."""
+        self._ear_history.append(ear)
+
