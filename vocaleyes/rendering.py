@@ -320,3 +320,19 @@ class Visualizer:
         cv2.polylines(frame, [np.array(points, dtype=np.int32)], False,
                       Palette.TEAL, 2, cv2.LINE_AA)
 
+    def _draw_hold_ring(
+        self, frame: np.ndarray, reading: FaceReading, detector: BlinkDetector,
+    ) -> None:
+        """Large progress ring between the eyes: the hold, made visible."""
+        assert cv2 is not None
+        centre = (
+            (reading.left.centre[0] + reading.right.centre[0]) // 2,
+            (reading.left.centre[1] + reading.right.centre[1]) // 2,
+        )
+        radius, thickness = 62, 10
+        progress = detector.hold_progress
+        cv2.circle(frame, centre, radius, Palette.GREY_TRACK, thickness,
+                   cv2.LINE_AA)
+        if progress > 0.0:
+            end_angle = -90 + int(360 * progress)
+            colour = Palette.AMBER if progress < 1.0 else Palette.GREEN
