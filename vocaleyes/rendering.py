@@ -272,3 +272,10 @@ class Visualizer:
                    (width - 280, y0 + 106), scale=0.5, colour=Palette.MUTED,
                    thickness=1)
 
+    def _draw_ear_bar(
+        self, frame: np.ndarray, x: int, y: int, label: str,
+        ear: float, threshold: float,
+    ) -> None:
+        bar_w, bar_h = 240, 14
+        _draw_text(frame, label, (x, y + 12), scale=0.55,
+                   colour=Palette.SOFT_WHITE, thickness=1)
