@@ -43,3 +43,12 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
         epilog=(
             "Controls: Q / Esc quit  |  C recalibrate  |  "
             "M toggle face mesh  |  R reset detector."
+        ),
+    )
+    parser.add_argument("--camera", type=int, default=0,
+                        help="Webcam index (default: 0; try 1 if no camera).")
+    parser.add_argument("--width", type=int, default=1280,
+                        help="Requested capture width (default: 1280).")
+    parser.add_argument("--height", type=int, default=720,
+                        help="Requested capture height (default: 720).")
+    parser.add_argument("--no-mirror", action="store_true",
