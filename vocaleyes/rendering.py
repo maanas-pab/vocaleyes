@@ -313,3 +313,10 @@ class Visualizer:
         span = max(1, x1 - x0)
         step = span / 89.0
         points = []
+        for i, ear in enumerate(self._ear_history):
+            px = int(x0 + i * step)
+            py = y1 - int(min(1.0, max(0.0, ear / 0.45)) * (y1 - y0))
+            points.append((px, py))
+        cv2.polylines(frame, [np.array(points, dtype=np.int32)], False,
+                      Palette.TEAL, 2, cv2.LINE_AA)
+
