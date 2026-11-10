@@ -61,3 +61,12 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
                         "(default: 1.0).")
     parser.add_argument("--cooldown", type=float, default=1.5,
                         help="Quiet period in seconds after a Select "
+                        "(default: 1.5).")
+    parser.add_argument("--eye-mode", choices=("average", "min"),
+                        default="average",
+                        help="How to combine the two eyes: average "
+                        "(default) or min (more sensitive, for asymmetric "
+                        "closure).")
+    parser.add_argument("--show-mesh", action="store_true",
+                        help="Draw the full face mesh (setup / debugging).")
+    parser.add_argument("--calibrate", type=float, default=3.0,
