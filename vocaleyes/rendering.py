@@ -279,3 +279,14 @@ class Visualizer:
         bar_w, bar_h = 240, 14
         _draw_text(frame, label, (x, y + 12), scale=0.55,
                    colour=Palette.SOFT_WHITE, thickness=1)
+        bx = x + 22
+        _draw_filled_rounded_rect(frame, (bx, y), (bx + bar_w, y + bar_h),
+                                  7, Palette.GREY_TRACK, alpha=0.9)
+        fill_w = int(bar_w * min(1.0, max(0.0, ear / 0.45)))
+        fill_colour = (Palette.TEAL if ear >= threshold else Palette.AMBER)
+        if fill_w > 0:
+            _draw_filled_rounded_rect(
+                frame, (bx, y), (bx + fill_w, y + bar_h), 7,
+                fill_colour, alpha=0.95)
+        # Threshold tick.
+        tick_x = bx + int(bar_w * (threshold / 0.45))
