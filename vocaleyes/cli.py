@@ -70,3 +70,15 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--show-mesh", action="store_true",
                         help="Draw the full face mesh (setup / debugging).")
     parser.add_argument("--calibrate", type=float, default=3.0,
+                        help="Seconds of open-eye calibration at startup "
+                        "(default: 3.0).")
+    parser.add_argument("--no-calibrate", action="store_true",
+                        help="Skip startup calibration; use --threshold.")
+    parser.add_argument("--version", action="version",
+                        version=f"%(prog)s {__version__}")
+    return parser.parse_args(argv)
+
+
+# ---------------------------------------------------------------------------
+# Main loop
+# ---------------------------------------------------------------------------
