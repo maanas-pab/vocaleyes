@@ -104,3 +104,13 @@ def main(
         print(str(exc), file=sys.stderr)
         return 2
 
+    assert cv2 is not None
+    detector = BlinkDetector(config)
+    visualizer = Visualizer(config)
+    calibrator = EarCalibrator(config.calibrate_seconds)
+    selection_count = 0
+    banner_until = 0.0
+    fps = 0.0
+    show_mesh = config.show_mesh
+    consecutive_failures = 0
+
