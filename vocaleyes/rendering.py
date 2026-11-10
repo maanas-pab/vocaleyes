@@ -347,3 +347,14 @@ class Visualizer:
         _draw_text(frame, label, (centre[0] - lw // 2, centre[1] + radius + 26),
                    scale=0.45, colour=Palette.SOFT_WHITE, thickness=1)
 
+    def _draw_selection_banner(
+        self, frame: np.ndarray, width: int, height: int,
+        now: float, banner_until: float,
+    ) -> None:
+        """Full-width confirmation banner. Drawn, not flashed."""
+        assert cv2 is not None
+        remaining = max(0.0, banner_until - now)
+        alpha = min(0.92, 0.35 + remaining * 0.4)
+        bw, bh = 560, 96
+        x0, y0 = (width - bw) // 2, (height - bh) // 2 - 110
+        _draw_filled_rounded_rect(frame, (x0, y0), (x0 + bw, y0 + bh), 20,
