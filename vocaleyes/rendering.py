@@ -358,3 +358,17 @@ class Visualizer:
         bw, bh = 560, 96
         x0, y0 = (width - bw) // 2, (height - bh) // 2 - 110
         _draw_filled_rounded_rect(frame, (x0, y0), (x0 + bw, y0 + bh), 20,
+                                  (24, 88, 38), alpha=alpha)
+        cv2.rectangle(frame, (x0, y0), (x0 + bw, y0 + bh), Palette.GREEN, 2,
+                      cv2.LINE_AA)
+        # Checkmark, drawn as two strokes (Hershey fonts have no tick).
+        cx, cy = x0 + 52, y0 + bh // 2
+        cv2.line(frame, (cx - 16, cy + 2), (cx - 4, cy + 14), Palette.WHITE,
+                 4, cv2.LINE_AA)
+        cv2.line(frame, (cx - 4, cy + 14), (cx + 20, cy - 14), Palette.WHITE,
+                 4, cv2.LINE_AA)
+        _draw_text(frame, "SELECTED", (x0 + 88, y0 + 44), scale=1.0,
+                   colour=Palette.WHITE, thickness=2)
+        _draw_text(frame, "Long blink confirmed", (x0 + 88, y0 + 74),
+                   scale=0.55, colour=Palette.SOFT_WHITE, thickness=1)
+
