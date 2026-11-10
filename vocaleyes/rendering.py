@@ -392,3 +392,14 @@ class Visualizer:
             frame, (0, 60), (width, 150), 0, Palette.DARK, alpha=0.55)
         message = "Calibrating — keep your eyes open and relaxed"
         mw, _ = _text_size(message, 0.8, 2)
+        _draw_text(frame, message, ((width - mw) // 2, 104), scale=0.8,
+                   colour=Palette.WHITE, thickness=2)
+        bar_w, bar_h = 420, 12
+        bx, by = (width - bar_w) // 2, 122
+        _draw_filled_rounded_rect(frame, (bx, by), (bx + bar_w, by + bar_h),
+                                  6, Palette.GREY_TRACK, alpha=0.9)
+        fill_w = int(bar_w * calibrator.progress)
+        if fill_w > 0:
+            _draw_filled_rounded_rect(
+                frame, (bx, by), (bx + fill_w, by + bar_h), 6,
+                Palette.TEAL, alpha=0.95)
