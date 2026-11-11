@@ -188,3 +188,10 @@ def main(
                     # gap must never become a selection.
                     detector.reset()
 
+                frame = visualizer.draw(
+                    frame, reading, detector, fps, face_found,
+                    calibrator, selection_count, banner_until, now,
+                    show_mesh, mesh_landmarks=landmarks,
+                )
+                cv2.imshow(config.window_name, frame)
+
