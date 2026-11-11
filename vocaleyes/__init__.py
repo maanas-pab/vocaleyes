@@ -57,3 +57,14 @@ __all__ = [
 def __getattr__(name: str):
     """Expose the heavier parts of the API lazily (PEP 562).
 
+    ``FaceMeshTracker`` pulls MediaPipe into memory and ``main`` pulls in
+    the renderer and NumPy; neither belongs in a plain
+    ``import vocaleyes`` used by docs tooling or ``--help``.
+    """
+    if name == "FaceMeshTracker":
+        from .tracking import FaceMeshTracker
+        return FaceMeshTracker
+    if name == "main":
+        from .cli import main
+        return main
+    raise AttributeError(f"module {__name__!r} has no attribute {name!r}")
