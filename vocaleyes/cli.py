@@ -201,3 +201,17 @@ def main(
                 instant_fps = 1.0 / frame_seconds
                 fps = instant_fps if fps == 0.0 else 0.9 * fps + 0.1 * instant_fps
 
+                key = cv2.waitKey(1) & 0xFF
+                if key in (ord("q"), ord("Q"), 27):  # Q / Esc
+                    break
+                if key in (ord("c"), ord("C")):
+                    detector.reset()
+                    calibrator.start(now)
+                    print("Recalibrating: keep your eyes open and relaxed.",
+                          flush=True)
+                elif key in (ord("m"), ord("M")):
+                    show_mesh = not show_mesh
+                elif key in (ord("r"), ord("R")):
+                    detector.reset()
+                    print("Blink detector reset.", flush=True)
+
