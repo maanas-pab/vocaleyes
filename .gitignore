@@ -17,3 +17,8 @@ dist/
 .eggs/
 pip-wheel-metadata/
 
+# Editors and macOS
+.DS_Store
+.idea/
+.vscode/
+*.swp
