@@ -10,3 +10,21 @@ Config, calculate_ear`` style imports keep working unchanged.
 
 from __future__ import annotations
 
+from vocaleyes import (
+    BlinkDetector,
+    BlinkEvent,
+    BlinkState,
+    CameraError,
+    Config,
+    DependencyError,
+    EarCalibrator,
+    EyeReading,
+    FaceReading,
+    __version__,
+    calculate_ear,
+    extract_eye_readings,
+    on_long_blink,
+)
+from vocaleyes.cli import main, parse_args
+from vocaleyes.tracking import FaceMeshTracker
+
