@@ -28,3 +28,10 @@ from __future__ import annotations
 
 from ._version import __version__
 from .calibration import EarCalibrator
+from .config import Config
+from .detection import BlinkDetector, BlinkEvent, BlinkState
+from .errors import CameraError, DependencyError
+from .geometry import Point, calculate_ear
+from .hooks import on_long_blink
+from .models import EyeReading, FaceReading, extract_eye_readings
+
