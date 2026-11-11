@@ -28,3 +28,24 @@ from vocaleyes import (
 from vocaleyes.cli import main, parse_args
 from vocaleyes.tracking import FaceMeshTracker
 
+__all__ = [
+    "BlinkDetector",
+    "BlinkEvent",
+    "BlinkState",
+    "CameraError",
+    "Config",
+    "DependencyError",
+    "EarCalibrator",
+    "EyeReading",
+    "FaceReading",
+    "FaceMeshTracker",
+    "__version__",
+    "calculate_ear",
+    "extract_eye_readings",
+    "main",
+    "on_long_blink",
+    "parse_args",
+]
+
+if __name__ == "__main__":
+    raise SystemExit(main())
