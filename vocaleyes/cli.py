@@ -177,3 +177,14 @@ def main(
                         if event is not None and event.kind == "select":
                             selection_count += 1
                             banner_until = now + 1.6
+                            action_callback(event, selection_count)
+                        elif event is not None:
+                            logger.debug(
+                                "Short blink ignored (%.2fs)",
+                                event.closed_seconds,
+                            )
+                else:
+                    # No face: forget any partial closure. A tracking
+                    # gap must never become a selection.
+                    detector.reset()
+
