@@ -54,3 +54,6 @@ __all__ = [
 ]
 
 
+def __getattr__(name: str):
+    """Expose the heavier parts of the API lazily (PEP 562).
+
