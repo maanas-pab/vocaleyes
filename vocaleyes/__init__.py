@@ -35,3 +35,10 @@ from .geometry import Point, calculate_ear
 from .hooks import on_long_blink
 from .models import EyeReading, FaceReading, extract_eye_readings
 
+__all__ = [
+    "BlinkDetector",
+    "BlinkEvent",
+    "BlinkState",
+    "CameraError",
+    "Config",
+    "DependencyError",
