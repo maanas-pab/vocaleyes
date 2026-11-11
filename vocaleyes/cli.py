@@ -114,3 +114,10 @@ def main(
     show_mesh = config.show_mesh
     consecutive_failures = 0
 
+    print("Project VocalEyes — long-blink selection")
+    print("Hold both eyes closed to select. Press Q to quit.")
+    if config.calibrate_seconds > 0:
+        print(f"Calibrating for {config.calibrate_seconds:.0f}s: "
+              "keep your eyes open and relaxed.")
+        calibrator.start(time.monotonic())
+
