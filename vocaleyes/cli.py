@@ -151,3 +151,11 @@ def main(
                         landmarks, width, height, config.eye_mode)
                     visualizer.note_ear(reading.combined_ear)
 
+                    if calibrator.active:
+                        # Calibration pauses selection: samples must be
+                        # open eyes only, and a blink mid-calibration
+                        # must never fire.
+                        calibrator.add_sample(reading.combined_ear)
+                        if calibrator.progress >= 1.0:
+                            threshold = calibrator.finish()
+                            if threshold is not None:
