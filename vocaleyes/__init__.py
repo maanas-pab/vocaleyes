@@ -18,3 +18,13 @@ on its own:
     diagnostics, stats      doctor command and session reporting
     cli                     the command line
 
+Importing this package is deliberately cheap: OpenCV and MediaPipe are
+only touched when something actually needs them, so ``import vocaleyes``
+and ``vocaleyes --help`` work on a machine that has not installed them
+yet.
+"""
+
+from __future__ import annotations
+
+from ._version import __version__
+from .calibration import EarCalibrator
