@@ -42,3 +42,15 @@ __all__ = [
     "CameraError",
     "Config",
     "DependencyError",
+    "EarCalibrator",
+    "EyeReading",
+    "FaceReading",
+    "FaceMeshTracker",
+    "__version__",
+    "calculate_ear",
+    "extract_eye_readings",
+    "main",
+    "on_long_blink",
+]
+
+
