@@ -1,1 +1,5 @@
 # Runtime dependencies. pyproject.toml is the source of truth for these;
+# this file exists so `pip install -r requirements.txt` keeps working.
+opencv-python>=4.8
+mediapipe>=0.10
+numpy>=1.24
