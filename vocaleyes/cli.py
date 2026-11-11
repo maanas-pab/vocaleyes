@@ -121,3 +121,17 @@ def main(
               "keep your eyes open and relaxed.")
         calibrator.start(time.monotonic())
 
+    try:
+        with CameraStream(config) as camera, FaceMeshTracker(config) as tracker:
+            cv2.namedWindow(config.window_name, cv2.WINDOW_NORMAL)
+            while True:
+                loop_started = time.monotonic()
+                try:
+                    frame = camera.read()
+                except CameraError:
+                    consecutive_failures += 1
+                    if consecutive_failures >= 30:
+                        raise
+                    continue
+                consecutive_failures = 0
+
