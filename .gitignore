@@ -13,3 +13,7 @@ htmlcov/
 # Packaging
 build/
 dist/
+*.egg-info/
+.eggs/
+pip-wheel-metadata/
+
