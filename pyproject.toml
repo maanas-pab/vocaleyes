@@ -1,0 +1,6 @@
+# -----------------------------------------------------------------------------
+# Project VocalEyes — packaging metadata
+# -----------------------------------------------------------------------------
+# Everything the installer needs lives here; requirements.txt exists only so
+# the documented `pip install -r requirements.txt` keeps working.
+
