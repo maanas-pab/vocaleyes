@@ -95,3 +95,12 @@ class JsonFormatter(logging.Formatter):
 # ---------------------------------------------------------------------------
 # Configuration
 # ---------------------------------------------------------------------------
+def configure(level: str = "info", json_logs: bool = False,
+              stream: Optional[TextIO] = None) -> None:
+    """Configure logging for the ``vocaleyes`` logger tree.
+
+    Only ``logging.getLogger("vocaleyes")`` and its children are
+    touched, so third-party noise (cv2, mediapipe) keeps its own
+    behaviour and is never doubled up. ``propagate`` is turned off so
+    the root handler cannot print our lines a second time.
+
