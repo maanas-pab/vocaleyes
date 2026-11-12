@@ -25,8 +25,10 @@ All processing runs locally on the device. No video, image, or landmark is saved
 
 ```bash
 pip install -r requirements.txt
-python vocal_eyes.py
+vocaleyes
 ```
+
+`python -m vocaleyes` and `python vocal_eyes.py` run exactly the same code; the last of these is a thin compatibility shim, so old instructions keep working.
 
 Keep your eyes open and relaxed for the 3-second calibration at startup, then hold both eyes closed for 1 second to select. Press `Q` to quit.
 
