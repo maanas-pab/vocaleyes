@@ -138,3 +138,11 @@ def configure(level: str = "info", json_logs: bool = False,
     target.addHandler(handler)
 
 
+def get_logger(name: str) -> logging.Logger:
+    """Return a logger namespaced under the ``vocaleyes`` tree.
+
+    ``get_logger("camera")`` is ``logging.getLogger("vocaleyes.camera")``
+    — every VocalEyes module logs through the one tree that
+    :func:`configure` controls, so verbosity and format apply uniformly.
+    """
+    return logging.getLogger(f"vocaleyes.{name}")
