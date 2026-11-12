@@ -61,3 +61,5 @@ vocaleyes = "vocaleyes.cli:main"
 [tool.setuptools]
 packages = ["vocaleyes"]
 
+[tool.setuptools.dynamic]
+version = { attr = "vocaleyes._version.__version__" }
