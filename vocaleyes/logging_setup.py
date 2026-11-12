@@ -40,3 +40,14 @@ _TEXT_FORMAT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 def _iso_utc(created: float) -> str:
     """UTC ISO-8601 with milliseconds and ``Z``, from epoch ``created``.
 
+    Built from the record's own timestamp rather than "now", so the
+    line says when the event happened even if it is formatted later.
+    """
+    instant = datetime.fromtimestamp(created, tz=timezone.utc)
+    millis = instant.microsecond // 1000
+    return f"{instant.strftime('%Y-%m-%dT%H:%M:%S')}.{millis:03d}Z"
+
+
+def _safe_message(record: logging.LogRecord) -> str:
+    """``record.getMessage()`` with fallbacks: never raise from format().
+
