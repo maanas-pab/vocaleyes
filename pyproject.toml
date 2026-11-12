@@ -11,3 +11,6 @@ build-backend = "setuptools.build_meta"
 # -----------------------------------------------------------------------------
 # Project metadata
 # -----------------------------------------------------------------------------
+[project]
+name = "vocaleyes"
+description = "Select with a long blink — an on-device accessibility tool for people with advanced ALS."
