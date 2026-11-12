@@ -104,3 +104,13 @@ def configure(level: str = "info", json_logs: bool = False,
     behaviour and is never doubled up. ``propagate`` is turned off so
     the root handler cannot print our lines a second time.
 
+    Repeated calls replace the handler installed by the previous call;
+    they never stack duplicates. An unknown ``level`` raises
+    ``ValueError`` naming the valid choices.
+    """
+    if level not in LEVELS:
+        valid = ", ".join(sorted(LEVELS))
+        raise ValueError(
+            f"unknown log level {level!r}; valid choices: {valid}"
+        )
+
