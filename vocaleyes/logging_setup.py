@@ -64,3 +64,12 @@ def _safe_message(record: logging.LogRecord) -> str:
         return "<unprintable log message>"
 
 
+class JsonFormatter(logging.Formatter):
+    """One compact JSON object per line, for the local console only.
+
+    Project VocalEyes is an accessibility tool whose privacy stance is
+    "nothing is saved or uploaded": JSON logging exists so a carer or
+    developer can watch a session from the console (``jq``-friendly),
+    not so logs get collected somewhere. VocalEyes never writes logs
+    to disk itself.
+
