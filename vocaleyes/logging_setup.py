@@ -78,3 +78,20 @@ class JsonFormatter(logging.Formatter):
     record carries a traceback.
     """
 
+    def format(self, record: logging.LogRecord) -> str:
+        payload = {
+            "ts": _iso_utc(record.created),
+            "level": record.levelname,
+            "logger": record.name,
+            "msg": _safe_message(record),
+        }
+        if record.exc_info:
+            payload["exc"] = self.formatException(record.exc_info)
+        # ensure_ascii=False keeps non-ASCII messages (names, UI text)
+        # readable while staying valid JSON.
+        return json.dumps(payload, ensure_ascii=False)
+
+
+# ---------------------------------------------------------------------------
+# Configuration
+# ---------------------------------------------------------------------------
