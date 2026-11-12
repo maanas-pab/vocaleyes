@@ -35,7 +35,7 @@ logger = logging.getLogger("vocaleyes")
 def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     """Parse command-line arguments."""
     parser = argparse.ArgumentParser(
-        prog="vocal_eyes",
+        prog="vocaleyes",
         description=(
             "Project VocalEyes: select with a long blink. "
             "Hold both eyes closed to trigger a Select action."
