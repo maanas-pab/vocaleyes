@@ -124,3 +124,17 @@ def configure(level: str = "info", json_logs: bool = False,
     else:
         formatter = logging.Formatter(fmt=_TEXT_FORMAT, datefmt="%H:%M:%S")
 
+    # Drop only handlers we installed earlier; anything a caller added
+    # themselves is none of our business.
+    for handler in list(target.handlers):
+        if getattr(handler, _HANDLER_MARKER, False):
+            target.removeHandler(handler)
+
+    if stream is None:
+        stream = sys.stderr
+    handler = logging.StreamHandler(stream)
+    handler.setFormatter(formatter)
+    setattr(handler, _HANDLER_MARKER, True)  # for the next call to find
+    target.addHandler(handler)
+
+
