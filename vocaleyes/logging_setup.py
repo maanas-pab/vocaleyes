@@ -73,3 +73,8 @@ class JsonFormatter(logging.Formatter):
     not so logs get collected somewhere. VocalEyes never writes logs
     to disk itself.
 
+    Each line carries ``ts`` (UTC, from the record's own time),
+    ``level``, ``logger`` and ``msg``, plus ``exc`` only when the
+    record carries a traceback.
+    """
+
