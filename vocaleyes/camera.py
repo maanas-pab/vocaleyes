@@ -37,7 +37,7 @@ class CameraStream:
                 f"Could not open webcam (index {self._config.camera_index}).\n"
                 "Check that a camera is connected, that no other app is "
                 "using it, and that this app has camera permission.\n"
-                "Try another index, e.g.  python vocal_eyes.py --camera 1"
+                "Try another index, e.g.  vocaleyes --camera 1"
             )
         cap.set(cv2.CAP_PROP_FRAME_WIDTH, self._config.frame_width)
         cap.set(cv2.CAP_PROP_FRAME_HEIGHT, self._config.frame_height)
