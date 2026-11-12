@@ -13,3 +13,7 @@ import json
 import logging
 import sys
 from datetime import datetime, timezone
+from typing import Optional, TextIO
+
+# Verbosity choices, keyed by the flag value the caller passes in.
+# "quiet" still shows warnings and errors: with a tracker on someone's
