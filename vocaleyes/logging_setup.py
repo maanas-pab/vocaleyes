@@ -114,3 +114,13 @@ def configure(level: str = "info", json_logs: bool = False,
             f"unknown log level {level!r}; valid choices: {valid}"
         )
 
+    target = logging.getLogger("vocaleyes")
+    target.setLevel(LEVELS[level])
+    # Console only: this handler is the single sink for the tree.
+    target.propagate = False
+
+    if json_logs:
+        formatter: logging.Formatter = JsonFormatter()
+    else:
+        formatter = logging.Formatter(fmt=_TEXT_FORMAT, datefmt="%H:%M:%S")
+
