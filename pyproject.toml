@@ -25,3 +25,8 @@ keywords = [
     "blink-detection",
     "mediapipe",
     "computer-vision",
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: End Users/Desktop",
+    "Intended Audience :: Healthcare Industry",
