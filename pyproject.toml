@@ -55,3 +55,9 @@ Issues = "https://github.com/maanas-pab/vocaleyes/issues"
 # -----------------------------------------------------------------------------
 # Console scripts and package discovery
 # -----------------------------------------------------------------------------
+[project.scripts]
+vocaleyes = "vocaleyes.cli:main"
+
+[tool.setuptools]
+packages = ["vocaleyes"]
+
