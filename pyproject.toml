@@ -47,3 +47,11 @@ dependencies = [
 ]
 dynamic = ["version"]
 
+[project.urls]
+Homepage = "https://github.com/maanas-pab/vocaleyes"
+Repository = "https://github.com/maanas-pab/vocaleyes"
+Issues = "https://github.com/maanas-pab/vocaleyes/issues"
+
+# -----------------------------------------------------------------------------
+# Console scripts and package discovery
+# -----------------------------------------------------------------------------
