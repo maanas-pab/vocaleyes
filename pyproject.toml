@@ -14,3 +14,9 @@ build-backend = "setuptools.build_meta"
 [project]
 name = "vocaleyes"
 description = "Select with a long blink — an on-device accessibility tool for people with advanced ALS."
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Maanas Pabbathi" }]
+keywords = [
+    "accessibility",
