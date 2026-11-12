@@ -34,3 +34,9 @@ _HANDLER_MARKER = "_vocaleyes_installed"
 _TEXT_FORMAT = "%(asctime)s [%(levelname)s] %(name)s: %(message)s"
 
 
+# ---------------------------------------------------------------------------
+# JSON formatting
+# ---------------------------------------------------------------------------
+def _iso_utc(created: float) -> str:
+    """UTC ISO-8601 with milliseconds and ``Z``, from epoch ``created``.
+
