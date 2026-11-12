@@ -51,3 +51,16 @@ def _iso_utc(created: float) -> str:
 def _safe_message(record: logging.LogRecord) -> str:
     """``record.getMessage()`` with fallbacks: never raise from format().
 
+    A broken %-style argument pair should cost one odd line, never the
+    camera loop or the console.
+    """
+    try:
+        return record.getMessage()
+    except Exception:
+        pass
+    try:
+        return str(record.msg)
+    except Exception:
+        return "<unprintable log message>"
+
+
