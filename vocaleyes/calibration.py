@@ -158,3 +158,14 @@ class ThresholdDrift:
         if closed:
             # A closure must never move the threshold: closed-eye EAR
             # is the very signal the threshold has to stay clear of,
+            # and holding a selection is not a calibration moment.
+            return None
+
+        self._samples.append((now, ear))
+
+        # At most one look per quiet period, and only once there is
+        # enough evidence. Rate-limiting the *look* (not just the
+        # move) keeps this cheap: one noisy stretch gets a single
+        # chance every ``min_gap_seconds`` to matter, and then only by
+        # ``max_step``.
+        if now < self._next_look or len(self._samples) < 10:
