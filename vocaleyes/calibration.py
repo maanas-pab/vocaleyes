@@ -92,3 +92,14 @@ class ThresholdDrift:
         max_step: float = 0.008,
         max_total: float = 0.05,
         min_ear_gap: float = 0.005,
+    ) -> None:
+        if max_step <= 0:
+            raise ValueError(
+                f"max_step must be > 0, got {max_step!r}: a non-positive "
+                "step could never move the threshold."
+            )
+        if max_total <= 0:
+            raise ValueError(
+                f"max_total must be > 0, got {max_total!r}: the band "
+                "around the baseline must admit movement."
+            )
