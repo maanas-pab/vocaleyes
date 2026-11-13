@@ -81,3 +81,14 @@ class ThresholdDrift:
       fire on open eyes;
     * returning ``None`` almost always means the overlay shows no
       visible change — this monitor is deliberately quiet.
+    """
+
+    def __init__(
+        self,
+        baseline: float,
+        *,
+        window_seconds: float = 5.0,
+        min_gap_seconds: float = 45.0,
+        max_step: float = 0.008,
+        max_total: float = 0.05,
+        min_ear_gap: float = 0.005,
