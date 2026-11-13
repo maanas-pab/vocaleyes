@@ -125,3 +125,14 @@ class ThresholdDrift:
 
         self._current = baseline
         # (timestamp, ear), oldest first; pruned to the window each call.
+        self._samples: deque[tuple[float, float]] = deque()
+        self._adjustments = 0
+        self._last_adjustment: Optional[float] = None
+        # Earliest monotonic time the next look may happen; None until
+        # the first frame, so the quiet period starts when monitoring
+        # starts and a freshly reset monitor stays quiet again.
+        self._next_look: Optional[float] = None
+
+    def observe(self, ear: float, *, closed: bool,
+                now: float) -> Optional[float]:
+        """Consider one frame; return a new threshold only if it moved.
