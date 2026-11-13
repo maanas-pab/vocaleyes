@@ -169,3 +169,14 @@ class ThresholdDrift:
         # chance every ``min_gap_seconds`` to matter, and then only by
         # ``max_step``.
         if now < self._next_look or len(self._samples) < 10:
+            return None
+        self._next_look = now + self._min_gap_seconds
+
+        ears = sorted(ear for _, ear in self._samples)
+        # Median: robust to a blink or two, same sort-then-middle style
+        # as EarCalibrator.finish.
+        median = ears[len(ears) // 2]
+        # SAME rule as EarCalibrator.finish — 70% of the open median,
+        # clamped to a sane band. Keep the two in step, or startup and
+        # drift calibration silently derive different thresholds.
+        target = median * 0.70
