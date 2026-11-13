@@ -202,3 +202,14 @@ class ThresholdDrift:
         if delta < self._min_ear_gap:
             # Below the reporting floor: too small for the overlay to
             # show, so commit silently and stay quiet.
+            return None
+        self._adjustments += 1
+        self._last_adjustment = now
+        return self._current
+
+    @property
+    def current(self) -> float:
+        """The threshold it would apply now."""
+        return self._current
+
+    @property
