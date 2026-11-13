@@ -136,3 +136,14 @@ class ThresholdDrift:
     def observe(self, ear: float, *, closed: bool,
                 now: float) -> Optional[float]:
         """Consider one frame; return a new threshold only if it moved.
+
+        ``ear`` is the combined EAR for the frame, ``closed`` mirrors
+        ``BlinkDetector.is_closed``, and ``now`` is a
+        ``time.monotonic()`` timestamp. Returns ``None`` whenever the
+        threshold did not move by at least ``min_ear_gap`` — the common
+        case, so the overlay shows no visible change.
+        """
+        # Prune every call, so samples age out even while the eyes are
+        # closed or no face is found.
+        horizon = now - self._window_seconds
+        while self._samples and self._samples[0][0] < horizon:
