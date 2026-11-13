@@ -213,3 +213,14 @@ class ThresholdDrift:
         return self._current
 
     @property
+    def adjustments(self) -> int:
+        """How many times :meth:`observe` has returned a new threshold."""
+        return self._adjustments
+
+    @property
+    def last_adjustment(self) -> Optional[float]:
+        """The ``now`` of the most recent adjustment, else ``None``."""
+        return self._last_adjustment
+
+    def reset(self, baseline: float) -> None:
+        """Return to a freshly calibrated threshold (the ``C`` key).
