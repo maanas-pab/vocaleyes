@@ -224,3 +224,13 @@ class ThresholdDrift:
 
     def reset(self, baseline: float) -> None:
         """Return to a freshly calibrated threshold (the ``C`` key).
+
+        Clears samples, counters and the quiet-period clock, so after a
+        recalibration the monitor starts over exactly as at startup.
+        """
+        self._baseline = baseline
+        self._current = baseline
+        self._samples.clear()
+        self._adjustments = 0
+        self._last_adjustment = None
+        self._next_look = None
