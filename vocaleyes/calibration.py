@@ -103,3 +103,14 @@ class ThresholdDrift:
                 f"max_total must be > 0, got {max_total!r}: the band "
                 "around the baseline must admit movement."
             )
+        if window_seconds <= 0:
+            raise ValueError(
+                f"window_seconds must be > 0, got {window_seconds!r}."
+            )
+        if min_gap_seconds <= 0:
+            raise ValueError(
+                f"min_gap_seconds must be > 0, got {min_gap_seconds!r}: "
+                "adjustments must be rate-limited."
+            )
+        if min_ear_gap < 0:
+            raise ValueError(
