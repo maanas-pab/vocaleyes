@@ -147,3 +147,14 @@ class ThresholdDrift:
         # closed or no face is found.
         horizon = now - self._window_seconds
         while self._samples and self._samples[0][0] < horizon:
+            self._samples.popleft()
+
+        # The quiet period begins with the first frame this monitor
+        # sees: nothing may move for the first ``min_gap_seconds``, no
+        # matter how fast samples arrive.
+        if self._next_look is None:
+            self._next_look = now + self._min_gap_seconds
+
+        if closed:
+            # A closure must never move the threshold: closed-eye EAR
+            # is the very signal the threshold has to stay clear of,
