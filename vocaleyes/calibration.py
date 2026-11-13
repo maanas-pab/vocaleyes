@@ -191,3 +191,14 @@ class ThresholdDrift:
         else:
             moved = self._current
         # Then clamp into the band around the startup baseline: drift
+        # compensation can never on its own reach a threshold that
+        # would fire on open eyes, whatever the target says.
+        low = self._baseline - self._max_total
+        high = self._baseline + self._max_total
+        moved = min(high, max(low, moved))
+
+        delta = abs(moved - self._current)
+        self._current = moved
+        if delta < self._min_ear_gap:
+            # Below the reporting floor: too small for the overlay to
+            # show, so commit silently and stay quiet.
