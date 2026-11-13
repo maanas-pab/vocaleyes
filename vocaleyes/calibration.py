@@ -180,3 +180,14 @@ class ThresholdDrift:
         # clamped to a sane band. Keep the two in step, or startup and
         # drift calibration silently derive different thresholds.
         target = median * 0.70
+        target = min(0.28, max(0.12, target))
+
+        # Move toward the target by at most one tiny step — never a
+        # leap. A single bad frame can cost at most ``max_step``.
+        if target > self._current:
+            moved = min(target, self._current + self._max_step)
+        elif target < self._current:
+            moved = max(target, self._current - self._max_step)
+        else:
+            moved = self._current
+        # Then clamp into the band around the startup baseline: drift
