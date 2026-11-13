@@ -70,3 +70,14 @@ class ThresholdDrift:
     A startup calibration is a snapshot of one moment: eyelid tone,
     fatigue, settling into a chair, fading light, glasses wiped — all
     move over a long session, so a threshold perfect at minute 1 can be
+    wrong by minute 30. This monitor watches the open-eye EAR and makes
+    slow, conservative corrections. Safety rests on three limits acting
+    together:
+
+    * adjustments are rate-limited (``min_gap_seconds``) and tiny
+      (``max_step``), so noise can never cause a jump;
+    * every threshold stays within ``baseline ± max_total``, so drift
+      compensation can never on its own reach a threshold that would
+      fire on open eyes;
+    * returning ``None`` almost always means the overlay shows no
+      visible change — this monitor is deliberately quiet.
