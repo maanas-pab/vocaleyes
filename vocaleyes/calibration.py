@@ -114,3 +114,14 @@ class ThresholdDrift:
             )
         if min_ear_gap < 0:
             raise ValueError(
+                f"min_ear_gap must be >= 0, got {min_ear_gap!r}."
+            )
+        self._baseline = baseline
+        self._window_seconds = window_seconds
+        self._min_gap_seconds = min_gap_seconds
+        self._max_step = max_step
+        self._max_total = max_total
+        self._min_ear_gap = min_ear_gap
+
+        self._current = baseline
+        # (timestamp, ear), oldest first; pruned to the window each call.
