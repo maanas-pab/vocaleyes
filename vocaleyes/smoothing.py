@@ -173,3 +173,20 @@ class StageTimer:
         """Cumulative stage durations for the session, in seconds."""
         return dict(self._totals)
 
+    @property
+    def counts(self) -> Dict[str, int]:
+        """How many samples have been recorded for each stage."""
+        return dict(self._counts)
+
+    def average(self, name: str) -> Optional[float]:
+        """Mean duration of one stage in seconds, or ``None`` if untimed.
+
+        The mean (not the last value) is what a "this machine is slow"
+        decision should rest on: one frame hitching must not condemn a
+        session that is otherwise comfortably inside budget.
+        """
+        count = self._counts.get(name, 0)
+        if count == 0:
+            return None
+        return self._totals[name] / count
+
