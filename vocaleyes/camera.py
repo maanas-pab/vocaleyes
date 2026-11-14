@@ -225,3 +225,14 @@ class FramePump:
                 self._dropped += 1
             if self._frame_at is not None:
                 interval = now - self._frame_at
+                if interval > 0.0:
+                    instant = 1.0 / interval
+                    # Same smoothing as the HUD in the main loop: one
+                    # slow read must not make the rate jump.
+                    self._fps = (instant if self._fps == 0.0 else
+                                 0.9 * self._fps + 0.1 * instant)
+            # The slot holds a reference, never a copy, and this thread
+            # never writes into a frame it has published — so the
+            # consumer can take it without copying.
+            self._frame = frame
+            self._frame_at = now
