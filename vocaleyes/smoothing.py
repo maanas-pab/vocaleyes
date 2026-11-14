@@ -45,3 +45,18 @@ class Ema:
         """The smoothed value, or ``None`` before the first sample."""
         return self._value
 
+    def push(self, value: float) -> float:
+        """Fold one sample in and return the smoothed value."""
+        if self._value is None:
+            # First sample seeds the filter rather than being blended with
+            # a made-up starting point: starting at 0.0 would drag the
+            # first second of a real session towards "eyes shut".
+            self._value = value
+        else:
+            self._value = self._alpha * value + (1.0 - self._alpha) * self._value
+        return self._value
+
+    def reset(self, initial: Optional[float] = None) -> None:
+        """Forget history (recalibration, detector reset, new session)."""
+        self._value = initial
+
