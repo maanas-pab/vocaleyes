@@ -213,3 +213,15 @@ class FramePump:
                 # idle stream neither spins a core nor delays shutdown.
                 self._stop.wait(self._NO_FRAME_WAIT)
                 continue
+            self._publish(frame, time.monotonic())
+
+    def _publish(self, frame: np.ndarray, now: float) -> None:
+        """Store the newest frame, counting any frame it displaces."""
+        with self._lock:
+            if self._frame is not None:
+                # The consumer never took the previous frame: replacing
+                # it is a drop. Counted, never queued — see the class
+                # docstring for why nothing accumulates here.
+                self._dropped += 1
+            if self._frame_at is not None:
+                interval = now - self._frame_at
