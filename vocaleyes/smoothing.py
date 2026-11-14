@@ -88,3 +88,7 @@ class MedianFilter:
         self._window = window
         self._samples: list[float] = []
 
+    @property
+    def window(self) -> int:
+        return self._window
+
