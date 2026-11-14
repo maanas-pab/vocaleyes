@@ -81,3 +81,15 @@ class FramePump:
     daemon thread of its own: the camera buffer is drained as fast as it
     fills, and the image on screen never falls seconds behind reality.
 
+    Only the newest frame is kept. A queue would grow without bound
+    whenever inference is slower than the camera, so latency would creep
+    up without limit; a single slot bounds end-to-end latency to roughly
+    one frame period, and :attr:`dropped` makes that trade-off visible
+    instead of silent.
+    """
+
+    # How long the worker rests when the stream has nothing to give.
+    # Waiting on the stop event (rather than sleeping) means stop() wakes
+    # it at once; the timeout stops an idle stream from spinning a core.
+    _NO_FRAME_WAIT = 0.01
+
