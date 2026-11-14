@@ -129,3 +129,15 @@ class FramePump:
         self._thread = threading.Thread(
             target=self._run,
             name="vocaleyes-frame-pump",
+            daemon=True,  # a wedged camera must not block process exit
+        )
+        self._thread.start()
+
+    def stop(self) -> None:
+        """Signal the worker and join it; safe twice or before start()."""
+        self._stop.set()
+        thread = self._thread
+        if thread is None:
+            return  # never started (or already torn down): nothing to join
+        # 1.5s is ample for one read() to return, yet short enough that
+        # a wedged camera cannot hang shutdown; the thread is a daemon,
