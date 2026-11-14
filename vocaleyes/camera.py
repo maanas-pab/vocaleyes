@@ -165,3 +165,15 @@ class FramePump:
             self._frame = None  # consume: the next call sees nothing
             if frame is None or captured_at is None:
                 return None
+            if time.monotonic() - captured_at > self._max_age_seconds:
+                return None  # stale: withheld rather than shown
+            # The reference is handed over as-is (the caller flips or
+            # converts it): the worker replaces the slot instead of
+            # writing into a published frame, so there is nothing to
+            # copy against.
+            return frame
+
+    @property
+    def dropped(self) -> int:
+        """Frames discarded because a newer one arrived before they were read."""
+        with self._lock:
