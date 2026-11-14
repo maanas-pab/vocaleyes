@@ -60,3 +60,17 @@ class Ema:
         """Forget history (recalibration, detector reset, new session)."""
         self._value = initial
 
+    def __repr__(self) -> str:
+        return f"Ema(alpha={self._alpha}, value={self._value!r})"
+
+
+class MedianFilter:
+    """Rolling median of the last ``window`` samples.
+
+    Where the EMA *averages*, the median *rejects*: with a window of 5,
+    a single frame whose landmarks landed wildly off cannot move the
+    output at all, because it is not the middle value. The blink state
+    machine is deliberately conservative — one bad sample must never be
+    able to start or finish a hold — so the median is the right shape of
+    protection for a signal that is otherwise very well behaved.
+
