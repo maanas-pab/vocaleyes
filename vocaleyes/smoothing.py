@@ -145,3 +145,15 @@ class StageTimer:
     def stage(self, name: str) -> Iterator[None]:
         """Time the enclosed block under ``name``.
 
+        Nesting is allowed: an inner stage's time is also counted in the
+        outer one, which is what makes ``summary`` able to show both the
+        whole frame and the part of it that mattered.
+        """
+        started = time.monotonic()
+        self._stack.append(started)
+        try:
+            yield
+        finally:
+            elapsed = time.monotonic() - self._stack.pop()
+            self.record(name, elapsed)
+
