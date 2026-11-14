@@ -153,3 +153,15 @@ class FramePump:
 
     def latest(self) -> Optional[np.ndarray]:
         """Return the newest frame and consume it; None if none is new.
+
+        Consuming is what keeps the loop honest: the next call returns
+        None until a newer frame arrives, so no frame is ever processed
+        twice and the work is always done on the freshest image. A frame
+        older than ``max_age_seconds`` is withheld as well — past that
+        age the picture misleads, and silence says more than it would.
+        """
+        with self._lock:
+            frame, captured_at = self._frame, self._frame_at
+            self._frame = None  # consume: the next call sees nothing
+            if frame is None or captured_at is None:
+                return None
