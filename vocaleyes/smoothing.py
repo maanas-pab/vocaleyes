@@ -74,3 +74,17 @@ class MedianFilter:
     able to start or finish a hold — so the median is the right shape of
     protection for a signal that is otherwise very well behaved.
 
+    The cost is latency: the output lags by up to half a window. At
+    webcam rates a window of 5 is a few tens of milliseconds, which is
+    far below the one-second hold the detector is timing.
+    """
+
+    def __init__(self, window: int = 5) -> None:
+        if window < 1:
+            raise ValueError(
+                f"window must be at least 1, got {window}: "
+                "a median over zero samples is undefined."
+            )
+        self._window = window
+        self._samples: list[float] = []
+
