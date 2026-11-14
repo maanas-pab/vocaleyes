@@ -117,3 +117,15 @@ class FramePump:
         self.error: Optional[CameraError] = None
 
     def start(self) -> None:
+        """Start the worker thread; a second call while it runs does nothing."""
+        # Idempotency matters: two workers would race on the same camera
+        # and double every counter. The pump belongs to one caller (the
+        # main loop), so this needs no lock. A pump that has been
+        # stopped can be started again — the old thread simply fails the
+        # is_alive() check below.
+        if self._thread is not None and self._thread.is_alive():
+            return
+        self._stop.clear()
+        self._thread = threading.Thread(
+            target=self._run,
+            name="vocaleyes-frame-pump",
