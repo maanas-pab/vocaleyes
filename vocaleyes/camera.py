@@ -105,3 +105,15 @@ class FramePump:
         # not wait on a slow consumer, nor the consumer on a slow read.
         self._lock = threading.Lock()
         # An event rather than a bare flag: the worker waits on it when
+        # there is nothing to read, so stop() both signals and wakes it.
+        self._stop = threading.Event()
+        self._thread: Optional[threading.Thread] = None
+        self._frame: Optional[np.ndarray] = None
+        self._frame_at: Optional[float] = None
+        self._dropped = 0
+        self._fps = 0.0
+        # Set by the worker when read() fails; the main loop reads it to
+        # surface the failure instead of hunting for a silent thread.
+        self.error: Optional[CameraError] = None
+
+    def start(self) -> None:
