@@ -141,3 +141,15 @@ class FramePump:
             return  # never started (or already torn down): nothing to join
         # 1.5s is ample for one read() to return, yet short enough that
         # a wedged camera cannot hang shutdown; the thread is a daemon,
+        # so anything still stuck dies with the process.
+        thread.join(timeout=1.5)
+
+    def __enter__(self) -> "FramePump":
+        self.start()
+        return self
+
+    def __exit__(self, *exc_info) -> None:
+        self.stop()
+
+    def latest(self) -> Optional[np.ndarray]:
+        """Return the newest frame and consume it; None if none is new.
