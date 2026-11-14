@@ -130,3 +130,18 @@ class StageTimer:
     describes only the frame just finished, and a per-frame budget makes
     "too slow" a measurable condition rather than a feeling.
 
+    Timing uses :func:`time.monotonic`, the same clock the blink
+    detector uses, so a stalled clock cannot make stages disagree.
+    """
+
+    def __init__(self, budget_seconds: float = 0.0) -> None:
+        self._budget = budget_seconds
+        self._stack: list = []
+        self._last: Dict[str, float] = {}
+        self._totals: Dict[str, float] = {}
+        self._counts: Dict[str, int] = {}
+
+    @contextmanager
+    def stage(self, name: str) -> Iterator[None]:
+        """Time the enclosed block under ``name``.
+
