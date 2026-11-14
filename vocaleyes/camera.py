@@ -93,3 +93,15 @@ class FramePump:
     # it at once; the timeout stops an idle stream from spinning a core.
     _NO_FRAME_WAIT = 0.01
 
+    def __init__(self, stream: CameraStream,
+                 max_age_seconds: float = 1.0) -> None:
+        self._stream = stream
+        # Withheld by latest(): once a frame is older than this it no
+        # longer describes the present, and showing nothing tells the
+        # caller more than a stale picture would.
+        self._max_age_seconds = max_age_seconds
+        # One lock guards the hand-off slot and the counters derived
+        # from it, and is never held across stream.read(): capture must
+        # not wait on a slow consumer, nor the consumer on a slow read.
+        self._lock = threading.Lock()
+        # An event rather than a bare flag: the worker waits on it when
