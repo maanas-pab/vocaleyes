@@ -157,3 +157,19 @@ class StageTimer:
             elapsed = time.monotonic() - self._stack.pop()
             self.record(name, elapsed)
 
+    def record(self, name: str, seconds: float) -> None:
+        """Fold one measurement in directly (for stages timed elsewhere)."""
+        self._last[name] = seconds
+        self._totals[name] = self._totals.get(name, 0.0) + seconds
+        self._counts[name] = self._counts.get(name, 0) + 1
+
+    @property
+    def last(self) -> Dict[str, float]:
+        """Stage durations of the most recent frame, in seconds."""
+        return dict(self._last)
+
+    @property
+    def totals(self) -> Dict[str, float]:
+        """Cumulative stage durations for the session, in seconds."""
+        return dict(self._totals)
+
