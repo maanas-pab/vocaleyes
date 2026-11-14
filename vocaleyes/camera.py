@@ -201,3 +201,15 @@ class FramePump:
                 # the main loop instead of raised here, where nobody
                 # would see the traceback.
                 self.error = exc
+                return
+            except Exception as exc:
+                # read() promises CameraError, but nothing else may
+                # escape into the thread either. Stored as-is: the main
+                # loop only needs the message to show the user.
+                self.error = exc
+                return
+            if frame is None:
+                # No frame to hand over: rest on the stop event so an
+                # idle stream neither spins a core nor delays shutdown.
+                self._stop.wait(self._NO_FRAME_WAIT)
+                continue
