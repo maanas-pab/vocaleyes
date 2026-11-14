@@ -92,3 +92,27 @@ class MedianFilter:
     def window(self) -> int:
         return self._window
 
+    @property
+    def value(self) -> Optional[float]:
+        """The current median, or ``None`` with no samples yet."""
+        if not self._samples:
+            return None
+        ordered = sorted(self._samples)
+        mid = len(ordered) // 2
+        if len(ordered) % 2:
+            return ordered[mid]
+        # Even window: average the two middles. Hand-rolled rather than
+        # statistics.median so the ordering and the tie-break are visible.
+        return 0.5 * (ordered[mid - 1] + ordered[mid])
+
+    def push(self, value: float) -> Optional[float]:
+        """Add a sample, drop the oldest if the window is full, return the median."""
+        self._samples.append(value)
+        if len(self._samples) > self._window:
+            del self._samples[0]
+        return self.value
+
+    def reset(self) -> None:
+        """Forget all samples."""
+        self._samples.clear()
+
