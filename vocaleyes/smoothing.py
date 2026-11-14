@@ -16,3 +16,14 @@ import time
 from contextlib import contextmanager
 from typing import Dict, Iterator, Optional
 
+
+class Ema:
+    """Exponentially weighted moving average of a scalar stream.
+
+    ``alpha`` is the weight given to the newest sample: 1.0 follows the
+    signal exactly, smaller values trade responsiveness for stability.
+    VocalEyes uses one for the EAR (in the detector) and one for the FPS
+    readout (in the HUD) — in both cases a single unlucky frame must not
+    be allowed to move the whole display.
+    """
+
