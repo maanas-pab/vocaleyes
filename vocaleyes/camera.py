@@ -189,3 +189,15 @@ class FramePump:
         """Worker loop: read, publish, rest — until stopped or failing.
 
         Nothing here may propagate: a failure from ``read()`` is recorded
+        on ``error`` and ends the loop, because an exception escaping
+        would kill the thread silently and freeze the preview. The rest
+        of the body is bookkeeping on the pump's own state.
+        """
+        while not self._stop.is_set():
+            try:
+                frame = self._stream.read()
+            except CameraError as exc:
+                # The expected failure: the camera vanished. Recorded for
+                # the main loop instead of raised here, where nobody
+                # would see the traceback.
+                self.error = exc
