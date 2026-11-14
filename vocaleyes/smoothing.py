@@ -116,3 +116,17 @@ class MedianFilter:
         """Forget all samples."""
         self._samples.clear()
 
+    def __repr__(self) -> str:
+        return f"MedianFilter(window={self._window}, n={len(self._samples)})"
+
+
+class StageTimer:
+    """Wall-clock accounting for where a frame's time goes.
+
+    Capture, inference and rendering are timed separately so a slow
+    machine can say *which* stage is the problem — "inference takes
+    80 ms, try a smaller frame" is advice someone can act on; "it is
+    slow" is not. Totals accumulate for the whole session, ``last``
+    describes only the frame just finished, and a per-frame budget makes
+    "too slow" a measurable condition rather than a feeling.
+
