@@ -27,3 +27,21 @@ class Ema:
     be allowed to move the whole display.
     """
 
+    def __init__(self, alpha: float, initial: Optional[float] = None) -> None:
+        if not 0.0 < alpha <= 1.0:
+            raise ValueError(
+                f"alpha must be in (0.0, 1.0], got {alpha}: "
+                "a value outside that range is not a weighted average."
+            )
+        self._alpha = alpha
+        self._value = initial
+
+    @property
+    def alpha(self) -> float:
+        return self._alpha
+
+    @property
+    def value(self) -> Optional[float]:
+        """The smoothed value, or ``None`` before the first sample."""
+        return self._value
+
