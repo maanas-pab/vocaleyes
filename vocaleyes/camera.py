@@ -177,3 +177,15 @@ class FramePump:
     def dropped(self) -> int:
         """Frames discarded because a newer one arrived before they were read."""
         with self._lock:
+            return self._dropped
+
+    @property
+    def fps(self) -> float:
+        """Smoothed capture rate; 0.0 until two frames establish one."""
+        with self._lock:
+            return self._fps
+
+    def _run(self) -> None:
+        """Worker loop: read, publish, rest — until stopped or failing.
+
+        Nothing here may propagate: a failure from ``read()`` is recorded
