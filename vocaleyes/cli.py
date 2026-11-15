@@ -156,3 +156,10 @@ def main(
                             if frame is None:
                                 # Not a failure: the pump is simply ahead
                                 # of the camera this tick.
+                                time.sleep(0.001)
+                                continue
+                            if pump.error is not None:
+                                raise pump.error
+                        else:
+                            try:
+                                frame = camera.read()
