@@ -16,3 +16,9 @@ from typing import Callable, Optional, Sequence
 
 from .calibration import EarCalibrator, ThresholdDrift
 from .camera import CameraStream, FramePump
+from .config import Config
+from .deps import cv2, check_dependencies
+from .detection import BlinkDetector, BlinkEvent
+from .errors import CameraError, DependencyError
+from .hooks import on_long_blink
+from .logging_setup import configure as configure_logging
