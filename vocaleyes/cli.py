@@ -169,3 +169,13 @@ def main(
                                     raise
                                 continue
                     consecutive_failures = 0
+
+                    if config.mirror:
+                        frame = cv2.flip(frame, 1)
+                    height, width = frame.shape[:2]
+                    with timer.stage("infer"):
+                        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                        rgb.flags.writeable = False
+                        landmarks = tracker.process(rgb)
+                        rgb.flags.writeable = True
+                    now = time.monotonic()
