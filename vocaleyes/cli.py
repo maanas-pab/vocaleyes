@@ -88,3 +88,19 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
                         default="text",
                         help="Console log format: readable text or one JSON "
                              "object per line (default: text).")
+    parser.add_argument("--version", action="version",
+                        version=f"%(prog)s {__version__}")
+    return parser.parse_args(argv)
+
+
+# ---------------------------------------------------------------------------
+# Main loop
+# ---------------------------------------------------------------------------
+def main(
+    argv: Optional[Sequence[str]] = None,
+    action_callback: Callable[[BlinkEvent, int], None] = on_long_blink,
+) -> int:
+    """Run VocalEyes until the user quits. Returns a process exit code."""
+    args = parse_args(argv)
+    configure_logging(level=args.log_level,
+                      json_logs=args.log_format == "json")
