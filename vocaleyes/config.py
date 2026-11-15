@@ -51,3 +51,6 @@ class Config:
     # choice, and drift adjustment should be an informed opt-in.
     drift_enabled: bool = False
     # Verbosity and format for the local console log. "json" emits one
+    # machine-readable object per line for a carer's tooling; nothing is
+    # ever written to disk by VocalEyes itself.
+    log_level: str = "info"
