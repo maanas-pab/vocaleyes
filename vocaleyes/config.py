@@ -48,3 +48,6 @@ class Config:
     threaded_capture: bool = True
     # Slow drift compensation for the threshold over a long session.
     # Off by default: a fixed, calibrated threshold is the predictable
+    # choice, and drift adjustment should be an informed opt-in.
+    drift_enabled: bool = False
+    # Verbosity and format for the local console log. "json" emits one
