@@ -199,3 +199,23 @@ class StageTimer:
     def over_budget(self) -> bool:
         """True when the last frame's timed stages exceeded the budget.
 
+        A budget of 0.0 means "no budget configured", which is never
+        over: the timer measures, it does not nag.
+        """
+        if self._budget <= 0.0:
+            return False
+        return self.last_total > self._budget
+
+    @property
+    def budget(self) -> float:
+        return self._budget
+
+    def summary(self) -> str:
+        """One line, e.g. ``capture 3.9ms | infer 24.1ms | render 1.8ms``."""
+        if not self._last:
+            return "no timings yet"
+        return "  |  ".join(
+            f"{name} {seconds * 1000.0:.1f}ms"
+            for name, seconds in self._last.items()
+        )
+
