@@ -163,3 +163,9 @@ def main(
                         else:
                             try:
                                 frame = camera.read()
+                            except CameraError:
+                                consecutive_failures += 1
+                                if consecutive_failures >= 30:
+                                    raise
+                                continue
+                    consecutive_failures = 0
