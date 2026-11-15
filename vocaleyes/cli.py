@@ -131,3 +131,21 @@ def main(
     show_mesh = config.show_mesh
     consecutive_failures = 0
     slow_frames = 0
+
+    print("Project VocalEyes — long-blink selection")
+    print("Hold both eyes closed to select. Press Q to quit.")
+    if config.calibrate_seconds > 0:
+        print(f"Calibrating for {config.calibrate_seconds:.0f}s: "
+              "keep your eyes open and relaxed.")
+        calibrator.start(time.monotonic())
+
+    try:
+        with CameraStream(config) as camera, FaceMeshTracker(config) as tracker:
+            cv2.namedWindow(config.window_name, cv2.WINDOW_NORMAL)
+            # Background capture keeps the webcam drained while inference
+            # runs, so the preview never falls seconds behind reality.
+            pump = FramePump(camera) if config.threaded_capture else None
+            if pump is not None:
+                pump.start()
+            try:
+                while True:
