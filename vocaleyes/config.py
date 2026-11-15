@@ -54,3 +54,4 @@ class Config:
     # machine-readable object per line for a carer's tooling; nothing is
     # ever written to disk by VocalEyes itself.
     log_level: str = "info"
+    log_format: str = "text"
