@@ -45,3 +45,6 @@ class Config:
     # Capture on a background thread so slow inference cannot stall the
     # webcam. On the rare machine where threading hurts, --no-threaded-
     # capture restores the old single-threaded read.
+    threaded_capture: bool = True
+    # Slow drift compensation for the threshold over a long session.
+    # Off by default: a fixed, calibrated threshold is the predictable
