@@ -22,3 +22,6 @@ from .detection import BlinkDetector, BlinkEvent
 from .errors import CameraError, DependencyError
 from .hooks import on_long_blink
 from .logging_setup import configure as configure_logging
+from .models import FaceReading, extract_eye_readings
+from .rendering import Visualizer
+from .smoothing import StageTimer
