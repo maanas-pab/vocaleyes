@@ -67,3 +67,5 @@ class Config:
             raise ValueError('eye_mode must be "average" or "min"')
         if self.log_level not in ("quiet", "info", "debug"):
             raise ValueError('log_level must be "quiet", "info" or "debug"')
+        if self.log_format not in ("text", "json"):
+            raise ValueError('log_format must be "text" or "json"')
