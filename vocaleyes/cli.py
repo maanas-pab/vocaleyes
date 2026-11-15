@@ -25,3 +25,60 @@ from .logging_setup import configure as configure_logging
 from .models import FaceReading, extract_eye_readings
 from .rendering import Visualizer
 from .smoothing import StageTimer
+from .tracking import FaceMeshTracker
+from ._version import __version__
+
+logger = logging.getLogger("vocaleyes")
+
+
+# ---------------------------------------------------------------------------
+# Command-line interface
+# ---------------------------------------------------------------------------
+def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        prog="vocaleyes",
+        description=(
+            "Project VocalEyes: select with a long blink. "
+            "Hold both eyes closed to trigger a Select action."
+        ),
+        epilog=(
+            "Controls: Q / Esc quit  |  C recalibrate  |  "
+            "M toggle face mesh  |  R reset detector."
+        ),
+    )
+    parser.add_argument("--camera", type=int, default=0,
+                        help="Webcam index (default: 0; try 1 if no camera).")
+    parser.add_argument("--width", type=int, default=1280,
+                        help="Requested capture width (default: 1280).")
+    parser.add_argument("--height", type=int, default=720,
+                        help="Requested capture height (default: 720).")
+    parser.add_argument("--no-mirror", action="store_true",
+                        help="Do not mirror the preview (default: mirrored).")
+    parser.add_argument("--threshold", type=float, default=0.21,
+                        help="EAR close threshold (default: 0.21). Lower is "
+                        "less sensitive; recalibrate per person with C.")
+    parser.add_argument("--long-blink", type=float, default=1.0,
+                        help="Hold time in seconds for a Select "
+                        "(default: 1.0).")
+    parser.add_argument("--cooldown", type=float, default=1.5,
+                        help="Quiet period in seconds after a Select "
+                        "(default: 1.5).")
+    parser.add_argument("--eye-mode", choices=("average", "min"),
+                        default="average",
+                        help="How to combine the two eyes: average "
+                        "(default) or min (more sensitive, for asymmetric "
+                        "closure).")
+    parser.add_argument("--show-mesh", action="store_true",
+                        help="Draw the full face mesh (setup / debugging).")
+    parser.add_argument("--calibrate", type=float, default=3.0,
+                        help="Seconds of open-eye calibration at startup "
+                        "(default: 3.0).")
+    parser.add_argument("--no-calibrate", action="store_true",
+                        help="Skip startup calibration; use --threshold.")
+    parser.add_argument("--no-threaded-capture", action="store_true",
+                        help="Capture frames on the main thread instead of "
+                             "a background thread (diagnostics only).")
+    parser.add_argument("--no-drift", action="store_true",
+                        help="Disable slow threshold drift compensation.")
+    parser.add_argument("--log-level", choices=("quiet", "info", "debug"),
