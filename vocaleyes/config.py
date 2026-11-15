@@ -42,29 +42,6 @@ class Config:
     min_detection_confidence: float = 0.5
     min_tracking_confidence: float = 0.5
     window_name: str = "Project VocalEyes"
-
-    def __post_init__(self) -> None:
-        if not 0.05 <= self.ear_threshold <= 0.45:
-            raise ValueError("ear_threshold must be between 0.05 and 0.45")
-        if self.long_blink_seconds <= 0:
-            raise ValueError("long_blink_seconds must be positive")
-        if self.cooldown_seconds < 0:
-            raise ValueError("cooldown_seconds must not be negative")
-        if self.eye_mode not in ("average", "min"):
-            raise ValueError('eye_mode must be "average" or "min"')
-
-    @classmethod
-    def from_args(cls, args: argparse.Namespace) -> "Config":
-        """Build a Config from parsed command-line arguments."""
-        return cls(
-            camera_index=args.camera,
-            frame_width=args.width,
-            frame_height=args.height,
-            mirror=not args.no_mirror,
-            ear_threshold=args.threshold,
-            long_blink_seconds=args.long_blink,
-            cooldown_seconds=args.cooldown,
-            eye_mode=args.eye_mode,
-            show_mesh=args.show_mesh,
-            calibrate_seconds=0.0 if args.no_calibrate else args.calibrate,
-        )
+    # Capture on a background thread so slow inference cannot stall the
+    # webcam. On the rare machine where threading hurts, --no-threaded-
+    # capture restores the old single-threaded read.
