@@ -190,3 +190,12 @@ class StageTimer:
             return None
         return self._totals[name] / count
 
+    @property
+    def last_total(self) -> float:
+        """Total time spent in the stages of the last frame."""
+        return sum(self._last.values())
+
+    @property
+    def over_budget(self) -> bool:
+        """True when the last frame's timed stages exceeded the budget.
+
