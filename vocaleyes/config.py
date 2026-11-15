@@ -69,3 +69,20 @@ class Config:
             raise ValueError('log_level must be "quiet", "info" or "debug"')
         if self.log_format not in ("text", "json"):
             raise ValueError('log_format must be "text" or "json"')
+
+    @classmethod
+    def from_args(cls, args: argparse.Namespace) -> "Config":
+        """Build a Config from parsed command-line arguments."""
+        return cls(
+            camera_index=args.camera,
+            frame_width=args.width,
+            frame_height=args.height,
+            mirror=not args.no_mirror,
+            ear_threshold=args.threshold,
+            long_blink_seconds=args.long_blink,
+            cooldown_seconds=args.cooldown,
+            eye_mode=args.eye_mode,
+            show_mesh=args.show_mesh,
+            calibrate_seconds=0.0 if args.no_calibrate else args.calibrate,
+            threaded_capture=not args.no_threaded_capture,
+            drift_enabled=not args.no_drift,
