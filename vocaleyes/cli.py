@@ -125,3 +125,9 @@ def main(
     drift = ThresholdDrift(config.ear_threshold) if config.drift_enabled \
         else None
     timer = StageTimer(budget_seconds=0.033)
+    selection_count = 0
+    banner_until = 0.0
+    fps = 0.0
+    show_mesh = config.show_mesh
+    consecutive_failures = 0
+    slow_frames = 0
