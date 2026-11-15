@@ -149,3 +149,10 @@ def main(
                 pump.start()
             try:
                 while True:
+                    loop_started = time.monotonic()
+                    with timer.stage("capture"):
+                        if pump is not None:
+                            frame = pump.latest()
+                            if frame is None:
+                                # Not a failure: the pump is simply ahead
+                                # of the camera this tick.
