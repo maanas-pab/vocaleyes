@@ -219,3 +219,13 @@ class StageTimer:
             for name, seconds in self._last.items()
         )
 
+    def reset(self) -> None:
+        """Clear everything (new session, or after a recalibration)."""
+        self._stack.clear()
+        self._last.clear()
+        self._totals.clear()
+        self._counts.clear()
+
+    def __repr__(self) -> str:
+        return (f"StageTimer(budget={self._budget}, "
+                f"stages={sorted(self._totals)})")
