@@ -104,3 +104,24 @@ def main(
     args = parse_args(argv)
     configure_logging(level=args.log_level,
                       json_logs=args.log_format == "json")
+    try:
+        config = Config.from_args(args)
+    except ValueError as exc:
+        print(f"Invalid option: {exc}", file=sys.stderr)
+        return 2
+
+    try:
+        check_dependencies()
+    except DependencyError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+
+    assert cv2 is not None
+    detector = BlinkDetector(config)
+    visualizer = Visualizer(config)
+    calibrator = EarCalibrator(config.calibrate_seconds)
+    # Drift compensation starts from whatever calibration ends up with;
+    # retune() and reset() below keep it anchored to the live threshold.
+    drift = ThresholdDrift(config.ear_threshold) if config.drift_enabled \
+        else None
+    timer = StageTimer(budget_seconds=0.033)
