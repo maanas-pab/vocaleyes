@@ -82,3 +82,9 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--no-drift", action="store_true",
                         help="Disable slow threshold drift compensation.")
     parser.add_argument("--log-level", choices=("quiet", "info", "debug"),
+                        default="info",
+                        help="Console verbosity (default: info).")
+    parser.add_argument("--log-format", choices=("text", "json"),
+                        default="text",
+                        help="Console log format: readable text or one JSON "
+                             "object per line (default: text).")
