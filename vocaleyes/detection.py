@@ -60,3 +60,11 @@ class BlinkDetector:
         # One EMA owns the smoothing so the seed-on-first-sample rule
         # lives in exactly one place (see smoothing.Ema).
         self._ema = Ema(config.ear_smoothing)
+        self._closed_since: Optional[float] = None
+        self._ear_at_close = 0.0
+        self._cooldown_until = 0.0
+
+    # -- public API -------------------------------------------------------
+    def update(self, combined_ear: float, now: float) -> Optional[BlinkEvent]:
+        """Feed one (combined) EAR sample. Returns an event, if any."""
+        ear = self._ema.push(combined_ear)
