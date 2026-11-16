@@ -179,3 +179,10 @@ def main(
                         landmarks = tracker.process(rgb)
                         rgb.flags.writeable = True
                     now = time.monotonic()
+
+                    face_found = landmarks is not None
+                    reading: Optional[FaceReading] = None
+                    if face_found:
+                        reading = extract_eye_readings(
+                            landmarks, width, height, config.eye_mode)
+                        visualizer.note_ear(reading.combined_ear)
