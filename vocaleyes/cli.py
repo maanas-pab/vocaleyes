@@ -244,3 +244,10 @@ def main(
                     with timer.stage("render"):
                         frame = visualizer.draw(
                             frame, reading, detector, fps, face_found,
+                            calibrator, selection_count, banner_until, now,
+                            show_mesh, mesh_landmarks=landmarks,
+                        )
+                        cv2.imshow(config.window_name, frame)
+
+                    # Smooth FPS for the HUD (EMA, so one slow frame
+                    # does not make the display jump).
