@@ -211,3 +211,9 @@ def main(
                                         "keeping threshold "
                                         f"{detector.close_threshold:.2f}.",
                                         flush=True,
+                                    )
+                        else:
+                            event = detector.update(reading.combined_ear, now)
+                            if drift is not None:
+                                # ThresholdDrift samples only open eyes and
+                                # moves at most a step at a time, so this
