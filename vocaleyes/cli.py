@@ -258,3 +258,10 @@ def main(
 
                     # Warn only after a run of over-budget frames: one
                     # hitch is normal, a sustained overrun is a machine
+                    # that needs a smaller frame or a lower resolution.
+                    if timer.over_budget:
+                        slow_frames += 1
+                        if slow_frames == 90:
+                            logger.warning(
+                                "Running over budget (%s); try --width 640 "
+                                "--height 480.", timer.summary(),
