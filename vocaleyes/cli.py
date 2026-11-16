@@ -193,3 +193,9 @@ def main(
                             # must never fire.
                             calibrator.add_sample(reading.combined_ear)
                             if calibrator.progress >= 1.0:
+                                threshold = calibrator.finish()
+                                if threshold is not None:
+                                    detector.retune(threshold)
+                                    if drift is not None:
+                                        # A fresh calibration is the new
+                                        # anchor; drift starts from here.
