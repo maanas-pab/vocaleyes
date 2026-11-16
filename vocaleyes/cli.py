@@ -276,3 +276,9 @@ def main(
                         detector.reset()
                         calibrator.start(now)
                         print("Recalibrating: keep your eyes open and relaxed.",
+                              flush=True)
+                    elif key in (ord("m"), ord("M")):
+                        show_mesh = not show_mesh
+                    elif key in (ord("r"), ord("R")):
+                        detector.reset()
+                        print("Blink detector reset.", flush=True)
