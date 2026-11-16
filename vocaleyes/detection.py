@@ -68,3 +68,47 @@ class BlinkDetector:
     def update(self, combined_ear: float, now: float) -> Optional[BlinkEvent]:
         """Feed one (combined) EAR sample. Returns an event, if any."""
         ear = self._ema.push(combined_ear)
+
+        if self.state is BlinkState.OPEN:
+            if ear < self.close_threshold:
+                self.state = BlinkState.CLOSED
+                self._closed_since = now
+                self._ear_at_close = ear
+            return None
+
+        if self.state is BlinkState.CLOSED:
+            assert self._closed_since is not None
+            if ear >= self.open_threshold:
+                closed_for = now - self._closed_since
+                self._reset_to_open(now)
+                if closed_for < self.long_blink_seconds:
+                    return BlinkEvent("short_blink", closed_for,
+                                      self._ear_at_close, now)
+                return None
+            if now - self._closed_since >= self.long_blink_seconds:
+                self.state = BlinkState.TRIGGERED
+                return BlinkEvent(
+                    "select", now - self._closed_since,
+                    self._ear_at_close, now,
+                )
+            return None
+
+        if self.state is BlinkState.TRIGGERED:
+            # Stay triggered until the eyes clearly reopen; the selection
+            # has already fired, so this state only guards re-arming.
+            if ear >= self.open_threshold:
+                self.state = BlinkState.COOLDOWN
+                self._cooldown_until = now + self.cooldown_seconds
+                self._closed_since = None
+            return None
+
+        # COOLDOWN: wait out the quiet period, then re-arm.
+        if now >= self._cooldown_until:
+            self.state = BlinkState.OPEN
+        return None
+
+    def reset(self) -> None:
+        """Forget any in-progress closure (face lost / user reset)."""
+        self.state = BlinkState.OPEN
+        self._closed_since = None
+        self._ema.reset()
