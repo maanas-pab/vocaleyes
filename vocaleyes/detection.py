@@ -112,3 +112,16 @@ class BlinkDetector:
         self.state = BlinkState.OPEN
         self._closed_since = None
         self._ema.reset()
+        self._cooldown_until = 0.0
+
+    def retune(self, ear_threshold: float) -> None:
+        """Apply a newly calibrated threshold, preserving hysteresis."""
+        self.close_threshold = ear_threshold
+        self.open_threshold = ear_threshold + 0.04
+        self.reset()
+
+    # -- derived state for the UI ----------------------------------------
+    @property
+    def smoothed_ear(self) -> Optional[float]:
+        """The smoothed EAR most recently seen, or ``None`` before data."""
+        return self._ema.value
