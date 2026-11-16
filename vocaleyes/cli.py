@@ -235,3 +235,12 @@ def main(
                                 logger.debug(
                                     "Short blink ignored (%.2fs)",
                                     event.closed_seconds,
+                                )
+                    else:
+                        # No face: forget any partial closure. A tracking
+                        # gap must never become a selection.
+                        detector.reset()
+
+                    with timer.stage("render"):
+                        frame = visualizer.draw(
+                            frame, reading, detector, fps, face_found,
