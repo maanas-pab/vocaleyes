@@ -44,3 +44,23 @@ PROFILE_FIELDS = (
 )
 
 
+class ProfileError(ValueError):
+    """Raised for a profile that is missing, unreadable or nonsensical."""
+
+
+@dataclass
+class Profile:
+    """A named bundle of per-person settings."""
+
+    name: str = ""
+    preset: str = ""
+    why: str = ""
+    camera_index: int = 0
+    mirror: bool = True
+    ear_threshold: float = 0.21
+    long_blink_seconds: float = 1.0
+    cooldown_seconds: float = 1.5
+    eye_mode: str = "average"
+    ear_smoothing: float = 0.35
+    calibrate_seconds: float = 3.0
+
