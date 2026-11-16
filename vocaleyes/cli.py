@@ -251,3 +251,10 @@ def main(
 
                     # Smooth FPS for the HUD (EMA, so one slow frame
                     # does not make the display jump).
+                    frame_seconds = max(1e-6, time.monotonic() - loop_started)
+                    instant_fps = 1.0 / frame_seconds
+                    fps = (instant_fps if fps == 0.0
+                           else 0.9 * fps + 0.1 * instant_fps)
+
+                    # Warn only after a run of over-budget frames: one
+                    # hitch is normal, a sustained overrun is a machine
