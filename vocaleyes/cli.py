@@ -217,3 +217,9 @@ def main(
                             if drift is not None:
                                 # ThresholdDrift samples only open eyes and
                                 # moves at most a step at a time, so this
+                                # can never turn a blink into a selection.
+                                moved = drift.observe(
+                                    reading.combined_ear,
+                                    closed=detector.is_closed, now=now)
+                                if moved is not None:
+                                    detector.retune(moved)
