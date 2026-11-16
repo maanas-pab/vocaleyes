@@ -199,3 +199,9 @@ def main(
                                     if drift is not None:
                                         # A fresh calibration is the new
                                         # anchor; drift starts from here.
+                                        drift.reset(threshold)
+                                    print(
+                                        "Calibration complete: EAR threshold "
+                                        f"set to {threshold:.2f}.",
+                                        flush=True,
+                                    )
