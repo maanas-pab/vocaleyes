@@ -22,3 +22,25 @@ import json
 import os
 from dataclasses import asdict, dataclass, fields
 from pathlib import Path
+from typing import Dict, List, Optional
+
+from .config import Config
+
+PROFILE_SCHEMA = "vocaleyes.profile.v1"
+
+# The subset of Config a person actually differs on. Kept deliberately
+# short: every field added here is one more thing to get wrong during a
+# setup visit, so new tunables default to the package and only join this
+# list when someone genuinely needs them per person.
+PROFILE_FIELDS = (
+    "camera_index",
+    "mirror",
+    "ear_threshold",
+    "long_blink_seconds",
+    "cooldown_seconds",
+    "eye_mode",
+    "ear_smoothing",
+    "calibrate_seconds",
+)
+
+
