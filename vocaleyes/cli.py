@@ -268,3 +268,11 @@ def main(
                             )
                     else:
                         slow_frames = 0
+
+                    key = cv2.waitKey(1) & 0xFF
+                    if key in (ord("q"), ord("Q"), 27):  # Q / Esc
+                        break
+                    if key in (ord("c"), ord("C")):
+                        detector.reset()
+                        calibrator.start(now)
+                        print("Recalibrating: keep your eyes open and relaxed.",
