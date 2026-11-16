@@ -223,3 +223,9 @@ def main(
                                     closed=detector.is_closed, now=now)
                                 if moved is not None:
                                     detector.retune(moved)
+                                    logger.info(
+                                        "Threshold drift: %.3f -> %.3f",
+                                        detector.close_threshold, moved,
+                                    )
+                            if event is not None and event.kind == "select":
+                                selection_count += 1
