@@ -205,3 +205,9 @@ def main(
                                         f"set to {threshold:.2f}.",
                                         flush=True,
                                     )
+                                else:
+                                    print(
+                                        "Calibration had too few samples; "
+                                        "keeping threshold "
+                                        f"{detector.close_threshold:.2f}.",
+                                        flush=True,
