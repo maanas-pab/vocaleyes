@@ -88,3 +88,4 @@ class Config:
             drift_enabled=not args.no_drift,
             log_level=args.log_level,
             log_format=args.log_format,
+        )
