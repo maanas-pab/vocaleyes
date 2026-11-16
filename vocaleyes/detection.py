@@ -59,3 +59,4 @@ class BlinkDetector:
         self.state = BlinkState.OPEN
         # One EMA owns the smoothing so the seed-on-first-sample rule
         # lives in exactly one place (see smoothing.Ema).
+        self._ema = Ema(config.ear_smoothing)
