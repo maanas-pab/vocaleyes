@@ -229,3 +229,9 @@ def main(
                                     )
                             if event is not None and event.kind == "select":
                                 selection_count += 1
+                                banner_until = now + 1.6
+                                action_callback(event, selection_count)
+                            elif event is not None:
+                                logger.debug(
+                                    "Short blink ignored (%.2fs)",
+                                    event.closed_seconds,
