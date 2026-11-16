@@ -265,3 +265,6 @@ def main(
                             logger.warning(
                                 "Running over budget (%s); try --width 640 "
                                 "--height 480.", timer.summary(),
+                            )
+                    else:
+                        slow_frames = 0
