@@ -64,3 +64,20 @@ class Profile:
     ear_smoothing: float = 0.35
     calibrate_seconds: float = 3.0
 
+    def __post_init__(self) -> None:
+        # Validate on the way in, not on the way out: a hand-edited JSON
+        # file should fail at load time with a message naming the field,
+        # not halfway through a session with the camera running.
+        if not self.name:
+            raise ProfileError("a profile needs a non-empty name")
+        if not 0.05 <= self.ear_threshold <= 0.45:
+            raise ProfileError(
+                f"profile {self.name!r}: ear_threshold must be between "
+                "0.05 and 0.45"
+            )
+        if self.long_blink_seconds <= 0:
+            raise ProfileError(
+                f"profile {self.name!r}: long_blink_seconds must be positive"
+            )
+        if self.cooldown_seconds < 0:
+            raise ProfileError(
