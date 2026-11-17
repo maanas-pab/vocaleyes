@@ -5,3 +5,10 @@
   "why": "One eyelid closes far less than the other: take the minimum of the two eyes so the stronger closure drives the signal, and lengthen the quiet period so a stray wink cannot double-fire.",
   "camera_index": 0,
   "mirror": true,
+  "ear_threshold": 0.2,
+  "long_blink_seconds": 1.1,
+  "cooldown_seconds": 2.5,
+  "eye_mode": "min",
+  "ear_smoothing": 0.35,
+  "calibrate_seconds": 4.0
+}
