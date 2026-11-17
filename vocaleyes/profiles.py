@@ -188,3 +188,25 @@ def load(name: str, *, preset: bool = False) -> Profile:
 def save(profile: Profile) -> Path:
     """Write a profile to disk and return its path.
 
+    This is the only function in the module that writes anything, and it
+    is only ever reached because the user asked to save a profile.
+    """
+    directory = profiles_dir()
+    directory.mkdir(parents=True, exist_ok=True)
+    path = directory / f"{profile.name}.json"
+    path.write_text(
+        json.dumps(profile.to_dict(), indent=2, sort_keys=True) + "\n",
+        encoding="utf-8",
+    )
+    return path
+
+
+def delete(name: str) -> bool:
+    """Remove a user profile. Returns False when it was not there."""
+    path = profiles_dir() / f"{name}.json"
+    if not path.is_file():
+        return False
+    path.unlink()
+    return True
+
+
