@@ -42,3 +42,24 @@ CHECK_ORDER = (
 
 
 # ---------------------------------------------------------------------------
+# Results
+# ---------------------------------------------------------------------------
+@dataclass
+class Check:
+    """One probe: what was checked, what happened, what to do next.
+
+    ``hint`` is read only when ``ok`` is False — it is the instruction
+    handed to a carer, so it must be a command or a setting to change,
+    never a stack trace. ``severity`` decides whether a failure stops
+    the run: ``"warn"`` marks findings worth mentioning that do not
+    stop VocalEyes from working (and so never fail ``doctor``).
+    """
+
+    name: str
+    label: str
+    ok: bool
+    detail: str
+    hint: str = ""
+    severity: str = "error"
+
+
