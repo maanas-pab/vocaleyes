@@ -210,3 +210,24 @@ def delete(name: str) -> bool:
     return True
 
 
+def snapshot(name: str, config: Config, *, why: str = "",
+             preset: str = "") -> Profile:
+    """Capture the current settings as a reusable profile."""
+    kwargs = {f: getattr(config, f) for f in PROFILE_FIELDS}
+    return Profile(name=name, preset=preset, why=why, **kwargs)
+
+
+# ---------------------------------------------------------------------------
+# Discovery
+# ---------------------------------------------------------------------------
+def _names(directory: Path) -> List[str]:
+    if not directory.is_dir():
+        return []
+    return sorted(p.stem for p in directory.glob("*.json"))
+
+
+def list_profiles() -> List[str]:
+    """Names of the user's saved profiles, alphabetically."""
+    return _names(profiles_dir())
+
+
