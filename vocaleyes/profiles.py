@@ -98,3 +98,32 @@ class Profile:
     def from_dict(cls, data: Dict) -> "Profile":
         """Build a profile from parsed JSON, ignoring unknown keys.
 
+        Unknown keys are ignored rather than rejected so that a profile
+        written by a newer VocalEyes still loads here, and so a carer can
+        add their own notes without breaking anything.
+        """
+        if not isinstance(data, dict):
+            raise ProfileError("a profile must be a JSON object")
+        known = {f.name for f in fields(cls)}
+        kwargs = {k: v for k, v in data.items() if k in known}
+        try:
+            return cls(**kwargs)
+        except TypeError as exc:
+            raise ProfileError(f"profile has a field of the wrong type: {exc}")
+        except ValueError as exc:
+            raise ProfileError(str(exc))
+
+    def to_dict(self) -> Dict:
+        data = asdict(self)
+        data["schema"] = PROFILE_SCHEMA
+        return data
+
+    # -- application -----------------------------------------------------
+    def apply(self, config: Config) -> Config:
+        """Return ``config`` with this profile's fields overlaid."""
+        merged = asdict(config)
+        for name in PROFILE_FIELDS:
+            merged[name] = getattr(self, name)
+        return Config(**merged)
+
+
