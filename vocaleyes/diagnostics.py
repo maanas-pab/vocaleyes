@@ -63,3 +63,21 @@ class Check:
     severity: str = "error"
 
 
+def _safe(name: str, label: str, probe: Callable[[], Check]) -> Check:
+    """Run one probe; a crash inside it becomes a FAIL line, not a traceback.
+
+    No probe may raise out of the doctor: a carer running this on a
+    machine that is already misbehaving needs a report, not a crash.
+    """
+    try:
+        return probe()
+    except Exception as exc:  # the point of this function is to catch all
+        return Check(name, label, False, f"check crashed: {exc!r}",
+                     hint="something unexpected happened; run the command "
+                          "again, and if it repeats, send this line to "
+                          "whoever set up VocalEyes.")
+
+
+# ---------------------------------------------------------------------------
+# Checks
+# ---------------------------------------------------------------------------
