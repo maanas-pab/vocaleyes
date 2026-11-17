@@ -167,3 +167,24 @@ def _load_path(path: Path) -> Profile:
     return Profile.from_dict(data)
 
 
+def load(name: str, *, preset: bool = False) -> Profile:
+    """Load a profile (or preset) by name.
+
+    Raises :class:`ProfileError` naming the places that were looked at,
+    because "no such profile" is only useful if it says where it looked.
+    """
+    directory = presets_dir() if preset else profiles_dir()
+    path = directory / f"{name}.json"
+    if not path.is_file():
+        other = profiles_dir() if preset else presets_dir()
+        raise ProfileError(
+            f"no {'preset' if preset else 'profile'} named {name!r} "
+            f"(looked in {directory}"
+            + (f" and {other})" if not preset else ")")
+        )
+    return _load_path(path)
+
+
+def save(profile: Profile) -> Path:
+    """Write a profile to disk and return its path.
+
