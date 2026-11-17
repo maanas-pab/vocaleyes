@@ -1,0 +1,7 @@
+{
+  "schema": "vocaleyes.profile.v1",
+  "name": "glasses",
+  "preset": "glasses",
+  "why": "Frames and reflections jitter the landmarks: smooth harder, drop the threshold so noise cannot dip under it, and lengthen the hold so only a real closure can complete it.",
+  "camera_index": 0,
+  "mirror": true,
