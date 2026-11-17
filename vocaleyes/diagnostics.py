@@ -139,3 +139,27 @@ def _check_camera(config: Optional[Config], probe_camera: bool) -> Check:
     if not probe_camera or deps.cv2 is None:
         return Check("camera", "Webcam", True, "skipped")
 
+    index = 0 if config is None else config.camera_index
+    cap = deps.cv2.VideoCapture(index)
+    try:
+        if not cap.isOpened():
+            return Check(
+                "camera", "Webcam", False, f"camera {index} did not open",
+                hint="check the camera is not in use by another app, "
+                     "or try --camera 1",
+            )
+        got_frame, frame = cap.read()
+        if not got_frame or frame is None:
+            return Check(
+                "camera", "Webcam", False,
+                f"camera {index} opened but sent no frame",
+                hint="check the camera is not in use by another app, "
+                     "or try --camera 1",
+            )
+        height, width = frame.shape[:2]
+        return Check("camera", "Webcam", True,
+                     f"camera {index} opened, first frame {width}x{height}")
+    finally:
+        cap.release()
+
+
