@@ -127,3 +127,23 @@ class Profile:
         return Config(**merged)
 
 
+# ---------------------------------------------------------------------------
+# Locations
+# ---------------------------------------------------------------------------
+def home() -> Path:
+    """The directory VocalEyes keeps user data in.
+
+    ``VOCALEYES_HOME`` exists so a carer can point at a USB stick or a
+    synced folder without hunting through the home directory.
+    """
+    override = os.environ.get("VOCALEYES_HOME")
+    if override:
+        return Path(override).expanduser()
+    return Path.home() / ".vocaleyes"
+
+
+def profiles_dir() -> Path:
+    """Where user profiles live (created on first save)."""
+    return home() / "profiles"
+
+
