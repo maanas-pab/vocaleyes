@@ -103,3 +103,19 @@ def _check_numpy() -> Check:
                      hint="pip install numpy")
     return Check("numpy", "NumPy", True, np.__version__)
 
+
+def _check_opencv() -> Check:
+    """Read deps' lazily-imported cv2 instead of importing it again."""
+    from . import deps
+
+    if deps.cv2 is None:
+        return Check("opencv", "OpenCV", False,
+                     f"not installed ({deps.CV2_IMPORT_ERROR})",
+                     hint="pip install opencv-python")
+    return Check("opencv", "OpenCV", True, deps.cv2.__version__)
+
+
+def _check_mediapipe() -> Check:
+    """Same shape as OpenCV: deps already recorded why the import failed."""
+    from . import deps
+
