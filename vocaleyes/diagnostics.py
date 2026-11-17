@@ -22,3 +22,23 @@ import os
 import platform
 import sys
 from dataclasses import dataclass
+from typing import Callable, List, Optional
+
+from .config import Config
+
+# The fixed order checks are run and reported in: what you are running
+# (python), what it needs (the libraries), what it watches (the camera
+# and the settings it watches with), then the room it draws into.
+CHECK_ORDER = (
+    "python",
+    "numpy",
+    "opencv",
+    "mediapipe",
+    "camera",
+    "config",
+    "permissions",
+    "display",
+)
+
+
+# ---------------------------------------------------------------------------
