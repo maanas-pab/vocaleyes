@@ -147,3 +147,23 @@ def profiles_dir() -> Path:
     return home() / "profiles"
 
 
+def presets_dir() -> Path:
+    """Where the read-only presets shipped with the package live."""
+    return Path(__file__).resolve().parent / "presets"
+
+
+# ---------------------------------------------------------------------------
+# Reading and writing
+# ---------------------------------------------------------------------------
+def _load_path(path: Path) -> Profile:
+    try:
+        raw = path.read_text(encoding="utf-8")
+    except OSError as exc:
+        raise ProfileError(f"cannot read {path}: {exc}")
+    try:
+        data = json.loads(raw)
+    except ValueError as exc:
+        raise ProfileError(f"{path} is not valid JSON: {exc}")
+    return Profile.from_dict(data)
+
+
