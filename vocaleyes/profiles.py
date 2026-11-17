@@ -251,3 +251,13 @@ def load_presets() -> Dict[str, Profile]:
     return out
 
 
+def resolve(name: str) -> Profile:
+    """Load ``name`` as a profile first, then as a preset.
+
+    Profiles win so a saved tweak of a preset is what actually runs.
+    """
+    if (profiles_dir() / f"{name}.json").is_file():
+        return load(name)
+    return load(name, preset=True)
+
+
