@@ -81,3 +81,25 @@ def _safe(name: str, label: str, probe: Callable[[], Check]) -> Check:
 # ---------------------------------------------------------------------------
 # Checks
 # ---------------------------------------------------------------------------
+def _check_python() -> Check:
+    """Everything else assumes 3.9+; say which interpreter is running."""
+    ok = sys.version_info >= (3, 9)
+    version = platform.python_version()
+    implementation = platform.python_implementation()
+    hint = "" if ok else (
+        "VocalEyes needs Python 3.9 or newer; install a newer Python "
+        "from python.org, then run pip install -r requirements.txt again."
+    )
+    return Check("python", "Python version", ok,
+                 f"{version} ({implementation})", hint)
+
+
+def _check_numpy() -> Check:
+    """NumPy backs every frame measurement, so it is checked first."""
+    try:
+        import numpy as np
+    except ImportError as exc:
+        return Check("numpy", "NumPy", False, f"not installed ({exc})",
+                     hint="pip install numpy")
+    return Check("numpy", "NumPy", True, np.__version__)
+
