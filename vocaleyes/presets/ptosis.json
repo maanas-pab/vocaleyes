@@ -5,3 +5,10 @@
   "why": "Drooping upper eyelid: the open eye already sits at a low EAR, so the threshold drops with it and calibration samples longer to catch a truly relaxed eye.",
   "camera_index": 0,
   "mirror": true,
+  "ear_threshold": 0.16,
+  "long_blink_seconds": 1.2,
+  "cooldown_seconds": 2.0,
+  "eye_mode": "average",
+  "ear_smoothing": 0.4,
+  "calibrate_seconds": 5.0
+}
