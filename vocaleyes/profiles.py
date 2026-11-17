@@ -261,3 +261,32 @@ def resolve(name: str) -> Profile:
     return load(name, preset=True)
 
 
+def describe() -> str:
+    """A listing a carer can read, with the preset rationale included."""
+    lines: List[str] = []
+    saved = list_profiles()
+    lines.append(f"Saved profiles ({len(saved)}) in {profiles_dir()}:")
+    if saved:
+        for name in saved:
+            profile = load(name)
+            lines.append(
+                f"  {name}  — threshold {profile.ear_threshold:.2f}, "
+                f"hold {profile.long_blink_seconds:.1f}s, "
+                f"{profile.eye_mode}"
+            )
+    else:
+        lines.append("  (none yet — run a session and save one)")
+
+    presets = load_presets()
+    lines.append("")
+    lines.append(f"Shipped presets ({len(presets)}) in {presets_dir()}:")
+    for name, profile in sorted(presets.items()):
+        lines.append(f"  {name}  — {profile.why or 'no rationale recorded'}")
+    return "\n".join(lines)
+
+
+def find(name: Optional[str]) -> Optional[Profile]:
+    """Load ``name`` if given, else ``None`` — for optional CLI flags."""
+    if not name:
+        return None
+    return resolve(name)
