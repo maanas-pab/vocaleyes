@@ -1,0 +1,7 @@
+{
+  "schema": "vocaleyes.profile.v1",
+  "name": "default",
+  "preset": "default",
+  "why": "Stock settings for a first run. Calibrate with C before trusting the threshold.",
+  "camera_index": 0,
+  "mirror": true,
