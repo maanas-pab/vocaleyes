@@ -119,3 +119,23 @@ def _check_mediapipe() -> Check:
     """Same shape as OpenCV: deps already recorded why the import failed."""
     from . import deps
 
+    if deps.mp is None:
+        return Check("mediapipe", "MediaPipe", False,
+                     f"not installed ({deps.MP_IMPORT_ERROR})",
+                     hint="pip install mediapipe")
+    return Check("mediapipe", "MediaPipe", True, deps.mp.__version__)
+
+
+def _check_camera(config: Optional[Config], probe_camera: bool) -> Check:
+    """Open the webcam and read one frame — the most common first-run fail.
+
+    Probing briefly holds the camera, so it only runs when asked for
+    and when OpenCV (which does the probing) is present; otherwise the
+    camera check is skipped rather than passed or failed. The handle is
+    always released so the real run that follows finds a free camera.
+    """
+    from . import deps
+
+    if not probe_camera or deps.cv2 is None:
+        return Check("camera", "Webcam", True, "skipped")
+
