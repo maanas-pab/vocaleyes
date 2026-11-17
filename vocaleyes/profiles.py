@@ -231,3 +231,23 @@ def list_profiles() -> List[str]:
     return _names(profiles_dir())
 
 
+def list_presets() -> List[str]:
+    """Names of the presets shipped with the package."""
+    return _names(presets_dir())
+
+
+def load_presets() -> Dict[str, Profile]:
+    """Every readable preset, keyed by name.
+
+    A single corrupt preset must not hide the rest, so failures are
+    skipped here — :func:`load` is where a specific preset is reported.
+    """
+    out: Dict[str, Profile] = {}
+    for name in list_presets():
+        try:
+            out[name] = load(name, preset=True)
+        except ProfileError:
+            continue
+    return out
+
+
