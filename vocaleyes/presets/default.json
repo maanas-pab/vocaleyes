@@ -5,3 +5,10 @@
   "why": "Stock settings for a first run. Calibrate with C before trusting the threshold.",
   "camera_index": 0,
   "mirror": true,
+  "ear_threshold": 0.21,
+  "long_blink_seconds": 1.0,
+  "cooldown_seconds": 1.5,
+  "eye_mode": "average",
+  "ear_smoothing": 0.35,
+  "calibrate_seconds": 3.0
+}
