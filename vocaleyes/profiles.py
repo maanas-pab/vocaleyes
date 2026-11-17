@@ -81,3 +81,20 @@ class Profile:
             )
         if self.cooldown_seconds < 0:
             raise ProfileError(
+                f"profile {self.name!r}: cooldown_seconds must not be negative"
+            )
+        if self.eye_mode not in ("average", "min"):
+            raise ProfileError(
+                f"profile {self.name!r}: eye_mode must be "
+                '"average" or "min"'
+            )
+        if not 0.0 < self.ear_smoothing <= 1.0:
+            raise ProfileError(
+                f"profile {self.name!r}: ear_smoothing must be in (0, 1]"
+            )
+
+    # -- conversion ------------------------------------------------------
+    @classmethod
+    def from_dict(cls, data: Dict) -> "Profile":
+        """Build a profile from parsed JSON, ignoring unknown keys.
+
