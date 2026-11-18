@@ -305,3 +305,19 @@ def format_report(results: List[Check], *, verbose: bool = False) -> str:
         lines.append("All good — VocalEyes should run.")
     return "\n".join(lines)
 
+
+# ---------------------------------------------------------------------------
+# Entry point
+# ---------------------------------------------------------------------------
+def doctor(config: Optional[Config] = None, *, probe_camera: bool = True,
+           verbose: bool = False) -> int:
+    """Run the checks, print the report, return a process exit code.
+
+    Exit 0 unless a ``severity="error"`` check failed: warnings are
+    printed for attention but never stop the run, which is why the
+    permissions probe can flag a doubt without turning ``doctor`` red.
+    """
+    results = run_checks(config, probe_camera=probe_camera)
+    print(format_report(results, verbose=verbose))
+    failed = any(not c.ok and c.severity == "error" for c in results)
+    return 1 if failed else 0
