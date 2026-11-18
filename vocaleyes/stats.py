@@ -317,3 +317,41 @@ class SessionStats:
             f"{self.average_fps:.1f} fps avg (peak {self.peak_fps:.1f})"
         ]
 
+        # Selections and ignored blinks share a line because they are
+        # two views of one subject: what the detector did with the
+        # user's blinks. Each part still stands alone, so a session of
+        # purely ordinary blinks reports that honestly too.
+        parts = []
+        if self._selections:
+            parts.append(
+                f"Selections: {self._selections} "
+                f"({self.selections_per_minute:.1f}/min)"
+            )
+        if self._short_blinks:
+            parts.append(f"short blinks ignored: {self._short_blinks}")
+        if parts:
+            lines.append(" | ".join(parts))
+
+        parts = []
+        if self._tracking_losses:
+            parts.append(f"Tracking losses: {self._tracking_losses}")
+        if self._dropped_frames:
+            parts.append(
+                f"camera frames dropped: {self._dropped_frames}")
+        if parts:
+            lines.append(" | ".join(parts))
+
+        if (self._drift_adjustments
+                and self._drift_first is not None
+                and self._drift_last is not None):
+            noun = ("adjustment" if self._drift_adjustments == 1
+                    else "adjustments")
+            lines.append(
+                f"Threshold drift: {self._drift_adjustments} {noun}, "
+                f"{self._drift_first:.3f} -> {self._drift_last:.3f}"
+            )
+        return "\n".join(lines)
+
+    def save(self, path: str) -> str:
+        """Write :meth:`to_dict` as pretty JSON to ``path``; return ``path``.
+
