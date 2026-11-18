@@ -159,3 +159,34 @@ class SessionStats:
     def note_drift(self, old: float, new: float) -> None:
         """Record one threshold adjustment: ``old`` -> ``new``.
 
+        The count says how often drift compensation fired; keeping the
+        first and last values lets the report show where the threshold
+        started and where it ended — the part a reader can judge as
+        "barely moved" or "climbed all session". A pair containing
+        anything but finite numbers is dropped whole: counting an
+        adjustment while losing its values would leave a report that
+        cannot explain itself.
+        """
+        before = _finite(old)
+        after = _finite(new)
+        if before is None or after is None:
+            return
+        self._drift_adjustments += 1
+        if self._drift_first is None:
+            self._drift_first = before
+        self._drift_last = after
+
+    def note_tracking_loss(self) -> None:
+        """Count one streak of frames in which no face was found.
+
+        Call this once per consecutive losing streak, not once per
+        lost frame: thirty frames without a face is one event — the
+        user looked away, or a hand passed the camera — and a
+        per-frame count would read like thirty separate failures,
+        burying the numbers that matter beneath inflated ones.
+        """
+        self._tracking_losses += 1
+
+    def note_camera_drop(self, dropped: int) -> None:
+        """Accumulate frames the background capture thread discarded.
+
