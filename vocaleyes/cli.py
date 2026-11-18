@@ -28,3 +28,30 @@ from .profiles import describe as describe_profiles, find as find_profile
 from .rendering import Visualizer
 from .smoothing import StageTimer
 from .stats import SessionStats
+from .tracking import FaceMeshTracker
+from ._version import __version__
+
+logger = logging.getLogger("vocaleyes")
+
+
+# ---------------------------------------------------------------------------
+# Command-line interface
+# ---------------------------------------------------------------------------
+def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
+    """Parse command-line arguments."""
+    parser = argparse.ArgumentParser(
+        prog="vocaleyes",
+        description=(
+            "Project VocalEyes: select with a long blink. "
+            "Hold both eyes closed to trigger a Select action."
+        ),
+        epilog=(
+            "Controls: Q / Esc quit  |  C recalibrate  |  "
+            "M toggle face mesh  |  R reset detector."
+        ),
+    )
+    parser.add_argument("command", nargs="?", default="run",
+                        choices=("run", "doctor", "profiles"),
+                        help="run (default) start tracking; doctor check "
+                             "that this machine is ready; profiles list "
+                             "the saved profiles and shipped presets.")
