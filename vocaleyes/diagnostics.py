@@ -264,3 +264,9 @@ def run_checks(config: Optional[Config] = None, *,
     return [_safe(name, label, probe) for name, label, probe in probes]
 
 
+# ---------------------------------------------------------------------------
+# Reporting
+# ---------------------------------------------------------------------------
+def format_report(results: List[Check], *, verbose: bool = False) -> str:
+    """Render checks as one readable block, with no trailing newline.
+
