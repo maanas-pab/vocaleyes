@@ -163,3 +163,22 @@ def _check_camera(config: Optional[Config], probe_camera: bool) -> Check:
         cap.release()
 
 
+def _check_config(config: Optional[Config]) -> Check:
+    """Validate the tunables now, not halfway through a session."""
+    try:
+        cfg = Config() if config is None else config
+        # A dataclass can be changed after it was built, so re-run the
+        # validator instead of trusting the instance we were handed.
+        cfg.__post_init__()
+    except ValueError as exc:
+        return Check(
+            "config", "Settings", False, str(exc),
+            hint="reset to the defaults: --threshold 0.21 "
+                 "--long-blink 1.0 --cooldown 1.5",
+        )
+    detail = (f"threshold {cfg.ear_threshold}, "
+              f"hold {cfg.long_blink_seconds}s, "
+              f"cooldown {cfg.cooldown_seconds}s")
+    return Check("config", "Settings", True, detail)
+
+
