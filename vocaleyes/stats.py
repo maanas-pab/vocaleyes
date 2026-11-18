@@ -57,3 +57,43 @@ def _finite(value) -> Optional[float]:
 def _format_duration(seconds: float) -> str:
     """Human session age — ``4m 12s``, ``1h 04m 05s`` — truncated.
 
+    Truncated rather than rounded: the counters printed beside it
+    cover exactly the time that ran, and "5m 00s" next to numbers
+    gathered in 4m 59s would round the report away from the truth.
+    """
+    total = int(max(0.0, seconds))
+    minutes, secs = divmod(total, 60)
+    hours, minutes = divmod(minutes, 60)
+    if hours:
+        return f"{hours}h {minutes:02d}m {secs:02d}s"
+    if minutes:
+        return f"{minutes}m {secs:02d}s"
+    return f"{secs}s"
+
+
+# ---------------------------------------------------------------------------
+# Session accounting
+# ---------------------------------------------------------------------------
+class SessionStats:
+    """Counters for one run of the camera loop, held in memory.
+
+    Constructed at startup and read once at quit, this object is the
+    whole of what the app remembers about a session: selections,
+    ignored blinks, loop speed, threshold drift, tracking gaps and
+    dropped frames. It stores numbers only — never a frame, a
+    landmark or a face — so the report it produces cannot identify
+    the person on camera, and nothing reaches disk unless the caller
+    explicitly asks with :meth:`save`.
+
+    Each ``note_*`` method is called from inside the loop, so each one
+    tolerates junk input: counters are bumped only by values they can
+    make sense of, and nothing here raises.
+    """
+
+    def __init__(self) -> None:
+        # Two clocks, deliberately: monotonic measures how long the
+        # session ran (immune to clock steps), while time.time gives
+        # the absolute instants a reader can compare afterwards.
+        self._started_monotonic = time.monotonic()
+        self._started_epoch = time.time()
+
