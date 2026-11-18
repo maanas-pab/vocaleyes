@@ -182,3 +182,6 @@ def _check_config(config: Optional[Config]) -> Check:
     return Check("config", "Settings", True, detail)
 
 
+def _check_permissions() -> Check:
+    """Whether the OS will let this app see a camera.
+
