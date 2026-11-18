@@ -97,3 +97,24 @@ class SessionStats:
         self._started_monotonic = time.monotonic()
         self._started_epoch = time.time()
 
+        self._frames = 0
+        self._selections = 0
+        self._short_blinks = 0
+        self._closed_seconds = 0.0
+        self._drift_adjustments = 0
+        self._drift_first: Optional[float] = None
+        self._drift_last: Optional[float] = None
+        self._tracking_losses = 0
+        self._dropped_frames = 0
+        self._max_drop_batch = 0
+
+        # The FPS readout is smoothed exactly like the HUD's: alpha
+        # 0.1 keeps one hitch from moving the average while still
+        # following a real change in loop speed within a second or two.
+        self._fps_ema = Ema(alpha=0.1)
+        self._peak_fps = 0.0
+
+    # -- recording --------------------------------------------------------
+    def note_frame(self, fps: float) -> None:
+        """Record one completed loop iteration and its instantaneous FPS.
+
