@@ -185,3 +185,32 @@ def _check_config(config: Optional[Config]) -> Check:
 def _check_permissions() -> Check:
     """Whether the OS will let this app see a camera.
 
+    Warn-level: it can explain a failure but never fails the doctor on
+    its own. macOS has nothing to inspect — the permission prompt
+    appears at first run — so that branch only reports the OS.
+    """
+    system = platform.system()
+    if system == "Windows":
+        return Check("permissions", "Camera permissions", True,
+                     "camera access is managed by Windows Settings",
+                     severity="warn")
+    if system == "Darwin":
+        return Check("permissions", "Camera permissions", True,
+                     "macOS: allow VocalEyes in System Settings > "
+                     "Privacy & Security > Camera",
+                     severity="warn")
+    devices = sorted(glob.glob("/dev/video*"))
+    if devices:
+        names = ", ".join(os.path.basename(d) for d in devices)
+        return Check("permissions", "Camera permissions", True,
+                     f"{system}: found {names}", severity="warn")
+    return Check(
+        "permissions", "Camera permissions", False,
+        f"{system}: no camera device under /dev/video*",
+        hint="is the webcam plugged in? If it is, ask whoever set up "
+             "this computer to add your user to the video group: "
+             "sudo usermod -aG video $USER",
+        severity="warn",
+    )
+
+
