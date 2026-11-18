@@ -190,3 +190,39 @@ class SessionStats:
     def note_camera_drop(self, dropped: int) -> None:
         """Accumulate frames the background capture thread discarded.
 
+        The capture thread keeps the newest frame rather than queueing
+        them, so a loop slower than the camera shows up as drops here:
+        ordinary back-pressure, not an error. Callers pass the frames
+        dropped since the last call (the pump's own counter is
+        cumulative, so hand over the delta). The largest single call
+        is kept alongside the total because the shape matters — one
+        burst is a stall, a steady trickle is merely a slow loop — and
+        because non-integer or negative values are ignored rather than
+        raised on, for the same reason as every other note here.
+        """
+        try:
+            count = int(dropped)
+        except (TypeError, ValueError):
+            return
+        if count <= 0:
+            return
+        self._dropped_frames += count
+        if count > self._max_drop_batch:
+            self._max_drop_batch = count
+
+    # -- read-only report surface -----------------------------------------
+    @property
+    def frames(self) -> int:
+        """Loop iterations completed — the denominator of every rate."""
+        return self._frames
+
+    @property
+    def selections(self) -> int:
+        """Deliberate long holds that became a Select."""
+        return self._selections
+
+    @property
+    def short_blinks(self) -> int:
+        """Ordinary blinks the detector correctly ignored."""
+        return self._short_blinks
+
