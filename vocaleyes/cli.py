@@ -25,3 +25,6 @@ from .hooks import on_long_blink
 from .logging_setup import configure as configure_logging
 from .models import FaceReading, extract_eye_readings
 from .profiles import describe as describe_profiles, find as find_profile
+from .rendering import Visualizer
+from .smoothing import StageTimer
+from .stats import SessionStats
