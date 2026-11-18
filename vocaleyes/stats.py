@@ -257,3 +257,20 @@ class SessionStats:
         """Fastest single iteration seen, or 0.0 before the first."""
         return self._peak_fps
 
+    @property
+    def selections_per_minute(self) -> float:
+        """Selections per minute, or 0.0 until a second has elapsed.
+
+        Below one second the rate would be nonsense — one selection
+        in a quarter second is "240/min" — so 0.0 says "too early to
+        tell" rather than something untrue.
+        """
+        elapsed = self.elapsed_seconds
+        if elapsed < 1.0:
+            return 0.0
+        return self._selections * 60.0 / elapsed
+
+    # -- reporting --------------------------------------------------------
+    def to_dict(self) -> dict:
+        """A JSON-ready snapshot of the session.
+
