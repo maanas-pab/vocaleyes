@@ -28,3 +28,32 @@ from .smoothing import Ema
 def _iso_utc(epoch: float) -> str:
     """UTC ISO-8601 with milliseconds and ``Z``, from epoch ``epoch``.
 
+    The same shape as the timestamps in ``logging_setup`` so console
+    lines and saved reports read alike, and built from :func:`time.time`
+    so the instant is absolute — never the machine's local time, which
+    would make a report ambiguous the moment it left this machine.
+    """
+    instant = datetime.fromtimestamp(epoch, tz=timezone.utc)
+    millis = instant.microsecond // 1000
+    return f"{instant.strftime('%Y-%m-%dT%H:%M:%S')}.{millis:03d}Z"
+
+
+def _finite(value) -> Optional[float]:
+    """``value`` as a finite float, or ``None`` for anything else.
+
+    Every ``note_*`` method runs inside the camera loop, where a raise
+    means someone's session ends over a bookkeeping nicety. Non-numeric
+    input, and the ``nan``/``inf`` a division can produce, are dropped
+    rather than counted: a bad call must never be able to skew the
+    very report it feeds.
+    """
+    try:
+        number = float(value)
+    except (TypeError, ValueError):
+        return None
+    return number if math.isfinite(number) else None
+
+
+def _format_duration(seconds: float) -> str:
+    """Human session age — ``4m 12s``, ``1h 04m 05s`` — truncated.
+
