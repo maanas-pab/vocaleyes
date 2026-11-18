@@ -226,3 +226,34 @@ class SessionStats:
         """Ordinary blinks the detector correctly ignored."""
         return self._short_blinks
 
+    @property
+    def drift_adjustments(self) -> int:
+        """Threshold adjustments made during the session."""
+        return self._drift_adjustments
+
+    @property
+    def tracking_losses(self) -> int:
+        """Losing streaks of frames (one per streak, not per frame)."""
+        return self._tracking_losses
+
+    @property
+    def dropped_frames(self) -> int:
+        """Frames the capture thread overwrote before we read them."""
+        return self._dropped_frames
+
+    @property
+    def elapsed_seconds(self) -> float:
+        """Wall-clock seconds since this object was created."""
+        return time.monotonic() - self._started_monotonic
+
+    @property
+    def average_fps(self) -> float:
+        """Smoothed loop FPS, or 0.0 before a usable sample arrives."""
+        value = self._fps_ema.value
+        return 0.0 if value is None else value
+
+    @property
+    def peak_fps(self) -> float:
+        """Fastest single iteration seen, or 0.0 before the first."""
+        return self._peak_fps
+
