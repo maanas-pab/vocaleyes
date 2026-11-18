@@ -355,3 +355,32 @@ class SessionStats:
     def save(self, path: str) -> str:
         """Write :meth:`to_dict` as pretty JSON to ``path``; return ``path``.
 
+        This is the only method in this module that writes anything,
+        and it runs only when the user passes an explicit path on the
+        command line — without that opt-in VocalEyes computes and
+        prints its report in memory and touches no file at all, which
+        is the privacy promise in the module docstring. Parent
+        directories are created so a fresh path works. Failures
+        surface as ``OSError``: a report the user asked for should
+        say why it could not be saved, not swallow the reason.
+        """
+        parent = os.path.dirname(path)
+        if parent:
+            os.makedirs(parent, exist_ok=True)
+        payload = json.dumps(self.to_dict(), indent=2,
+                             sort_keys=True) + "\n"
+        with open(path, "w", encoding="utf-8") as handle:
+            handle.write(payload)
+        return path
+
+
+def format_summary(stats: SessionStats) -> str:
+    """Render ``stats`` — a free-function alias of ``stats.summary()``.
+
+    Kept so callers can depend on a plain function rather than
+    importing the class: the CLI can render a session report without
+    coupling itself to the name of the type that produced it, and a
+    rename or a swap behind :class:`SessionStats` leaves those callers
+    untouched.
+    """
+    return stats.summary()
