@@ -270,3 +270,38 @@ def run_checks(config: Optional[Config] = None, *,
 def format_report(results: List[Check], *, verbose: bool = False) -> str:
     """Render checks as one readable block, with no trailing newline.
 
+    A failing check always shows what was observed plus a ``-> `` hint,
+    because that is the line the reader came for. A passing check only
+    shows its detail under ``verbose``, keeping the default report
+    short enough to read at a glance.
+    """
+    total = len(results)
+    passed = sum(1 for c in results if c.ok)
+    warned = sum(1 for c in results if not c.ok and c.severity == "warn")
+    failed = sum(1 for c in results if not c.ok and c.severity != "warn")
+    lines = [
+        f"VocalEyes doctor — {total} checks, {passed} ok, "
+        f"{warned} warnings, {failed} failed",
+    ]
+    for check in results:
+        # The markers are one width wide so every label starts in the
+        # same column regardless of outcome.
+        if check.ok:
+            marker = "[ ok ]"
+        elif check.severity == "warn":
+            marker = "[warn]"
+        else:
+            marker = "[FAIL]"
+        line = f"  {marker} {check.label}"
+        if check.detail and (verbose or not check.ok):
+            line += f" — {check.detail}"
+        lines.append(line)
+        if not check.ok and check.hint:
+            lines.append(f"    -> {check.hint}")
+    if failed:
+        lines.append(
+            "Fix the FAIL items above and run vocaleyes doctor again.")
+    else:
+        lines.append("All good — VocalEyes should run.")
+    return "\n".join(lines)
+
