@@ -214,3 +214,33 @@ def _check_permissions() -> Check:
     )
 
 
+def _check_display() -> Check:
+    """A GUI window is required; a bare ssh session has nowhere to draw."""
+    system = platform.system()
+    if system in ("Windows", "Darwin"):
+        name = "macOS" if system == "Darwin" else system
+        return Check("display", "Display", True,
+                     f"{name} desktop session")
+    display = os.environ.get("DISPLAY")
+    if display:
+        return Check("display", "Display", True,
+                     f"X session (DISPLAY={display})")
+    wayland = os.environ.get("WAYLAND_DISPLAY")
+    if wayland:
+        return Check("display", "Display", True,
+                     f"Wayland session (WAYLAND_DISPLAY={wayland})")
+    return Check(
+        "display", "Display", False,
+        "no desktop session (DISPLAY and WAYLAND_DISPLAY are both unset)",
+        hint="VocalEyes draws a preview window; run it in a desktop "
+             "session, not over bare ssh.",
+    )
+
+
+# ---------------------------------------------------------------------------
+# Running the checks
+# ---------------------------------------------------------------------------
+def run_checks(config: Optional[Config] = None, *,
+               probe_camera: bool = True) -> List[Check]:
+    """Run every check and return them in :data:`CHECK_ORDER`.
+
