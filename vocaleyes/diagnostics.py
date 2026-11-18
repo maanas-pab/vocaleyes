@@ -244,3 +244,23 @@ def run_checks(config: Optional[Config] = None, *,
                probe_camera: bool = True) -> List[Check]:
     """Run every check and return them in :data:`CHECK_ORDER`.
 
+    ``config`` is used as-is when given (and re-validated); otherwise
+    defaults are built for the checks that need them. ``probe_camera``
+    is the one switch a caller may turn off to skip touching the
+    webcam — a probe opens the camera, and some callers (tests, CI)
+    have none.
+    """
+    probes = (
+        ("python", "Python version", _check_python),
+        ("numpy", "NumPy", _check_numpy),
+        ("opencv", "OpenCV", _check_opencv),
+        ("mediapipe", "MediaPipe", _check_mediapipe),
+        ("camera", "Webcam",
+         lambda: _check_camera(config, probe_camera)),
+        ("config", "Settings", lambda: _check_config(config)),
+        ("permissions", "Camera permissions", _check_permissions),
+        ("display", "Display", _check_display),
+    )
+    return [_safe(name, label, probe) for name, label, probe in probes]
+
+
