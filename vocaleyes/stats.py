@@ -118,3 +118,44 @@ class SessionStats:
     def note_frame(self, fps: float) -> None:
         """Record one completed loop iteration and its instantaneous FPS.
 
+        The frame count advances even when the FPS value is unusable —
+        the loop really did finish, and a first frame dividing by a
+        zero-length interval must not vanish from the report. The
+        sample feeds the average and the peak only when it is finite
+        and positive, so a single ``nan`` cannot poison every readout
+        that follows it.
+        """
+        self._frames += 1
+        sample = _finite(fps)
+        if sample is None or sample <= 0.0:
+            return
+        self._fps_ema.push(sample)
+        if sample > self._peak_fps:
+            self._peak_fps = sample
+
+    def note_event(self, event) -> None:
+        """Fold one :class:`vocaleyes.detection.BlinkEvent` into the counts.
+
+        A ``select`` is the user's deliberate action and counts as a
+        selection (carrying its hold time with it); every other kind
+        is an ordinary blink the detector chose to ignore, and those
+        deserve counting too — selections with no context cannot tell
+        a patient detector from a broken one. An event with no usable
+        ``kind`` is dropped: this runs mid-loop, so it must never
+        raise, and guessing at what an event meant would corrupt the
+        report it feeds.
+        """
+        kind = getattr(event, "kind", None)
+        if not isinstance(kind, str):
+            return
+        if kind != "select":
+            self._short_blinks += 1
+            return
+        self._selections += 1
+        held = _finite(getattr(event, "closed_seconds", None))
+        if held is not None and held > 0.0:
+            self._closed_seconds += held
+
+    def note_drift(self, old: float, new: float) -> None:
+        """Record one threshold adjustment: ``old`` -> ``new``.
+
