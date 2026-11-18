@@ -274,3 +274,46 @@ class SessionStats:
     def to_dict(self) -> dict:
         """A JSON-ready snapshot of the session.
 
+        Floats are rounded to 2 dp so the numbers are stable to read
+        and to diff; ``schema`` names and versions the shape so a
+        consumer can tell this format from a later one; ``started``
+        (captured at construction) and ``ended`` (taken now) are UTC
+        ISO-8601 derived from :func:`time.time`, never local time, so
+        a report read in another timezone cannot be misread.
+        """
+        return {
+            "schema": "vocaleyes.session.v1",
+            "started": _iso_utc(self._started_epoch),
+            "ended": _iso_utc(time.time()),
+            "frames": self.frames,
+            "selections": self.selections,
+            "short_blinks": self.short_blinks,
+            "drift_adjustments": self.drift_adjustments,
+            "tracking_losses": self.tracking_losses,
+            "dropped_frames": self.dropped_frames,
+            "elapsed_seconds": round(self.elapsed_seconds, 2),
+            "average_fps": round(self.average_fps, 2),
+            "peak_fps": round(self.peak_fps, 2),
+            "selections_per_minute": round(self.selections_per_minute, 2),
+        }
+
+    def summary(self) -> str:
+        """A compact human report — one subject per short line.
+
+        A line whose subject is empty or zero is left out: "tracking
+        losses: 0" tells nobody anything, and a short report is
+        easier to read at the end of a long session. The first line is
+        the exception — it always appears, because a report that
+        printed nothing would be indistinguishable from one that never
+        ran, and "no frames processed" is itself the finding.
+        """
+        if self._frames == 0:
+            return "Session: no frames processed."
+
+        frames_word = "frame" if self._frames == 1 else "frames"
+        lines = [
+            f"Session: {_format_duration(self.elapsed_seconds)} | "
+            f"{self._frames} {frames_word} | "
+            f"{self.average_fps:.1f} fps avg (peak {self.peak_fps:.1f})"
+        ]
+
