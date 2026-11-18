@@ -20,3 +20,8 @@ from .config import Config
 from .deps import cv2, check_dependencies
 from .detection import BlinkDetector, BlinkEvent
 from .diagnostics import doctor as run_doctor
+from .errors import CameraError, DependencyError
+from .hooks import on_long_blink
+from .logging_setup import configure as configure_logging
+from .models import FaceReading, extract_eye_readings
+from .profiles import describe as describe_profiles, find as find_profile
