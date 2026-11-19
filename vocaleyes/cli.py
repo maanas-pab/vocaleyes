@@ -164,3 +164,56 @@ def main(
     consecutive_failures = 0
     slow_frames = 0
     losing_face = False
+
+    print("Project VocalEyes — long-blink selection")
+    print("Hold both eyes closed to select. Press Q to quit.")
+    if config.calibrate_seconds > 0:
+        print(f"Calibrating for {config.calibrate_seconds:.0f}s: "
+              "keep your eyes open and relaxed.")
+        calibrator.start(time.monotonic())
+
+    try:
+        with CameraStream(config) as camera, FaceMeshTracker(config) as tracker:
+            cv2.namedWindow(config.window_name, cv2.WINDOW_NORMAL)
+            # Background capture keeps the webcam drained while inference
+            # runs, so the preview never falls seconds behind reality.
+            pump = FramePump(camera) if config.threaded_capture else None
+            if pump is not None:
+                pump.start()
+            try:
+                while True:
+                    loop_started = time.monotonic()
+                    with timer.stage("capture"):
+                        if pump is not None:
+                            frame = pump.latest()
+                            if frame is None:
+                                # Not a failure: the pump is simply ahead
+                                # of the camera this tick.
+                                time.sleep(0.001)
+                                continue
+                            if pump.error is not None:
+                                raise pump.error
+                        else:
+                            try:
+                                frame = camera.read()
+                            except CameraError:
+                                consecutive_failures += 1
+                                if consecutive_failures >= 30:
+                                    raise
+                                continue
+                    consecutive_failures = 0
+
+                    if config.mirror:
+                        frame = cv2.flip(frame, 1)
+                    height, width = frame.shape[:2]
+                    with timer.stage("infer"):
+                        rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+                        rgb.flags.writeable = False
+                        landmarks = tracker.process(rgb)
+                        rgb.flags.writeable = True
+                    now = time.monotonic()
+
+                    face_found = landmarks is not None
+                    reading: Optional[FaceReading] = None
+                    if face_found:
+                        losing_face = False
