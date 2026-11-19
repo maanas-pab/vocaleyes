@@ -129,3 +129,14 @@ def main(
         profile = find_profile(args.profile)
         if profile is not None:
             config = profile.apply(config)
+    except ValueError as exc:
+        print(f"Invalid option: {exc}", file=sys.stderr)
+        return 2
+
+    if args.command == "doctor":
+        # Diagnostics must not need a webcam or the GUI stack, so this
+        # returns before any dependency is required to be present.
+        return run_doctor(config, verbose=args.verbose)
+    if args.command == "profiles":
+        print(describe_profiles())
+        return 0
