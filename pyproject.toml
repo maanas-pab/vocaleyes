@@ -67,3 +67,5 @@ packages = ["vocaleyes"]
 # come up empty for anyone who installed rather than cloned.
 vocaleyes = ["presets/*.json"]
 
+[tool.setuptools.dynamic]
+version = { attr = "vocaleyes._version.__version__" }
