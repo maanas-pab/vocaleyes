@@ -262,3 +262,6 @@ def main(
                                     logger.info(
                                         "Threshold drift: %.3f -> %.3f",
                                         before, moved,
+                                    )
+                            if event is not None:
+                                stats.note_event(event)
