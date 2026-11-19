@@ -105,3 +105,27 @@ def parse_args(argv: Optional[Sequence[str]] = None) -> argparse.Namespace:
     parser.add_argument("--verbose", action="store_true",
                         help="Show the details of passing checks "
                              "(vocaleyes doctor only).")
+    parser.add_argument("--version", action="version",
+                        version=f"%(prog)s {__version__}")
+    return parser.parse_args(argv)
+
+
+# ---------------------------------------------------------------------------
+# Main loop
+# ---------------------------------------------------------------------------
+def main(
+    argv: Optional[Sequence[str]] = None,
+    action_callback: Callable[[BlinkEvent, int], None] = on_long_blink,
+) -> int:
+    """Run VocalEyes until the user quits. Returns a process exit code."""
+    args = parse_args(argv)
+    configure_logging(level=args.log_level,
+                      json_logs=args.log_format == "json")
+    try:
+        config = Config.from_args(args)
+        # A profile is applied after the flags, so `vocaleyes --profile
+        # glasses --long-blink 1.5` gives the flag the last word — the
+        # person running the session should always win over a saved file.
+        profile = find_profile(args.profile)
+        if profile is not None:
+            config = profile.apply(config)
