@@ -283,3 +283,36 @@ def main(
                             # frame: a two-second gap is one incident.
                             stats.note_tracking_loss()
                             losing_face = True
+
+                    with timer.stage("render"):
+                        frame = visualizer.draw(
+                            frame, reading, detector, fps, face_found,
+                            calibrator, selection_count, banner_until, now,
+                            show_mesh, mesh_landmarks=landmarks,
+                        )
+                        cv2.imshow(config.window_name, frame)
+
+                    # Smooth FPS for the HUD (EMA, so one slow frame
+                    # does not make the display jump).
+                    frame_seconds = max(1e-6, time.monotonic() - loop_started)
+                    instant_fps = 1.0 / frame_seconds
+                    fps = (instant_fps if fps == 0.0
+                           else 0.9 * fps + 0.1 * instant_fps)
+
+                    # Warn only after a run of over-budget frames: one
+                    # hitch is normal, a sustained overrun is a machine
+                    # that needs a smaller frame or a lower resolution.
+                    if timer.over_budget:
+                        slow_frames += 1
+                        if slow_frames == 90:
+                            logger.warning(
+                                "Running over budget (%s); try --width 640 "
+                                "--height 480.", timer.summary(),
+                            )
+                    else:
+                        slow_frames = 0
+
+                    stats.note_frame(fps)
+                    if pump is not None:
+                        # Cumulative; SessionStats keeps the delta.
+                        stats.note_camera_drop(pump.dropped)
