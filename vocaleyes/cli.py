@@ -257,3 +257,5 @@ def main(
                                     closed=detector.is_closed, now=now)
                                 if moved is not None:
                                     before = detector.close_threshold
+                                    detector.retune(moved)
+                                    stats.note_drift(before, moved)
