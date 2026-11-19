@@ -361,3 +361,4 @@ def main(
             print(f"Could not write session stats: {exc}", file=sys.stderr)
         else:
             print(f"Session stats written to {written}")
+    return 0
