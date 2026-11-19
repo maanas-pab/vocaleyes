@@ -316,3 +316,42 @@ def main(
                     if pump is not None:
                         # Cumulative; SessionStats keeps the delta.
                         stats.note_camera_drop(pump.dropped)
+
+                    key = cv2.waitKey(1) & 0xFF
+                    if key in (ord("q"), ord("Q"), 27):  # Q / Esc
+                        break
+                    if key in (ord("c"), ord("C")):
+                        detector.reset()
+                        calibrator.start(now)
+                        print("Recalibrating: keep your eyes open and relaxed.",
+                              flush=True)
+                    elif key in (ord("m"), ord("M")):
+                        show_mesh = not show_mesh
+                    elif key in (ord("r"), ord("R")):
+                        detector.reset()
+                        print("Blink detector reset.", flush=True)
+
+                    # If the user closed the window with the OS chrome,
+                    # stop cleanly instead of spinning on a dead window.
+                    if cv2.getWindowProperty(config.window_name,
+                                             cv2.WND_PROP_VISIBLE) < 1:
+                        break
+            finally:
+                if pump is not None:
+                    pump.stop()
+    except CameraError as exc:
+        print(f"\nCamera error: {exc}", file=sys.stderr)
+        return 2
+    except KeyboardInterrupt:
+        print("\nInterrupted. Shutting down VocalEyes.")
+    finally:
+        if cv2 is not None:
+            cv2.destroyAllWindows()
+
+    print(f"VocalEyes stopped. Selections this session: {selection_count}.")
+    # The report is always shown: it is the only feedback a carer gets
+    # about whether the session actually worked. Writing it to disk
+    # happens only when an explicit path was passed.
+    print()
+    print(stats.summary())
+    if args.stats_json:
