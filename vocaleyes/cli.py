@@ -140,3 +140,20 @@ def main(
     if args.command == "profiles":
         print(describe_profiles())
         return 0
+
+    try:
+        check_dependencies()
+    except DependencyError as exc:
+        print(str(exc), file=sys.stderr)
+        return 2
+
+    assert cv2 is not None
+    detector = BlinkDetector(config)
+    visualizer = Visualizer(config)
+    calibrator = EarCalibrator(config.calibrate_seconds)
+    # Drift compensation starts from whatever calibration ends up with;
+    # retune() and reset() below keep it anchored to the live threshold.
+    drift = ThresholdDrift(config.ear_threshold) if config.drift_enabled \
+        else None
+    timer = StageTimer(budget_seconds=0.033)
+    stats = SessionStats()
