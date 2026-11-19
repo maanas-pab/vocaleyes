@@ -355,3 +355,9 @@ def main(
     print()
     print(stats.summary())
     if args.stats_json:
+        try:
+            written = stats.save(args.stats_json)
+        except OSError as exc:
+            print(f"Could not write session stats: {exc}", file=sys.stderr)
+        else:
+            print(f"Session stats written to {written}")
