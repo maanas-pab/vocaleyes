@@ -61,5 +61,6 @@ vocaleyes = "vocaleyes.cli:main"
 [tool.setuptools]
 packages = ["vocaleyes"]
 
-[tool.setuptools.dynamic]
-version = { attr = "vocaleyes._version.__version__" }
+[tool.setuptools.package-data]
+# The shipped presets are read-only JSON a carer picks from; without
+# this they would be left out of a wheel and `vocaleyes profiles` would
