@@ -64,3 +64,6 @@ packages = ["vocaleyes"]
 [tool.setuptools.package-data]
 # The shipped presets are read-only JSON a carer picks from; without
 # this they would be left out of a wheel and `vocaleyes profiles` would
+# come up empty for anyone who installed rather than cloned.
+vocaleyes = ["presets/*.json"]
+
