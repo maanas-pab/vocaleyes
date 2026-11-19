@@ -265,3 +265,21 @@ def main(
                                     )
                             if event is not None:
                                 stats.note_event(event)
+                            if event is not None and event.kind == "select":
+                                selection_count += 1
+                                banner_until = now + 1.6
+                                action_callback(event, selection_count)
+                            elif event is not None:
+                                logger.debug(
+                                    "Short blink ignored (%.2fs)",
+                                    event.closed_seconds,
+                                )
+                    else:
+                        # No face: forget any partial closure. A tracking
+                        # gap must never become a selection.
+                        detector.reset()
+                        if not losing_face:
+                            # Counted once per losing streak, not per
+                            # frame: a two-second gap is one incident.
+                            stats.note_tracking_loss()
+                            losing_face = True
