@@ -157,3 +157,10 @@ def main(
         else None
     timer = StageTimer(budget_seconds=0.033)
     stats = SessionStats()
+    selection_count = 0
+    banner_until = 0.0
+    fps = 0.0
+    show_mesh = config.show_mesh
+    consecutive_failures = 0
+    slow_frames = 0
+    losing_face = False
