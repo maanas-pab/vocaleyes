@@ -217,3 +217,43 @@ def main(
                     reading: Optional[FaceReading] = None
                     if face_found:
                         losing_face = False
+                        reading = extract_eye_readings(
+                            landmarks, width, height, config.eye_mode)
+                        visualizer.note_ear(reading.combined_ear)
+
+                        if calibrator.active:
+                            # Calibration pauses selection: samples must be
+                            # open eyes only, and a blink mid-calibration
+                            # must never fire.
+                            calibrator.add_sample(reading.combined_ear)
+                            if calibrator.progress >= 1.0:
+                                threshold = calibrator.finish()
+                                if threshold is not None:
+                                    detector.retune(threshold)
+                                    if drift is not None:
+                                        # A fresh calibration is the new
+                                        # anchor; drift starts from here.
+                                        drift.reset(threshold)
+                                    print(
+                                        "Calibration complete: EAR threshold "
+                                        f"set to {threshold:.2f}.",
+                                        flush=True,
+                                    )
+                                else:
+                                    print(
+                                        "Calibration had too few samples; "
+                                        "keeping threshold "
+                                        f"{detector.close_threshold:.2f}.",
+                                        flush=True,
+                                    )
+                        else:
+                            event = detector.update(reading.combined_ear, now)
+                            if drift is not None:
+                                # ThresholdDrift samples only open eyes and
+                                # moves at most a step at a time, so this
+                                # can never turn a blink into a selection.
+                                moved = drift.observe(
+                                    reading.combined_ear,
+                                    closed=detector.is_closed, now=now)
+                                if moved is not None:
+                                    before = detector.close_threshold
