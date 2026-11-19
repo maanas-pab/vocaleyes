@@ -259,3 +259,6 @@ def main(
                                     before = detector.close_threshold
                                     detector.retune(moved)
                                     stats.note_drift(before, moved)
+                                    logger.info(
+                                        "Threshold drift: %.3f -> %.3f",
+                                        before, moved,
