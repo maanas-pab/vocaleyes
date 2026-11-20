@@ -54,3 +54,38 @@ The code lives in the `vocaleyes/` package, one concern per module, so any piece
 | `cli` | The command line |
 
 `vocal_eyes.py` at the repository root is a compatibility shim only.
+
+## Tuning for one person (recommended)
+
+Eyelid laxity, ptosis, glasses, and lighting all move a person's open-eye EAR, so the defaults are a starting point, not a prescription:
+
+```bash
+# Longer, gentler hold + lower threshold
+python vocal_eyes.py --long-blink 1.2 --threshold 0.19 --camera 0
+
+# Asymmetric closure (one eyelid closes much less than the other)
+python vocal_eyes.py --eye-mode min
+
+# No startup calibration; use a fixed threshold
+python vocal_eyes.py --no-calibrate --threshold 0.21
+```
+
+| Option | Default | Notes |
+|---|---|---|
+| `--camera` | `0` | Webcam index; try `1` if no camera is found. |
+| `--threshold` | `0.21` | EAR below this starts the hold timer. |
+| `--long-blink` | `1.0` | Hold time (seconds) that counts as a Select. |
+| `--cooldown` | `1.5` | Quiet period (seconds) after a Select. |
+| `--eye-mode` | `average` | `average` (safe default) or `min` (more sensitive). |
+| `--calibrate` | `3.0` | Seconds of open-eye calibration at startup. |
+| `--show-mesh` | off | Draw the full face mesh (setup / debugging). |
+| `--no-mirror` | off | Preview is mirrored by default, like a mirror. |
+| `--profile` | — | Apply a saved profile or a shipped preset (see below). |
+| `--no-drift` | off | Disable slow threshold drift compensation. |
+| `--no-threaded-capture` | off | Capture on the main thread (diagnostics only). |
+| `--log-level` | `info` | `quiet`, `info` or `debug`. |
+| `--log-format` | `text` | `text`, or `json` for one object per line. |
+| `--stats-json` | — | Write the session report to a file. Nothing is written without it. |
+
+## Profiles
+
