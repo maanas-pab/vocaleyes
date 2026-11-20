@@ -89,3 +89,12 @@ python vocal_eyes.py --no-calibrate --threshold 0.21
 
 ## Profiles
 
+People differ, laptops are shared, and retyping flags at 7am is how mistakes happen. A profile stores the handful of settings that genuinely belong to a face:
+
+```bash
+vocaleyes profiles                     # list saved profiles and shipped presets
+vocaleyes --profile glasses            # run with a preset
+vocaleyes --profile mum --threshold 0.19   # a flag always wins over the file
+```
+
+Four presets ship with the package — `default`, `ptosis`, `asymmetric`, `glasses` — each with a written rationale for why its numbers are what they are. Saved profiles live in `~/.vocaleyes/profiles/` as plain JSON, so they can be copied, backed up or edited by hand. `VOCALEYES_HOME` moves that directory.
