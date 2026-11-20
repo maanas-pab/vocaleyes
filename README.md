@@ -190,3 +190,13 @@ Start with `vocaleyes doctor` — it answers most of these in one page.
 ## Privacy
 
 On-device only: no video, image or landmark is recorded, saved, or transmitted. Logging goes to the local console and only when you ask for it; `--stats-json` is the single opt-in that writes a file, and it writes numbers, not frames. See [`docs/privacy.md`](docs/privacy.md) for the full boundary.
+
+## Requirements
+
+- Python 3.9+
+- A webcam and a display (the preview uses `cv2.imshow`)
+- See `requirements.txt`
+
+## Licence
+
+[MIT](LICENSE).
