@@ -67,3 +67,15 @@ and extended without reading 1,271 lines first.
 
 ### Fixed
 
+- The no-camera hint pointed at `python vocal_eyes.py`; it now names the
+  `vocaleyes` command that actually exists.
+- The README's "Selections fire too easily" row advised raising the
+  threshold, which is the wrong direction. It now says to lower it.
+
+### Notes
+
+- `python vocal_eyes.py` still works and always will; it is a two-line
+  import of `vocaleyes.cli.main`.
+
+[Unreleased]: https://github.com/maanas-pab/vocaleyes/compare/v1.0.0...HEAD
+[1.0.0]: https://github.com/maanas-pab/vocaleyes/releases/tag/v1.0.0
