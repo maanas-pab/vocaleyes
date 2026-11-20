@@ -48,3 +48,22 @@ and extended without reading 1,271 lines first.
 - **Signal conditioning.** `smoothing.Ema` and `smoothing.MedianFilter`
   for the EAR stream, and `smoothing.StageTimer` for per-stage frame
   accounting (capture / inference / render) against a millisecond budget.
+- **Structured logging.** `--log-level {quiet,info,debug}` and
+  `--log-format {text,json}`. The JSON form emits one object per line with
+  a UTC timestamp, level, logger and message — for a carer's tooling, not
+  for a log file. VocalEyes never writes logs to disk itself.
+- **Slow-machine warning.** When frames run over budget for a sustained
+  stretch the log says which stage is slow and suggests a smaller frame,
+  instead of silently showing a lagging preview.
+
+### Changed
+
+- The `ArgumentParser` is now named `vocaleyes`, matching the console
+  script, and `--help` lists the new options.
+- `BlinkDetector` smooths through `smoothing.Ema` rather than an inline
+  expression, so the seed-on-first-sample rule exists in one place.
+- Startup logging goes through `logging_setup.configure()` instead of a
+  bare `logging.basicConfig()`, and is idempotent.
+
+### Fixed
+
