@@ -107,3 +107,12 @@ See [`docs/tuning.md`](docs/tuning.md) for what each number means and when to ch
 vocaleyes doctor           # one page: what works, what does not, what to do
 vocaleyes doctor --verbose # also show the detail behind passing checks
 ```
+
+Eight checks — Python, NumPy, OpenCV, MediaPipe, the webcam, the settings, camera permissions and the display — each reported as `ok`, `warn` or `FAIL` with an actionable hint. It needs no camera and no GUI, so it runs over ssh and on a machine where the dependencies are not installed yet. Exit code is `0` when nothing that matters is broken.
+
+## Session report
+
+Every run ends with an honest summary of what actually happened:
+
+```
+Session: 4m 12s | 612 frames | 18.4 fps avg (peak 24.1)
