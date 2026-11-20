@@ -125,3 +125,9 @@ Pass `--stats-json session.json` to also write that as JSON. Without the flag no
 
 ## Documentation
 
+| Document | What it covers |
+|---|---|
+| [`docs/architecture.md`](docs/architecture.md) | How the package fits together, and why the boundaries are where they are |
+| [`docs/tuning.md`](docs/tuning.md) | Every tunable, what it does, and how to set it for one person |
+| [`docs/privacy.md`](docs/privacy.md) | Exactly what leaves the machine (nothing), and where the boundary is |
+| [`CHANGELOG.md`](CHANGELOG.md) | What changed, in order |
