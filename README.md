@@ -116,3 +116,12 @@ Every run ends with an honest summary of what actually happened:
 
 ```
 Session: 4m 12s | 612 frames | 18.4 fps avg (peak 24.1)
+Selections: 7 (1.7/min) | short blinks ignored: 41
+Tracking losses: 3 | camera frames dropped: 12
+Threshold drift: 2 adjustments, 0.210 -> 0.216
+```
+
+Pass `--stats-json session.json` to also write that as JSON. Without the flag nothing is ever written to disk.
+
+## Documentation
+
