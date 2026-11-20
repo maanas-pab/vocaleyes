@@ -44,3 +44,13 @@ The code lives in the `vocaleyes/` package, one concern per module, so any piece
 | `geometry`, `landmarks` | Pure maths and the landmark index table |
 | `models` | Per-frame eye measurements |
 | `detection` | The blink state machine |
+| `calibration` | Per-person thresholds, and slow drift compensation |
+| `tracking`, `camera` | MediaPipe, the webcam, and the background capture thread |
+| `rendering` | Every pixel the user sees |
+| `config`, `profiles` | Tunables, and per-person presets |
+| `diagnostics`, `stats` | `vocaleyes doctor` and the session report |
+| `smoothing` | EMA, medians and per-stage timing budgets |
+| `logging_setup` | Text / JSON console logging |
+| `cli` | The command line |
+
+`vocal_eyes.py` at the repository root is a compatibility shim only.
