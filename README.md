@@ -178,3 +178,8 @@ raise SystemExit(main(action_callback=my_action))
 
 Start with `vocaleyes doctor` — it answers most of these in one page.
 
+| Problem | Check |
+|---|---|
+| `Could not open webcam` | Camera connected? Another app using it? Camera permission granted? Try `--camera 1`. |
+| Webcam stops mid-session | Camera unplugged or taken over by another app; restart the script. |
+| Selections fire too easily | *Lower* the threshold, raise `--long-blink`, or press `C` to recalibrate with eyes open. |
