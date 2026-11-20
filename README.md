@@ -131,3 +131,50 @@ Pass `--stats-json session.json` to also write that as JSON. Without the flag no
 | [`docs/tuning.md`](docs/tuning.md) | Every tunable, what it does, and how to set it for one person |
 | [`docs/privacy.md`](docs/privacy.md) | Exactly what leaves the machine (nothing), and where the boundary is |
 | [`CHANGELOG.md`](CHANGELOG.md) | What changed, in order |
+
+## Controls
+
+| Key | Action |
+|---|---|
+| `Q` / `Esc` | Quit |
+| `C` | Recalibrate the EAR threshold from open eyes |
+| `M` | Toggle the full face mesh |
+| `R` | Reset the blink detector |
+
+## What you see
+
+- **Top bar** — `VOCALEYES`, live face status, FPS.
+- **Eye overlays** — eyelid contour, iris ring + centre dot, rounded bounding box, and a live EAR pill above each eye. Teal = open, amber = closing/closed.
+- **Bottom panel** — per-eye EAR bars with a white threshold tick, combined EAR, EAR history trace, status (`READY` / `HOLDING...` / `SELECTED`), selection count, and controls.
+- **Hold ring** — a large progress ring between the eyes fills as the hold builds, with a percentage. No flashing.
+- **Selection banner** — a centred `✓ SELECTED` banner, plus a console line:
+  ```
+  [VocalEyes] Long Blink / Select registered (#1, held 1.04s, EAR at close 0.12)
+  ```
+- **No face** — a large guidance message appears and tracking pauses. A tracking gap can never become a selection.
+
+## Integrating a real action
+
+`on_long_blink()` in `vocaleyes/hooks.py` is the single integration hook. By default it prints the confirmation above. Replace it — or pass your own callback to `main()` (`vocaleyes/cli.py`) — to drive a mouse click, a scanning keyboard, a switch press, or speech output. Keep downstream work fast and non-blocking: it runs inside the camera loop.
+
+```python
+def my_action(event, count):
+    # e.g. pyautogui.click(), advance a scanning keyboard, speak, ...
+    ...
+
+raise SystemExit(main(action_callback=my_action))
+```
+
+## Design notes for advanced ALS
+
+- **Time, not frame count.** Closure is timed with `time.monotonic()`, so slow and fast machines demand the same hold.
+- **Hysteresis + smoothing.** The eye must fall below the close threshold to start timing and rise above a higher reopen threshold to end it. One noisy frame cannot start, stop, or fire a selection.
+- **Once per closure.** A selection fires once, only after the full hold, and only when the eyes reopen and the cooldown passes can it fire again.
+- **Face loss resets state.** If tracking is lost mid-closure, the partial hold is forgotten.
+- **Calibration is passive.** The user only needs to look at the screen with eyes open; no button press or gaze target is required. Calibration uses the median open EAR, so a blink during calibration does not skew it.
+- **Feedback is large and calm.** Progress and confirmation are big, high-contrast, and static — no flashing, no tiny text, no dependence on sound.
+
+## Troubleshooting
+
+Start with `vocaleyes doctor` — it answers most of these in one page.
+
