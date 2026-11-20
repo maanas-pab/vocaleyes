@@ -98,3 +98,12 @@ vocaleyes --profile mum --threshold 0.19   # a flag always wins over the file
 ```
 
 Four presets ship with the package — `default`, `ptosis`, `asymmetric`, `glasses` — each with a written rationale for why its numbers are what they are. Saved profiles live in `~/.vocaleyes/profiles/` as plain JSON, so they can be copied, backed up or edited by hand. `VOCALEYES_HOME` moves that directory.
+
+See [`docs/tuning.md`](docs/tuning.md) for what each number means and when to change it.
+
+## Diagnostics
+
+```bash
+vocaleyes doctor           # one page: what works, what does not, what to do
+vocaleyes doctor --verbose # also show the detail behind passing checks
+```
