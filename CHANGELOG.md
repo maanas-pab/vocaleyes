@@ -33,3 +33,18 @@ and extended without reading 1,271 lines first.
   `asymmetric`, `glasses` — each with a written rationale. Profiles are
   plain JSON in `~/.vocaleyes/profiles` (`VOCALEYES_HOME` overrides), so
   they can be hand-edited and copied between machines.
+- **Session report.** Every run ends with frames, average and peak FPS,
+  selections per minute, ignored short blinks, tracking losses, dropped
+  camera frames and threshold drift. `--stats-json PATH` writes it as JSON;
+  without that flag nothing is written to disk.
+- **Background capture.** `FramePump` reads the webcam on a daemon thread
+  and keeps only the newest frame, so slow face-mesh inference cannot make
+  the preview fall seconds behind reality. `--no-threaded-capture` restores
+  the old single-threaded read for diagnosis.
+- **Threshold drift compensation.** `ThresholdDrift` slowly re-centres the
+  threshold on the measured open-eye EAR over a long session — rate-limited,
+  capped, and blind to closed eyes. Off by default; `--no-drift` keeps it
+  off explicitly.
+- **Signal conditioning.** `smoothing.Ema` and `smoothing.MedianFilter`
+  for the EAR stream, and `smoothing.StageTimer` for per-stage frame
+  accounting (capture / inference / render) against a millisecond budget.
