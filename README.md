@@ -183,3 +183,6 @@ Start with `vocaleyes doctor` — it answers most of these in one page.
 | `Could not open webcam` | Camera connected? Another app using it? Camera permission granted? Try `--camera 1`. |
 | Webcam stops mid-session | Camera unplugged or taken over by another app; restart the script. |
 | Selections fire too easily | *Lower* the threshold, raise `--long-blink`, or press `C` to recalibrate with eyes open. |
+| Selections never fire | Raise `--threshold` slightly, lower `--long-blink`, or try `--eye-mode min`; recalibrate with `C`. |
+| Jittery EAR / flickering state | Check lighting (avoid strong backlight), clean the lens, sit centred and still — or try `--profile glasses`. |
+| The preview lags behind reality | The machine cannot keep up with face-mesh inference. Try `--width 640 --height 480`; the log will say which stage is slow. |
