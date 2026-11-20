@@ -29,3 +29,18 @@ All processing runs locally on the device. No video, image, or landmark is saved
 pip install -r requirements.txt
 vocaleyes doctor     # check this machine is ready (optional, but fast)
 vocaleyes            # start tracking
+```
+
+`python -m vocaleyes` and `python vocal_eyes.py` run exactly the same code; the last of these is a thin compatibility shim, so old instructions keep working.
+
+Keep your eyes open and relaxed for the 3-second calibration at startup, then hold both eyes closed for 1 second to select. Press `Q` to quit.
+
+## Project layout
+
+The code lives in the `vocaleyes/` package, one concern per module, so any piece can be read or replaced on its own:
+
+| Module | Owns |
+|---|---|
+| `geometry`, `landmarks` | Pure maths and the landmark index table |
+| `models` | Per-frame eye measurements |
+| `detection` | The blink state machine |
