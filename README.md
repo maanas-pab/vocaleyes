@@ -186,3 +186,7 @@ Start with `vocaleyes doctor` — it answers most of these in one page.
 | Selections never fire | Raise `--threshold` slightly, lower `--long-blink`, or try `--eye-mode min`; recalibrate with `C`. |
 | Jittery EAR / flickering state | Check lighting (avoid strong backlight), clean the lens, sit centred and still — or try `--profile glasses`. |
 | The preview lags behind reality | The machine cannot keep up with face-mesh inference. Try `--width 640 --height 480`; the log will say which stage is slow. |
+
+## Privacy
+
+On-device only: no video, image or landmark is recorded, saved, or transmitted. Logging goes to the local console and only when you ask for it; `--stats-json` is the single opt-in that writes a file, and it writes numbers, not frames. See [`docs/privacy.md`](docs/privacy.md) for the full boundary.
