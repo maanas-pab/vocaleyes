@@ -135,3 +135,21 @@ a traceback.
 |---|---|
 | Drive a mouse, switch, or speech | `hooks.on_long_blink`, or pass `action_callback=` to `main()` |
 | Change what a selection looks like | `rendering` |
+| Add a per-person tunable | `config.Config`, then `profiles.PROFILE_FIELDS` if it is per-person |
+| Support a new camera | `camera.CameraStream` |
+| Report a new health signal | `stats.SessionStats` |
+
+The one rule for anything downstream of `on_long_blink`: **it runs inside
+the camera loop.** Keep it fast and non-blocking, or hand the work to a
+queue and return.
+
+## Import discipline
+
+`vocaleyes/__init__.py` is deliberately cheap. OpenCV and MediaPipe are
+only touched when something actually needs them (see `deps.py`), and the
+heavy entry points are exposed lazily via PEP 562 `__getattr__`. That is
+why `import vocaleyes`, `vocaleyes --help` and `vocaleyes doctor` all work
+on a machine where the vision stack has not been installed yet.
+
+Relative imports only; no module imports `cli`, so nothing can form a cycle
+with the entry point.
