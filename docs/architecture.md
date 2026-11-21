@@ -112,3 +112,26 @@ happened and renders it at the end.
 
 ## Threading
 
+Exactly one thread does work: `FramePump`'s capture thread. Everything else
+— inference, state machine, rendering — runs on the main thread in a single
+loop. That is on purpose. A selection is a medical-adjacent event; a
+race condition that fires one is unacceptable, and the loop is already
+I/O-bound on the camera rather than CPU-bound on the state machine.
+
+The hand-off between threads is one `Lock`-guarded slot holding one frame.
+
+## Error handling
+
+Two failure modes are worth naming, and `errors.py` names them: no camera,
+and no missing dependency. Both raise a specific exception with an
+instruction, because the person running this may be a carer, not a
+programmer. Everything else that can fail mid-frame is caught at the frame
+boundary — a check in `diagnostics` that crashes becomes a `FAIL` line, not
+a traceback.
+
+## Extension points
+
+| Want to… | Touch |
+|---|---|
+| Drive a mouse, switch, or speech | `hooks.on_long_blink`, or pass `action_callback=` to `main()` |
+| Change what a selection looks like | `rendering` |
