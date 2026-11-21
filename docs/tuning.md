@@ -52,3 +52,30 @@ fast laptop and a ten-year-old desktop.
 
 ## Presets
 
+```bash
+vocaleyes profiles
+vocaleyes --profile ptosis
+```
+
+| Preset | For | What it changes |
+|---|---|---|
+| `default` | A first run | Nothing — the package defaults, written down so you can see them. |
+| `ptosis` | Drooping upper eyelid | Threshold `0.16`, hold `1.2 s`, cooldown `2.0 s`, calibration `5.0 s`. A drooping lid already sits at a low EAR, so the threshold has to drop with it or it fires on open eyes; the longer calibration catches a genuinely relaxed eye. |
+| `asymmetric` | One eyelid closes much less | `eye_mode min`, cooldown `2.5 s`. The stronger closure drives the signal, and the longer quiet period stops a stray wink from double-firing. |
+| `glasses` | Frames, reflections, jitter | Threshold `0.18`, hold `1.3 s`, smoothing `0.5`. Smooth harder, sit further below the threshold so noise cannot dip under it, and lengthen the hold so only a real closure can complete it. |
+
+Presets are a starting point, not a diagnosis. Calibrate after applying
+one — press `C`.
+
+## Profiles
+
+A profile is a preset you have made your own:
+
+```python
+from vocaleyes import Config
+from vocaleyes.profiles import snapshot, save
+
+save(snapshot("mum", Config(ear_threshold=0.19, long_blink_seconds=1.2),
+              why="calibrated 6 Nov, good lighting by the window"))
+```
+
