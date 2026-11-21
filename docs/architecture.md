@@ -45,3 +45,24 @@ policy — they do not know what a threshold is.
 
 `BlinkDetector` owns the state machine:
 
+```
+        ear < close_threshold            hold >= long_blink
+  OPEN ─────────────────────► CLOSED ────────────────────► TRIGGERED
+   ▲                            │                               │
+   │       ear >= open_thresh   │  ear >= open_threshold        │
+   │       (short: ignored)     ▼                               ▼
+   └──────────────────────────────────────  COOLDOWN  ◄─────────┘
+```
+
+Three rules are non-negotiable and are why the machine looks the way it does:
+
+- **Hysteresis.** Closing needs `ear < close_threshold`; reopening needs
+  `ear >= close_threshold + 0.04`. Jitter around one number cannot flutter
+  the state.
+- **Time, not frames.** Closures are timed with `time.monotonic()`, so a
+  slow machine demands exactly the same hold as a fast one.
+- **Face loss resets.** A tracking gap is not a closure. `reset()` forgets
+  any partial hold, so missing the face for 200 ms can never complete a
+  selection that was 800 ms in.
+
+`EarCalibrator` measures open eyes for a few seconds at startup and sets
