@@ -67,3 +67,32 @@ for shipping anywhere.
 - Phone home for updates, models, or crash reports
 - Use cloud APIs of any kind
 
+The MediaPipe face-mesh model runs locally. No inference service is
+contacted.
+
+## The boundary, and where it is yours
+
+The guarantee above covers code in this repository. It does **not** cover:
+
+- **Your callback.** `on_long_blink()` is your code. If you make it click
+  a button in a web app, whatever that app does is outside this boundary.
+  Keep the boundary explicit in whatever you build on top.
+- **Your OS.** macOS TCC, Windows camera privacy and your desktop
+  environment have their own rules about who may see the camera.
+  `vocaleyes doctor` reports where those settings live on your platform.
+- **Your environment.** If you run VocalEyes inside a container, a VM or
+  over a forwarded display, the video is already somewhere else before it
+  reaches us.
+
+## If that ever changes
+
+It should not. If a future version adds any network capability, it must be
+off by default, opt-in, documented in the changelog, and reflected in this
+file — and the default answer to "does VocalEyes send anything" should
+still be no.
+
+## Reporting a concern
+
+Open an issue describing what you observed. Privacy defects here are bugs
+like any other, and ones that touch the camera or the network are the
+highest priority this project has.
