@@ -35,3 +35,35 @@ path, no "just in case" save, and no periodic flush.
 
 ### The session report
 
+`--stats-json` writes **numbers only**: frame counts, FPS, how many
+selections, how many tracking losses, how much the threshold drifted, and
+UTC timestamps for the start and end. It contains no image data, no
+landmarks, no EAR trace, and nothing that identifies the person. Schema:
+`vocaleyes.session.v1`.
+
+### Profiles
+
+`~/.vocaleyes/profiles/*.json` holds tuning numbers — a threshold, a hold
+time, a camera index, an optional free-text note you wrote yourself. No
+biometric data. If you put a name in `name`, that is your choice; the
+field is yours to blank.
+
+`VOCALEYES_HOME` moves this directory somewhere you control (an encrypted
+volume, a USB stick you carry with you).
+
+### Logs
+
+Logs go to the **local console** (stderr) and nowhere else. VocalEyes
+never opens a log file, never rotates one, and never attaches a network
+handler. `--log-format json` is for a carer's local tooling to parse, not
+for shipping anywhere.
+
+## What it does not do
+
+- Record video or audio
+- Save screenshots or face crops
+- Store landmarks, EAR traces, or blink histories
+- Upload anything, ever — including "anonymised" or "aggregated" data
+- Phone home for updates, models, or crash reports
+- Use cloud APIs of any kind
+
