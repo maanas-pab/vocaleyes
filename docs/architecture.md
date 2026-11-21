@@ -89,3 +89,26 @@ the void.
 
 ### Presentation — `rendering`
 
+Every pixel the user sees, and no logic. The renderer reads detector state
+and draws it; it cannot change it. Feedback is deliberately large, calm
+and static — no flashing, no tiny text, no dependence on sound.
+
+### Wiring — `config`, `profiles`, `cli`
+
+`Config` is the single source of tunable truth, with validation in
+`__post_init__` so a bad value fails at construction, not mid-session.
+`profiles` overlays a short list of per-person fields onto a `Config`;
+`cli` turns flags into a `Config`, then wires camera → tracker → detector →
+renderer, and loops.
+
+`cli` is the only module allowed to talk to `argparse` and `sys.exit`.
+
+### Support — `smoothing`, `logging_setup`, `diagnostics`, `stats`
+
+Neither knows about the others. `smoothing` is signal processing you can
+reason about without a webcam; `logging_setup` decides how the console
+looks; `diagnostics` answers "will this machine run"; `stats` counts what
+happened and renders it at the end.
+
+## Threading
+
