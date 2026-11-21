@@ -66,3 +66,26 @@ Three rules are non-negotiable and are why the machine looks the way it does:
   selection that was 800 ms in.
 
 `EarCalibrator` measures open eyes for a few seconds at startup and sets
+`threshold = clamp(median × 0.70, 0.12, 0.28)`. `ThresholdDrift` applies
+the *same* rule slowly during a session, but only ever moves the threshold
+a few thousandths at a time, at most once every 45 seconds, and never while
+the eyes are closed. The comment in `calibration.py` that says the two must
+not silently diverge is load-bearing: if someone changes one formula they
+must change both.
+
+### Acquisition — `tracking`, `camera`
+
+`FaceMeshTracker` is a thin, stateless wrapper over MediaPipe.
+`CameraStream` owns the `cv2.VideoCapture` handle and raises `CameraError`
+with an actionable message instead of a bare traceback.
+
+`FramePump` runs `read()` on a daemon thread and keeps **one** frame: the
+newest. A queue would grow without bound whenever inference is slower than
+the camera, so latency would creep up forever; a single slot bounds
+end-to-end latency to about one frame period, and the `dropped` counter
+makes that trade-off visible rather than silent. The `error` attribute
+carries a `CameraError` out of the thread — a worker must never raise into
+the void.
+
+### Presentation — `rendering`
+
