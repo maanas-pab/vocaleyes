@@ -24,3 +24,24 @@ the calibrator, not a key press.
 
 ## Layers
 
+### Pure maths — `geometry`, `landmarks`
+
+Points in, numbers out. No camera, no clock, no globals. `calculate_ear()`
+is the whole product in one formula, so it gets its own guards (a
+zero-width eye returns `0.0` rather than raising — one bad frame must never
+crash the tracker).
+
+`landmarks.py` holds every MediaPipe index VocalEyes depends on, in one
+table with the reason each index exists. Changing webcam or MediaPipe
+version means re-checking numbers here, never touching detection code.
+
+### Measurement — `models`
+
+`EyeReading` and `FaceReading` are the per-frame facts: six eyelid points
+per eye, the EAR, the combined EAR, the bounding box. They carry no
+policy — they do not know what a threshold is.
+
+### Policy — `detection`, `calibration`
+
+`BlinkDetector` owns the state machine:
+
