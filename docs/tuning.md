@@ -103,3 +103,26 @@ threshold slowly on the measured open-eye EAR:
 
 - Samples are taken **only with the eyes open**. A closure never moves the
   line it is being measured against.
+- At most one adjustment every **45 seconds**, and only with 10 or more
+  samples in the last 5 seconds.
+- Each step is at most **0.008**, and the total can never leave
+  **±0.05** of the calibrated baseline.
+- It returns `None` (meaning: change nothing) unless the move is at least
+  **0.005**.
+
+The effect is that the overlay barely moves. If you want a session to be
+perfectly repeatable, pass `--no-drift`.
+
+## A setup checklist
+
+1. `vocaleyes doctor` — fix anything `FAIL` says before you start.
+2. Position: face centred, eyes level with the camera, no bright window
+   behind.
+3. `vocaleyes --profile <closest preset>` if one applies.
+4. Let the calibration run — eyes open, relaxed, still.
+5. Ask for three ordinary blinks (nothing should happen), then three
+   deliberate holds (each should select once).
+6. If a false selection happened: lower `--threshold` or raise
+   `--long-blink`. If nothing fired: raise `--threshold` slightly or lower
+   `--long-blink`.
+7. Save it: `snapshot()` + `save()` as above.
