@@ -79,3 +79,27 @@ save(snapshot("mum", Config(ear_threshold=0.19, long_blink_seconds=1.2),
               why="calibrated 6 Nov, good lighting by the window"))
 ```
 
+They live in `~/.vocaleyes/profiles/*.json` as plain JSON — open one in a
+text editor if that is faster than remembering a flag. `VOCALEYES_HOME`
+moves the whole directory (a USB stick works).
+
+Precedence, highest first:
+
+1. Command-line flags
+2. Saved profile / preset (`--profile`)
+3. Package defaults
+
+So `vocaleyes --profile glasses --long-blink 1.5` gives the flag the last
+word. The person running the session always wins over a saved file.
+
+## When it drifts
+
+Eyelid tone changes over a long session — fatigue, settling into a chair,
+light fading, glasses wiped. A threshold perfect at minute 1 can be wrong
+at minute 30.
+
+`--drift` (on by default, `--no-drift` to disable) re-centres the
+threshold slowly on the measured open-eye EAR:
+
+- Samples are taken **only with the eyes open**. A closure never moves the
+  line it is being measured against.
